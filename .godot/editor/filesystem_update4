@@ -1,0 +1,9 @@
+res://Main.tscn
+res://Screen.gd
+res://characters/Monster.tscn
+res://Main.gd
+res://MobSpawner.gd
+res://characters/Monster.gd
+res://autoloads/G.gd
+res://ui/UIScreen.tscn
+res://ui/UIScreen.gd
