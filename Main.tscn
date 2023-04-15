@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://dmr84xg63kfhp"]
+
+[ext_resource type="Script" path="res://Main.gd" id="1_btpu0"]
+[ext_resource type="PackedScene" uid="uid://4mhi5w6wvjkd" path="res://ui/UIScreen.tscn" id="2_b3i87"]
+[ext_resource type="Script" path="res://MobSpawner.gd" id="3_ncq2k"]
+
+[sub_resource type="Curve2D" id="Curve2D_asmhc"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_btpu0")
+
+[node name="UIScreen" parent="." instance=ExtResource("2_b3i87")]
+
+[node name="MobSpawnTimer" type="Timer" parent="."]
+
+[node name="MobSpawner" type="Node" parent="."]
+script = ExtResource("3_ncq2k")
+
+[node name="MobPath" type="Path2D" parent="MobSpawner"]
+scale = Vector2(1, 1.01227)
+curve = SubResource("Curve2D_asmhc")
+
+[node name="MobSpawnPoint" type="PathFollow2D" parent="MobSpawner/MobPath"]
+position = Vector2(0, 782.4)
+rotation = -1.5708
+
+[connection signal="game_started" from="UIScreen" to="." method="_on_ui_screen_game_started"]
+[connection signal="timeout" from="MobSpawnTimer" to="." method="_on_mob_spawn_timer_timeout"]
