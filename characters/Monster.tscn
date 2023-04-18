@@ -150,7 +150,7 @@ _data = {
 radius = 176.102
 
 [node name="Monster" type="CharacterBody2D"]
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.7, 0.7)
 script = ExtResource("1_adnb3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

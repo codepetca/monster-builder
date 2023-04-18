@@ -4,14 +4,14 @@ extends Control
 signal game_resumed()
 
 
-@onready var label = $VBoxContainer/Label
-@onready var center_container = $VBoxContainer/CenterContainer
+@onready var label = $CenterContainer/VBoxContainer/Label
+@onready var center_container = $CenterContainer/VBoxContainer/CenterContainer
 
 
 var monster: Monster = null : set = _set_monster
 
-func _set_monster(monster: Monster):
-	for texture_filename in monster.texture_filenames:
+func _set_monster(wanted: Monster):
+	for texture_filename in wanted.texture_filenames:
 		var texture_rect = TextureRect.new()
 		center_container.add_child(texture_rect)
 		texture_rect.texture = load(texture_filename)

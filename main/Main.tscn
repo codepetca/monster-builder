@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://dmr84xg63kfhp"]
+[gd_scene load_steps=9 format=3 uid="uid://ed826hjr5vsh"]
 
 [ext_resource type="Script" path="res://main/Main.gd" id="1_a2j7s"]
 [ext_resource type="Texture2D" uid="uid://dkxju7iwth8cj" path="res://assets/backgrounds/backgroundCastles.png" id="2_qrcy8"]
-[ext_resource type="Script" path="res://main/HUD.gd" id="3_pqsg6"]
+[ext_resource type="PackedScene" uid="uid://qm0ijd4iuc0l" path="res://ui/hud/Hud.tscn" id="3_tb74v"]
 [ext_resource type="PackedScene" uid="uid://cd2wqiybfpcmp" path="res://ui/screens/WantedScreen.tscn" id="4_7r7to"]
 [ext_resource type="Script" path="res://main/MobSpawner.gd" id="4_8xhnf"]
+[ext_resource type="Theme" uid="uid://d4i8s0xjp4jkl" path="res://assets/MainTheme.tres" id="4_mlnbl"]
 [ext_resource type="PackedScene" uid="uid://cwsc8ies13vru" path="res://ui/menu/MainMenu.tscn" id="5_j1wxe"]
 
 [sub_resource type="Curve2D" id="Curve2D_asmhc"]
@@ -25,28 +26,7 @@ grow_vertical = 2
 texture = ExtResource("2_qrcy8")
 expand_mode = 1
 
-[node name="HUD" type="CanvasLayer" parent="."]
-visible = false
-script = ExtResource("3_pqsg6")
-
-[node name="MarginContainer" type="MarginContainer" parent="HUD"]
-offset_right = 43.0
-offset_bottom = 26.0
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-
-[node name="HBoxContainer" type="HBoxContainer" parent="HUD/MarginContainer"]
-layout_mode = 2
-
-[node name="ScoreTitle" type="Label" parent="HUD/MarginContainer/HBoxContainer"]
-layout_mode = 2
-text = "Score: "
-
-[node name="ScoreLabel" type="Label" parent="HUD/MarginContainer/HBoxContainer"]
-layout_mode = 2
-text = "0"
-horizontal_alignment = 2
-vertical_alignment = 1
+[node name="HUD" parent="." instance=ExtResource("3_tb74v")]
 
 [node name="Screens" type="CanvasLayer" parent="."]
 
@@ -56,9 +36,11 @@ vertical_alignment = 1
 visible = false
 layout_mode = 3
 anchors_preset = 0
+theme = ExtResource("4_mlnbl")
 
 [node name="WantedScreen" parent="Screens" instance=ExtResource("4_7r7to")]
 visible = false
+theme = ExtResource("4_mlnbl")
 
 [node name="Game" type="CanvasLayer" parent="."]
 
@@ -79,3 +61,5 @@ rotation = -1.5708
 [connection signal="game_started" from="Screens/MainMenu" to="." method="_on_main_menu_game_started"]
 [connection signal="game_resumed" from="Screens/WantedScreen" to="." method="_on_wanted_screen_game_resumed"]
 [connection signal="timeout" from="Game/MobSpawnTimer" to="." method="_on_mob_spawn_timer_timeout"]
+
+[editable path="HUD"]
