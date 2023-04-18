@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="MonsterBuilder"
-run/main_scene="res://Main.tscn"
+run/main_scene="res://main/Main.tscn"
 config/features=PackedStringArray("4.0", "Mobile")
 
 [autoload]
@@ -20,8 +20,8 @@ G="*res://autoloads/G.gd"
 
 [display]
 
-window/size/viewport_width=800
-window/size/viewport_height=1460
+window/size/viewport_width=1460
+window/size/viewport_height=800
 window/handheld/orientation=1
 
 [input]

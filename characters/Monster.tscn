@@ -1,8 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://1mrk4ofc6xvv"]
+[gd_scene load_steps=15 format=3 uid="uid://1mrk4ofc6xvv"]
 
 [ext_resource type="Script" path="res://characters/Monster.gd" id="1_adnb3"]
 [ext_resource type="Texture2D" uid="uid://b4ds6qvk87el4" path="res://assets/images/body_greenA.png" id="2_e3vsg"]
 [ext_resource type="Texture2D" uid="uid://cu3muubutyrt6" path="res://assets/images/eye_angry_red.png" id="3_t32od"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cs887"]
+radius = 152.0
+height = 320.0
 
 [sub_resource type="Animation" id="Animation_jxr0i"]
 length = 0.001
@@ -92,13 +96,66 @@ _data = {
 "look": SubResource("Animation_73gcb")
 }
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cs887"]
-radius = 152.0
-height = 320.0
+[sub_resource type="Animation" id="Animation_nsssd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_lkjvp"]
+resource_name = "dead"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.2, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xxxmq"]
+_data = {
+"RESET": SubResource("Animation_nsssd"),
+"dead": SubResource("Animation_lkjvp")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fm6c4"]
+radius = 176.102
 
 [node name="Monster" type="CharacterBody2D"]
-scale = Vector2(0.3, 0.3)
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_adnb3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CapsuleShape2D_cs887")
 
 [node name="Body" type="Sprite2D" parent="."]
 texture = ExtResource("2_e3vsg")
@@ -118,9 +175,17 @@ libraries = {
 "": SubResource("AnimationLibrary_ne8gt")
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_cs887")
-
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
+[node name="DeadAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_xxxmq")
+}
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_fm6c4")
+
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

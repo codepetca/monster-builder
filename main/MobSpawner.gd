@@ -24,14 +24,12 @@ func set_path():
 
 func spawn() -> Monster:
 	var mob = _Monster.instantiate() as Monster
-#	add_child(mob)
-	mob.textures["body"] = all_textures["bodies"][0]#.pick_random()
-	mob.textures["eye"] = all_textures["eyes"][0]#.pick_random()
-
+	mob.textures["body"] = all_textures["bodies"][randi_range(0,1)]#.pick_random()
+	mob.textures["eye"] = all_textures["eyes"][randi_range(0,1)]#.pick_random()
+	add_child(mob)
 	mob_spawn_point.progress_ratio = randf()
 	mob.position = mob_spawn_point.position
 	mob.rotation = mob_spawn_point.rotation + PI/2 + randf_range(-PI / 4, PI / 4)
-
 	return mob
 
 
