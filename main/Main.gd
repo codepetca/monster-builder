@@ -2,10 +2,8 @@ extends Node2D
 
 signal score_updated(score: int)
 
-
-@onready var mobSpawnTimer = $MobSpawnTimer
-@onready var mob_spawner = $MobSpawner as MobSpawner
-@onready var menu = $Menu as Menu
+@onready var mob_spawn_timer = $Game/MobSpawnTimer
+@onready var mob_spawner = $Game/MobSpawner as MobSpawner
 @onready var wanted_screen = $Screens/WantedScreen
 @onready var hud = $HUD
 
@@ -36,7 +34,7 @@ func _on_mob_spawn_timer_timeout():
 
 
 func _on_wanted_screen_game_resumed():
-	mobSpawnTimer.start()
+	mob_spawn_timer.start()
 
 
 func _on_main_menu_game_started():
