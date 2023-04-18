@@ -1,6 +1,8 @@
 extends Node2D
 
 signal score_updated(score: int)
+signal wanted_updated(monster: Monster)
+
 
 @onready var mob_spawn_timer = $Game/MobSpawnTimer
 @onready var mob_spawner = $Game/MobSpawner as MobSpawner
@@ -35,6 +37,7 @@ func _on_mob_spawn_timer_timeout():
 
 func _on_wanted_screen_game_resumed():
 	mob_spawn_timer.start()
+	hud.show()
 
 
 func _on_main_menu_game_started():
@@ -42,9 +45,6 @@ func _on_main_menu_game_started():
 		return
 	game_started = true
 	
-	hud.show()
-	
-	# show target monster
 	target_monster = mob_spawner.spawn(false)
-	wanted_screen.monster = target_monster
+	wanted_updated.emit(target_monster)
 	wanted_screen.show()
