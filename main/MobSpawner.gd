@@ -6,19 +6,33 @@ extends Node
 
 
 var _Monster: PackedScene = preload("res://characters/Monster.tscn")
-
 var all_textures: Dictionary = {"bodies":[], "eyes":[]}
+var rotation_variance: float = PI/2
+
 
 func _ready():
 	load_textures_to_dict(all_textures)
-	set_path()
+	_set_spawn_path()
 
 
 ## Set the spawn path of monsters appearing on screen
-func set_path():
+##
+## The direction to spawn from:
+## left, right, left-right, full
+func _set_spawn_path(direction: String = "full"):
 	var curve = mob_path.curve
-	var points = [Vector2.ZERO, Vector2(get_viewport().size.x, 0), Vector2(get_viewport().size), Vector2(0, get_viewport().size.y)]
-	points.append(Vector2.ZERO) # close the path
+	var points = []
+	match direction:
+		"left":
+			points = [Vector2(0, get_viewport().size.y), Vector2.ZERO]
+		"right":
+			points = [Vector2(get_viewport().size.x, 0), get_viewport().size]
+		"left-right":
+			pass
+		"full":
+			points = [Vector2.ZERO, Vector2(get_viewport().size.x, 0), get_viewport().size, Vector2(0, get_viewport().size.y)]
+			points.append(Vector2.ZERO) # close the path
+			rotation_variance += randf_range(-PI / 4, PI / 4)
 	for point in points:
 		curve.add_point(point)
 
@@ -34,7 +48,7 @@ func spawn(add: bool = true) -> Monster:
 		add_child(mob)
 		mob_spawn_point.progress_ratio = randf()
 		mob.position = mob_spawn_point.position
-		mob.rotation = mob_spawn_point.rotation + PI/2 + randf_range(-PI / 4, PI / 4)
+		mob.rotation = mob_spawn_point.rotation + rotation_variance
 	return mob
 
 
