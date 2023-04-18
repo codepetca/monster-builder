@@ -14,6 +14,7 @@ func _ready():
 	set_path()
 
 
+## Set the spawn path of monsters appearing on screen
 func set_path():
 	var curve = mob_path.curve
 	var points = [Vector2.ZERO, Vector2(get_viewport().size.x, 0), Vector2(get_viewport().size), Vector2(0, get_viewport().size.y)]
@@ -22,14 +23,18 @@ func set_path():
 		curve.add_point(point)
 
 
-func spawn() -> Monster:
+## Spawn a monster.
+##
+## Set 'add' to false to create a monster but not add it to the node
+func spawn(add: bool = true) -> Monster:
 	var mob = _Monster.instantiate() as Monster
 	mob.textures["body"] = all_textures["bodies"][randi_range(0,1)]#.pick_random()
 	mob.textures["eye"] = all_textures["eyes"][randi_range(0,1)]#.pick_random()
-	add_child(mob)
-	mob_spawn_point.progress_ratio = randf()
-	mob.position = mob_spawn_point.position
-	mob.rotation = mob_spawn_point.rotation + PI/2 + randf_range(-PI / 4, PI / 4)
+	if add:
+		add_child(mob)
+		mob_spawn_point.progress_ratio = randf()
+		mob.position = mob_spawn_point.position
+		mob.rotation = mob_spawn_point.rotation + PI/2 + randf_range(-PI / 4, PI / 4)
 	return mob
 
 

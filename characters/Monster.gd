@@ -11,11 +11,16 @@ signal monster_tapped(monster: Monster)
 @onready var dead_animation_player = $DeadAnimationPlayer
 
 var speed: float = 100.0
-
 var textures: Dictionary = {"body": Texture2D, "eye": Texture2D}
-#var texture_example: Dictionary = {"body": load("res://assets/images/body_greenA.png"), "eye": load("res://assets/images/eye_angry_blue.png")}
+var texture_filenames: Array[String]: get = _get_texture_filenames
+var id: String: get = _get_id
 
-var id : get = _get_id
+
+func _get_texture_filenames():
+	var filenames: Array[String] = []
+	for key in textures:
+		filenames.append(textures[key].resource_path)
+	return filenames
 
 
 func _get_id():
@@ -48,6 +53,6 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 	dead()
 
 
-func _on_area_2d_input_event(viewport, event, shape_idx):
+func _on_area_2d_input_event(_viewport, event, _shape_idx):
 	if event is InputEventScreenTouch and event.pressed:
 		monster_tapped.emit(self)

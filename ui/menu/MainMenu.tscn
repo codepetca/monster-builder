@@ -1,33 +1,40 @@
 [gd_scene load_steps=3 format=3 uid="uid://cwsc8ies13vru"]
 
 [ext_resource type="Script" path="res://ui/menu/MainMenu.gd" id="1_8cg8k"]
-[ext_resource type="FontFile" uid="uid://d1lj3f6rj0xv0" path="res://assets/xolonium/xolonium-fonts-4.1/ttf/Xolonium-Regular.ttf" id="2_5egt1"]
+[ext_resource type="Theme" uid="uid://d4i8s0xjp4jkl" path="res://assets/MainTheme.tres" id="1_28wjb"]
 
-[node name="MainMenu" type="CanvasLayer"]
-script = ExtResource("1_8cg8k")
-
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="MainMenu" type="Control"]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_28wjb")
+script = ExtResource("1_8cg8k")
 
 [node name="Label" type="Label" parent="."]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -59.0
-offset_top = -39.0
-offset_right = 59.0
-offset_bottom = 39.0
+offset_left = -277.0
+offset_top = -132.0
+offset_right = 277.0
+offset_bottom = 132.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("2_5egt1")
-theme_override_font_sizes/font_size = 70
 text = "Monster sleuth
 
 Tap to begin!"
 horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

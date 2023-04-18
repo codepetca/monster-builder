@@ -35,9 +35,7 @@ func _on_mob_spawn_timer_timeout():
 	mob.monster_tapped.connect(_on_monster_tapped)
 
 
-func _on_wanted_screen_game_resumed(monster: Monster):
-	target_monster = monster
-	monster.reparent(self)
+func _on_wanted_screen_game_resumed():
 	mobSpawnTimer.start()
 
 
@@ -49,6 +47,6 @@ func _on_main_menu_game_started():
 	hud.show()
 	
 	# show target monster
-	target_monster = mob_spawner.spawn()
+	target_monster = mob_spawner.spawn(false)
 	wanted_screen.monster = target_monster
 	wanted_screen.show()

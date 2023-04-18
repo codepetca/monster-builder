@@ -1,10 +1,10 @@
 class_name MainMenu
-extends CanvasLayer
+extends Control
 
 signal game_started
 
-@onready var label = $Label
 @onready var texture_rect = $TextureRect
+@onready var label = $Label
 
 
 func show_message(text: String, delay: int = 2):
@@ -13,7 +13,7 @@ func show_message(text: String, delay: int = 2):
 	label.text = ""
 
 
-func _unhandled_input(event):
+func _input(event):
 	if event is InputEventScreenTouch and event.pressed:
 		game_started.emit()
 		queue_free()
