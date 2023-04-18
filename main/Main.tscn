@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://main/Main.gd" id="1_a2j7s"]
 [ext_resource type="Texture2D" uid="uid://dkxju7iwth8cj" path="res://assets/backgrounds/backgroundCastles.png" id="2_qrcy8"]
 [ext_resource type="Script" path="res://main/HUD.gd" id="3_pqsg6"]
-[ext_resource type="Script" path="res://main/Menu.gd" id="3_y08mv"]
 [ext_resource type="PackedScene" uid="uid://cd2wqiybfpcmp" path="res://ui/screens/WantedScreen.tscn" id="4_7r7to"]
 [ext_resource type="Script" path="res://main/MobSpawner.gd" id="4_8xhnf"]
+[ext_resource type="PackedScene" uid="uid://cwsc8ies13vru" path="res://ui/menu/MainMenu.tscn" id="5_j1wxe"]
 
 [sub_resource type="Curve2D" id="Curve2D_asmhc"]
 
@@ -26,6 +26,7 @@ texture = ExtResource("2_qrcy8")
 expand_mode = 1
 
 [node name="HUD" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("3_pqsg6")
 
 [node name="MarginContainer" type="MarginContainer" parent="HUD"]
@@ -50,7 +51,11 @@ vertical_alignment = 1
 [node name="Menu" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("3_y08mv")
+
+[node name="MainMenu" parent="Menu" instance=ExtResource("5_j1wxe")]
+
+[node name="OptionsMenu" type="CanvasLayer" parent="Menu"]
+visible = false
 
 [node name="Screens" type="Control" parent="."]
 layout_mode = 3
@@ -77,6 +82,6 @@ position = Vector2(0, 782.4)
 rotation = -1.5708
 
 [connection signal="score_updated" from="." to="HUD" method="_on_main_score_updated"]
-[connection signal="game_started" from="Menu" to="." method="_on_menu_game_started"]
+[connection signal="game_started" from="Menu/MainMenu" to="." method="_on_main_menu_game_started"]
 [connection signal="game_resumed" from="Screens/WantedScreen" to="." method="_on_wanted_screen_game_resumed"]
 [connection signal="timeout" from="MobSpawnTimer" to="." method="_on_mob_spawn_timer_timeout"]

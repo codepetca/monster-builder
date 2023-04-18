@@ -5,6 +5,7 @@ signal game_started
 
 var screens = {
 	"main": preload("res://ui/menu/MainMenu.tscn").instantiate(),
+#	"options": preload("")
 }
 
 var current_screen: CanvasLayer
@@ -15,7 +16,7 @@ func _ready():
 
 
 func _unhandled_input(event):
-	if event.is_action_released("ui_accept"):
+	if event is InputEventScreenTouch and event.pressed:
 		game_started.emit()
 		queue_free()
 

@@ -7,6 +7,8 @@ signal score_updated(score: int)
 @onready var mob_spawner = $MobSpawner as MobSpawner
 @onready var menu = $Menu as Menu
 @onready var wanted_screen = $Screens/WantedScreen
+@onready var hud = $HUD
+
 
 var game_started: bool = false
 var target_monster: Monster
@@ -22,27 +24,31 @@ func increase_score_by(val: int):
 	self.score += val
 
 
+func _on_monster_tapped(monster: Monster):
+	if monster.equals(target_monster):
+		increase_score_by(10)
+	monster.queue_free()
+
+
 func _on_mob_spawn_timer_timeout():
 	var mob = mob_spawner.spawn()
 	mob.monster_tapped.connect(_on_monster_tapped)
 
 
-func _on_monster_tapped(monster: Monster):
-	increase_score_by(10)
-	monster.queue_free()
+func _on_wanted_screen_game_resumed(monster: Monster):
+	target_monster = monster
+	monster.reparent(self)
+	mobSpawnTimer.start()
 
 
-func _on_menu_game_started():
+func _on_main_menu_game_started():
 	if game_started:
 		return
 	game_started = true
+	
+	hud.show()
 	
 	# show target monster
 	target_monster = mob_spawner.spawn()
 	wanted_screen.monster = target_monster
 	wanted_screen.show()
-
-
-func _on_wanted_screen_game_resumed():
-	wanted_screen.hide()
-	mobSpawnTimer.start()

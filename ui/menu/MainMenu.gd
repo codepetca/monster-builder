@@ -12,9 +12,8 @@ func show_message(text: String, delay: int = 2):
 	await get_tree().create_timer(delay).timeout
 	label.text = ""
 
-#
-#func _unhandled_input(event):
-#	if event.is_action_pressed("ui_accept"):
-#		game_started.emit()
-#
-#
+
+func _unhandled_input(event):
+	if event is InputEventScreenTouch and event.pressed:
+		game_started.emit()
+		queue_free()

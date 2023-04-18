@@ -1,7 +1,7 @@
 class_name WantedScreen
 extends CanvasLayer
 
-signal game_resumed
+signal game_resumed(monster: Monster)
 
 
 @onready var label = $VBoxContainer/Label
@@ -22,15 +22,13 @@ func _set_monster(val: Monster):
 func _get_monster(): return monster
 
 
-func clear():
-	label.text = ""
-	if monster:
-		print("monster")
-		monster.dead()
-
-
-func _unhandled_input(event):
-	if event.is_action_released("ui_accept"):
-#		clear()
-		game_resumed.emit()
+func _input(event):
+	
+	if event is InputEventScreenTouch and event.pressed:
+		await get_tree().create_timer(2).timeout
+		label.text = ""
+		if monster:
+			monster.hide()
+		game_resumed.emit(monster)
+		self.hide()
 
