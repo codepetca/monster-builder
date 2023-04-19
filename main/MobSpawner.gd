@@ -12,7 +12,7 @@ var rotation_variance: float = PI/2
 
 func _ready():
 	load_textures_to_dict(all_textures)
-	_set_spawn_path()
+	_set_spawn_path("left")
 
 
 ## Set the spawn path of monsters appearing on screen

@@ -1,7 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://cwsc8ies13vru"]
+[gd_scene load_steps=5 format=3 uid="uid://cwsc8ies13vru"]
 
 [ext_resource type="Script" path="res://ui/menu/MainMenu.gd" id="1_8cg8k"]
-[ext_resource type="Theme" uid="uid://d4i8s0xjp4jkl" path="res://assets/MainTheme.tres" id="1_28wjb"]
+[ext_resource type="Theme" uid="uid://bi3gnitxrp3im" path="res://assets/MainTheme.tres" id="1_28wjb"]
+
+[sub_resource type="Gradient" id="Gradient_c7gwg"]
+colors = PackedColorArray(0.227451, 0.52549, 1, 1, 0.513726, 0.219608, 0.92549, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_sbv2j"]
+gradient = SubResource("Gradient_c7gwg")
+fill_from = Vector2(0.0633609, 0.107438)
+fill_to = Vector2(0.900826, 0.217631)
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -13,24 +21,6 @@ grow_vertical = 2
 theme = ExtResource("1_28wjb")
 script = ExtResource("1_8cg8k")
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -277.0
-offset_top = -132.0
-offset_right = 277.0
-offset_bottom = 132.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Monster sleuth
-
-Tap to begin!"
-horizontal_alignment = 1
-
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -38,3 +28,27 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = SubResource("GradientTexture2D_sbv2j")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 120
+text = "Monster sleuth"
+horizontal_alignment = 1
+
+[node name="SubtitleLabel" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Tap to begin"

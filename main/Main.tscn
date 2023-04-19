@@ -1,14 +1,18 @@
-[gd_scene load_steps=9 format=3 uid="uid://ed826hjr5vsh"]
+[gd_scene load_steps=12 format=3 uid="uid://cqxmnuehkx4ip"]
 
 [ext_resource type="Script" path="res://main/Main.gd" id="1_a2j7s"]
 [ext_resource type="Texture2D" uid="uid://dkxju7iwth8cj" path="res://assets/backgrounds/backgroundCastles.png" id="2_qrcy8"]
 [ext_resource type="PackedScene" uid="uid://qm0ijd4iuc0l" path="res://ui/hud/Hud.tscn" id="3_tb74v"]
 [ext_resource type="PackedScene" uid="uid://cd2wqiybfpcmp" path="res://ui/screens/WantedScreen.tscn" id="4_7r7to"]
 [ext_resource type="Script" path="res://main/MobSpawner.gd" id="4_8xhnf"]
-[ext_resource type="Theme" uid="uid://d4i8s0xjp4jkl" path="res://assets/MainTheme.tres" id="4_mlnbl"]
+[ext_resource type="Theme" uid="uid://bi3gnitxrp3im" path="res://assets/MainTheme.tres" id="4_mlnbl"]
 [ext_resource type="PackedScene" uid="uid://cwsc8ies13vru" path="res://ui/menu/MainMenu.tscn" id="5_j1wxe"]
+[ext_resource type="AudioStream" uid="uid://d1jditmbeqj8y" path="res://assets/sound/music/for-halloween.mp3" id="8_x7elk"]
+[ext_resource type="Script" path="res://characters/Pickable.gd" id="9_mf2t7"]
 
 [sub_resource type="Curve2D" id="Curve2D_asmhc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_omq2b"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_a2j7s")
@@ -58,11 +62,22 @@ curve = SubResource("Curve2D_asmhc")
 position = Vector2(0, 782.4)
 rotation = -1.5708
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_x7elk")
+autoplay = true
+
+[node name="Pickable" type="CharacterBody2D" parent="."]
+script = ExtResource("9_mf2t7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pickable"]
+shape = SubResource("CircleShape2D_omq2b")
+
 [connection signal="score_updated" from="." to="HUD" method="_on_main_score_updated"]
 [connection signal="wanted_updated" from="." to="HUD" method="_on_main_wanted_updated"]
 [connection signal="wanted_updated" from="." to="Screens/WantedScreen" method="_on_main_wanted_updated"]
 [connection signal="game_started" from="Screens/MainMenu" to="." method="_on_main_menu_game_started"]
 [connection signal="game_resumed" from="Screens/WantedScreen" to="." method="_on_wanted_screen_game_resumed"]
 [connection signal="timeout" from="Game/MobSpawnTimer" to="." method="_on_mob_spawn_timer_timeout"]
+[connection signal="picked_up" from="Pickable" to="." method="_on_pickable_picked_up"]
 
 [editable path="HUD"]
