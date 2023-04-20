@@ -1,16 +1,12 @@
 class_name Monster
 extends Pickable
 
-#signal monster_tapped(monster: Monster)
-
-
 @onready var body: Sprite2D = $Body
 @onready var eye: Sprite2D = $Eye
 @onready var bodyAnimationPlayer: AnimationPlayer = $BodyAnimationPlayer
 @onready var eyeAnimationPlayer: AnimationPlayer = $EyeAnimationPlayer
 @onready var dead_animation_player = $DeadAnimationPlayer
 
-#var speed: float = 100.0
 var textures: Dictionary = {"body": Texture2D, "eye": Texture2D}
 var texture_filenames: Array[String]: get = _get_texture_filenames
 var id: String: get = _get_id
@@ -52,9 +48,8 @@ func dead():
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	dead()
 
-func _input_event(_viewport, event, _shape_idx):
-	if event is InputEventScreenTouch and event.pressed:
-		picked_up.emit(self)
+
+
 #
 #func _on_area_2d_input_event(_viewport, event, _shape_idx):
 #	if event is InputEventScreenTouch and event.pressed:

@@ -64,6 +64,7 @@ func _on_pickable_picked_up(object: Pickable):
 	if not held_object:
 		held_object = object
 		held_object.pickup()
-		if held_object.equals(target_monster):
+		var mob = held_object as Monster
+		if mob.equals(target_monster):
 			increase_score_by(10)
 	

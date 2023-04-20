@@ -43,7 +43,11 @@ func drop() -> void:
 func action(_delta: float) -> void:
 	pass
 
-#
+
+func _input_event(_viewport, event, _shape_idx):
+	if event is InputEventScreenTouch and event.pressed:
+		picked_up.emit(self)
+
 #func _input_event(_viewport, event, _shape_idx):
 #	if event is InputEventScreenTouch and event.pressed:
 #		emit_signal("picked_up", self)
