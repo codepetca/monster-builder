@@ -37,18 +37,25 @@ func _set_spawn_path(direction: String = "full"):
 		curve.add_point(point)
 
 
-## Spawn a monster.
-##
-## Set 'add' to false to create a monster but not add it to the node
-func spawn(add: bool = true) -> Monster:
+
+func get_random() -> Monster:
 	var mob = _Monster.instantiate() as Monster
 	mob.textures["body"] = all_textures["bodies"][randi_range(0,1)]#.pick_random()
 	mob.textures["eye"] = all_textures["eyes"][randi_range(0,1)]#.pick_random()
-	if add:
-		add_child(mob)
-		mob_spawn_point.progress_ratio = randf()
-		mob.position = mob_spawn_point.position
-		mob.rotation = mob_spawn_point.rotation + rotation_variance
+	mob.mode = "STATIC"
+	
+	return mob
+
+
+## Spawn a monster.
+##
+## Set 'add' to false to create a monster but not add it to the node
+func spawn() -> Monster:
+	var mob = get_random()
+	add_child(mob)
+	mob_spawn_point.progress_ratio = randf()
+	mob.position = mob_spawn_point.position
+	mob.rotation = mob_spawn_point.rotation + rotation_variance
 	return mob
 
 

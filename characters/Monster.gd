@@ -10,6 +10,11 @@ extends Pickable
 var textures: Dictionary = {"body": Texture2D, "eye": Texture2D}
 var texture_filenames: Array[String]: get = _get_texture_filenames
 var id: String: get = _get_id
+var mode = "NON_STATIC"
+
+enum MODE {
+	STATIC, NON_STATIC
+}
 
 
 func _get_texture_filenames():
@@ -32,7 +37,12 @@ func equals(monster: Monster) -> bool:
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	velocity = Vector2(speed + randf_range(0, 300), 0)
+	if mode == "NON_STATIC":
+		velocity = Vector2(speed + randf_range(0, 300), 0)
+	else:
+		velocity = Vector2.ZERO
+		bodyAnimationPlayer.stop()
+		eyeAnimationPlayer.stop()
 	body.texture = textures["body"]
 	eye.texture = textures["eye"]
 

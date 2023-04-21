@@ -1,7 +1,8 @@
 class_name MainMenu
 extends Control
 
-signal game_started
+signal start_game
+
 
 @onready var texture_rect = $TextureRect
 @onready var title_label = $CenterContainer/VBoxContainer/TitleLabel
@@ -17,5 +18,5 @@ func show_message(text: String, delay: int = 2):
 
 func _input(event):
 	if event is InputEventScreenTouch and event.pressed:
-		game_started.emit()
+		start_game.emit()
 		queue_free()
