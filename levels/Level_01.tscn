@@ -15,7 +15,7 @@ size = Vector2(53, 380.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rvli0"]
 size = Vector2(53, 380.5)
 
-[node name="Level1" type="CanvasLayer"]
+[node name="Level_01" type="CanvasLayer"]
 script = ExtResource("1_4qlt7")
 
 [node name="MobSpawnTimer" type="Timer" parent="."]
@@ -30,10 +30,6 @@ curve = SubResource("Curve2D_asmhc")
 [node name="MobSpawnPoint" type="PathFollow2D" parent="MobSpawner/MobPath"]
 position = Vector2(0, 782.4)
 rotation = -1.5708
-
-[node name="61045" type="Timer" parent="MobSpawner/MobPath/MobSpawnPoint"]
-wait_time = 0.2
-one_shot = true
 
 [node name="Detectors" type="Node2D" parent="."]
 visible = false
