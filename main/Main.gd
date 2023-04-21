@@ -33,7 +33,7 @@ func on_increase_score(val: int):
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch and not event.is_pressed():
-		if held_object and not event.pressed:
+		if held_object and is_instance_valid(held_object) and not event.pressed:
 			held_object.drop()
 			held_object = null
 

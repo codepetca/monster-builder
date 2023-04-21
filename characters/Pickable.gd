@@ -18,10 +18,10 @@ func _init() -> void:
 	input_pickable = true
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if selected:
 		global_transform.origin = get_global_mouse_position()
-		action(delta)
+#		action(delta)
 
 
 func pickup() -> void:
@@ -30,17 +30,24 @@ func pickup() -> void:
 	selected = true	
 	disable_mode = CharacterBody2D.DISABLE_MODE_MAKE_STATIC
 	input_pickable = false
+	action_on_pickup()
 
 
 func drop() -> void:
-	if selected:
-		selected = false
-		disable_mode = CharacterBody2D.DISABLE_MODE_KEEP_ACTIVE
-		input_pickable = true
+	if not selected:
+		return
+	selected = false
+	disable_mode = CharacterBody2D.DISABLE_MODE_KEEP_ACTIVE
+	input_pickable = true
+	action_on_drop()
 
 
 # Override action to be performed when picked up
-func action(_delta: float) -> void:
+func action_on_pickup():
+	pass
+
+
+func action_on_drop():
 	pass
 
 

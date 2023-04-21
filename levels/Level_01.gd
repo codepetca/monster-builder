@@ -16,7 +16,7 @@ func set_targets():
 
 
 func _on_detector_body_entered(body):
-	print("entered")
 	if body is Monster:
 		if body.equals(target):
 			Signals.increase_score.emit(10);
+		body.dead()

@@ -60,7 +60,7 @@ func spawn() -> Monster:
 
 # Load PNG files
 func load_textures_to_dict(dict: Dictionary):
-	var path = "res://assets/images/"
+	var path = "res://assets/images/monster/"
 	var filenames: Array[String] = dir_contents(path)
 	for file in filenames:
 		if file.begins_with("body"):

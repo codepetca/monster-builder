@@ -3,9 +3,7 @@ extends Pickable
 
 @onready var body: Sprite2D = $Body
 @onready var eye: Sprite2D = $Eye
-@onready var bodyAnimationPlayer: AnimationPlayer = $BodyAnimationPlayer
-@onready var eyeAnimationPlayer: AnimationPlayer = $EyeAnimationPlayer
-@onready var dead_animation_player = $DeadAnimationPlayer
+@onready var animation_player = $AnimationPlayer
 
 var textures: Dictionary = {"body": Texture2D, "eye": Texture2D}
 var texture_filenames: Array[String]: get = _get_texture_filenames
@@ -39,8 +37,7 @@ func _ready():
 		velocity = Vector2(speed + randf_range(0, 300), 0)
 	else:
 		velocity = Vector2.ZERO
-		bodyAnimationPlayer.stop()
-		eyeAnimationPlayer.stop()
+		animation_player.stop()
 	body.texture = textures["body"]
 	eye.texture = textures["eye"]
 
@@ -49,17 +46,20 @@ func _process(delta):
 	position += velocity.rotated(rotation) * delta
 
 
+func action_on_pickup():
+	scale = scale * 1.2
+	animation_player.stop()
+
+
+func action_on_drop():
+	scale = scale/1.2
+	animation_player.play("idle")
+
+
 func dead():
-	dead_animation_player.play("dead")
+	animation_player.play("dead")
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	dead()
-
-
-#
-#func _on_area_2d_input_event(_viewport, event, _shape_idx):
-#	if event is InputEventScreenTouch and event.pressed:
-#		picked_up.emit(self)
-#		monster_tapped.emit(self)
 
