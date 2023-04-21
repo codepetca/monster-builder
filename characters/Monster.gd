@@ -12,8 +12,8 @@ var texture_filenames: Array[String]: get = _get_texture_filenames
 var id: String: get = _get_id
 var mode: MOVE_MODE = MOVE_MODE.MOVE
 
-
 enum MOVE_MODE {MOVE, FROZEN}
+
 
 func _get_texture_filenames():
 	var filenames: Array[String] = []
@@ -55,7 +55,6 @@ func dead():
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	dead()
-
 
 
 #

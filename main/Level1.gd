@@ -1,9 +1,13 @@
 extends CanvasLayer
 
 
-@onready var detector_top = $DetectorTop
-@onready var detector_bottom = $DetectorBottom
 @onready var mob_spawner = $MobSpawner
+@onready var mob_target_top = $Detectors/Top/MobTargetTop
+@onready var mob_target_bottom = $Detectors/Bottom/MobTargetBottom
+@onready var detectors = $Detectors
+@onready var detector_top = $Detectors/Top
+@onready var detector_bottom = $Detectors/Bottom
+
 
 var top_target_mob: Monster
 var bottom_target_mob: Monster
@@ -12,10 +16,9 @@ var bottom_target_mob: Monster
 func set_targets():
 	top_target_mob = mob_spawner.get_random()
 	bottom_target_mob = mob_spawner.get_random()
-	detector_top.add_child(top_target_mob)
-	detector_bottom.add_child(bottom_target_mob)
-#	top_target_mob.velocity = Vector2.ZERO
-
+	mob_target_top.add_child(top_target_mob)
+	mob_target_bottom.add_child(bottom_target_mob)
+	detectors.show()
 
 
 func _on_detector_top_body_entered(body):

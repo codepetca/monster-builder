@@ -71,39 +71,43 @@ curve = SubResource("Curve2D_asmhc")
 position = Vector2(0, 782.4)
 rotation = -1.5708
 
-[node name="DetectorTop" type="Area2D" parent="Level1"]
+[node name="Detectors" type="Node2D" parent="Level1"]
+visible = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Level1/DetectorTop"]
-position = Vector2(1489, 191.75)
+[node name="Top" type="Area2D" parent="Level1/Detectors"]
+position = Vector2(1486, 188)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level1/Detectors/Top"]
 shape = SubResource("RectangleShape2D_g0ct0")
 
-[node name="Node2D" type="Node2D" parent="Level1/DetectorTop"]
-visible = false
+[node name="MobTargetTop" type="Node2D" parent="Level1/Detectors/Top"]
 modulate = Color(1, 1, 1, 0.619608)
-position = Vector2(1266, 214)
+position = Vector2(-200, 0)
 
-[node name="Body" type="Sprite2D" parent="Level1/DetectorTop/Node2D"]
+[node name="Body" type="Sprite2D" parent="Level1/Detectors/Top/MobTargetTop"]
+visible = false
 texture = ExtResource("8_kra6b")
 
-[node name="Eye" type="Sprite2D" parent="Level1/DetectorTop/Node2D"]
+[node name="Eye" type="Sprite2D" parent="Level1/Detectors/Top/MobTargetTop"]
+visible = false
 texture = ExtResource("9_pdj78")
 
-[node name="DetectorBottom" type="Area2D" parent="Level1"]
-position = Vector2(-3, 382)
+[node name="Bottom" type="Area2D" parent="Level1/Detectors"]
+position = Vector2(1487, 609)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Level1/DetectorBottom"]
-position = Vector2(1489, 211.25)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level1/Detectors/Bottom"]
 shape = SubResource("RectangleShape2D_rvli0")
 
-[node name="Node2D" type="Node2D" parent="Level1/DetectorBottom"]
-visible = false
+[node name="MobTargetBottom" type="Node2D" parent="Level1/Detectors/Bottom"]
 modulate = Color(1, 1, 1, 0.619608)
-position = Vector2(1266, 214)
+position = Vector2(-200, 0)
 
-[node name="Body" type="Sprite2D" parent="Level1/DetectorBottom/Node2D"]
+[node name="Body" type="Sprite2D" parent="Level1/Detectors/Bottom/MobTargetBottom"]
+visible = false
 texture = ExtResource("10_jyu5x")
 
-[node name="Eye" type="Sprite2D" parent="Level1/DetectorBottom/Node2D"]
+[node name="Eye" type="Sprite2D" parent="Level1/Detectors/Bottom/MobTargetBottom"]
+visible = false
 texture = ExtResource("11_j7yo1")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
