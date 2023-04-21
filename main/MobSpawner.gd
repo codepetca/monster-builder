@@ -38,7 +38,7 @@ func _set_spawn_path(direction: String = "full"):
 
 
 
-func get_random(mode: String = "STATIC") -> Monster:
+func get_random(mode:= Monster.MOVE_MODE.FROZEN) -> Monster:
 	var mob = _Monster.instantiate() as Monster
 	mob.textures["body"] = all_textures["bodies"][randi_range(0,1)]#.pick_random()
 	mob.textures["eye"] = all_textures["eyes"][randi_range(0,1)]#.pick_random()
@@ -50,7 +50,7 @@ func get_random(mode: String = "STATIC") -> Monster:
 ##
 ## Set 'add' to false to create a monster but not add it to the node
 func spawn() -> Monster:
-	var mob = get_random("NON_STATIC")
+	var mob = get_random(Monster.MOVE_MODE.MOVE)
 	add_child(mob)
 	mob_spawn_point.progress_ratio = randf()
 	mob.position = mob_spawn_point.position

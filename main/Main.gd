@@ -58,7 +58,8 @@ func _on_pickable_picked_up(object: Pickable):
 		held_object = object
 		held_object.pickup()
 		increase_score_by(10)
-	
+
+
 
 
 
