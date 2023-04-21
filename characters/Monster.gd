@@ -62,3 +62,4 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 #	if event is InputEventScreenTouch and event.pressed:
 #		picked_up.emit(self)
 #		monster_tapped.emit(self)
+

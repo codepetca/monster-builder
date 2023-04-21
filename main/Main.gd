@@ -18,12 +18,16 @@ var target_monster: Monster
 var score: int = 0 : set = _set_score
 
 
+func _ready():
+	Signals.increase_score.connect(on_increase_score)
+
+
 func _set_score(val:int):
 	score = val
 	score_updated.emit(score)
 
 
-func increase_score_by(val: int):
+func on_increase_score(val: int):
 	self.score += val
 
 
@@ -32,6 +36,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		if held_object and not event.pressed:
 			held_object.drop()
 			held_object = null
+
+
+func _on_pickable_picked_up(object: Pickable):
+	if not held_object:
+		held_object = object
+		held_object.pickup()
 
 
 func _on_mob_spawn_timer_timeout():
@@ -52,12 +62,6 @@ func _on_main_menu_start_game():
 	level_01.set_targets()
 	mob_spawn_timer.start()
 
-
-func _on_pickable_picked_up(object: Pickable):
-	if not held_object:
-		held_object = object
-		held_object.pickup()
-		increase_score_by(10)
 
 
 

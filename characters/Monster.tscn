@@ -4,10 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://b4ds6qvk87el4" path="res://assets/images/body_greenA.png" id="2_e3vsg"]
 [ext_resource type="Texture2D" uid="uid://cu3muubutyrt6" path="res://assets/images/eye_angry_red.png" id="3_t32od"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cs887"]
-radius = 152.0
-height = 320.0
-
 [sub_resource type="Animation" id="Animation_jxr0i"]
 length = 0.001
 tracks/0/type = "value"
@@ -146,16 +142,16 @@ _data = {
 "dead": SubResource("Animation_lkjvp")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_spdmk"]
+radius = 180.278
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_fm6c4"]
-radius = 176.102
+radius = 131.498
 
 [node name="Monster" type="CharacterBody2D"]
 scale = Vector2(0.7, 0.7)
+collision_layer = 2
 script = ExtResource("1_adnb3")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-shape = SubResource("CapsuleShape2D_cs887")
 
 [node name="Body" type="Sprite2D" parent="."]
 texture = ExtResource("2_e3vsg")
@@ -181,6 +177,9 @@ libraries = {
 libraries = {
 "": SubResource("AnimationLibrary_xxxmq")
 }
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_spdmk")
 
 [node name="Area2D" type="Area2D" parent="."]
 

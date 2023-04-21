@@ -17,6 +17,7 @@ config/features=PackedStringArray("4.0", "Mobile")
 [autoload]
 
 G="*res://autoloads/G.gd"
+Signals="*res://autoloads/Signals.gd"
 
 [display]
 
