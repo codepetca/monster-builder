@@ -1,26 +1,13 @@
-[gd_scene load_steps=17 format=3 uid="uid://cqxmnuehkx4ip"]
+[gd_scene load_steps=9 format=3 uid="uid://1an3hknc44x8"]
 
 [ext_resource type="Script" path="res://main/Main.gd" id="1_a2j7s"]
 [ext_resource type="Texture2D" uid="uid://dkxju7iwth8cj" path="res://assets/backgrounds/backgroundCastles.png" id="2_qrcy8"]
 [ext_resource type="PackedScene" uid="uid://qm0ijd4iuc0l" path="res://ui/hud/Hud.tscn" id="3_tb74v"]
 [ext_resource type="PackedScene" uid="uid://cd2wqiybfpcmp" path="res://ui/screens/WantedScreen.tscn" id="4_7r7to"]
-[ext_resource type="Script" path="res://main/MobSpawner.gd" id="4_8xhnf"]
 [ext_resource type="Theme" uid="uid://bi3gnitxrp3im" path="res://assets/MainTheme.tres" id="4_mlnbl"]
 [ext_resource type="PackedScene" uid="uid://cwsc8ies13vru" path="res://ui/menu/MainMenu.tscn" id="5_j1wxe"]
-[ext_resource type="Script" path="res://main/Level1.gd" id="7_o3o0a"]
-[ext_resource type="Texture2D" uid="uid://b4ds6qvk87el4" path="res://assets/images/body_greenA.png" id="8_kra6b"]
+[ext_resource type="PackedScene" uid="uid://bwr4mfv4fcu4a" path="res://levels/Level_01.tscn" id="7_epife"]
 [ext_resource type="AudioStream" uid="uid://d1jditmbeqj8y" path="res://assets/sound/music/for-halloween.mp3" id="8_x7elk"]
-[ext_resource type="Texture2D" uid="uid://c65gf5hx2tefx" path="res://assets/images/eye_angry_blue.png" id="9_pdj78"]
-[ext_resource type="Texture2D" uid="uid://dpgq2ai4ei6ke" path="res://assets/images/body_greenC.png" id="10_jyu5x"]
-[ext_resource type="Texture2D" uid="uid://cu3muubutyrt6" path="res://assets/images/eye_angry_red.png" id="11_j7yo1"]
-
-[sub_resource type="Curve2D" id="Curve2D_asmhc"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_g0ct0"]
-size = Vector2(53, 380.5)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rvli0"]
-size = Vector2(53, 380.5)
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_a2j7s")
@@ -55,60 +42,7 @@ theme = ExtResource("4_mlnbl")
 visible = false
 theme = ExtResource("4_mlnbl")
 
-[node name="Level1" type="CanvasLayer" parent="."]
-script = ExtResource("7_o3o0a")
-
-[node name="MobSpawnTimer" type="Timer" parent="Level1"]
-
-[node name="MobSpawner" type="Node2D" parent="Level1"]
-script = ExtResource("4_8xhnf")
-
-[node name="MobPath" type="Path2D" parent="Level1/MobSpawner"]
-scale = Vector2(1, 1.01227)
-curve = SubResource("Curve2D_asmhc")
-
-[node name="MobSpawnPoint" type="PathFollow2D" parent="Level1/MobSpawner/MobPath"]
-position = Vector2(0, 782.4)
-rotation = -1.5708
-
-[node name="Detectors" type="Node2D" parent="Level1"]
-visible = false
-
-[node name="Top" type="Area2D" parent="Level1/Detectors"]
-position = Vector2(1486, 188)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Level1/Detectors/Top"]
-shape = SubResource("RectangleShape2D_g0ct0")
-
-[node name="MobTargetTop" type="Node2D" parent="Level1/Detectors/Top"]
-modulate = Color(1, 1, 1, 0.619608)
-position = Vector2(-200, 0)
-
-[node name="Body" type="Sprite2D" parent="Level1/Detectors/Top/MobTargetTop"]
-visible = false
-texture = ExtResource("8_kra6b")
-
-[node name="Eye" type="Sprite2D" parent="Level1/Detectors/Top/MobTargetTop"]
-visible = false
-texture = ExtResource("9_pdj78")
-
-[node name="Bottom" type="Area2D" parent="Level1/Detectors"]
-position = Vector2(1487, 609)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Level1/Detectors/Bottom"]
-shape = SubResource("RectangleShape2D_rvli0")
-
-[node name="MobTargetBottom" type="Node2D" parent="Level1/Detectors/Bottom"]
-modulate = Color(1, 1, 1, 0.619608)
-position = Vector2(-200, 0)
-
-[node name="Body" type="Sprite2D" parent="Level1/Detectors/Bottom/MobTargetBottom"]
-visible = false
-texture = ExtResource("10_jyu5x")
-
-[node name="Eye" type="Sprite2D" parent="Level1/Detectors/Bottom/MobTargetBottom"]
-visible = false
-texture = ExtResource("11_j7yo1")
+[node name="Level_01" parent="." instance=ExtResource("7_epife")]
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("8_x7elk")
@@ -120,6 +54,7 @@ autoplay = true
 [connection signal="wanted_updated" from="." to="Screens/WantedScreen" method="_on_main_wanted_updated"]
 [connection signal="start_game" from="Screens/MainMenu" to="." method="_on_main_menu_start_game"]
 [connection signal="game_resumed" from="Screens/WantedScreen" to="." method="_on_wanted_screen_game_resumed"]
-[connection signal="timeout" from="Level1/MobSpawnTimer" to="." method="_on_mob_spawn_timer_timeout"]
+[connection signal="timeout" from="Level_01/MobSpawnTimer" to="." method="_on_mob_spawn_timer_timeout"]
 
 [editable path="HUD"]
+[editable path="Level_01"]

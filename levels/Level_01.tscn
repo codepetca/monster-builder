@@ -1,0 +1,75 @@
+[gd_scene load_steps=10 format=3 uid="uid://bwr4mfv4fcu4a"]
+
+[ext_resource type="Script" path="res://levels/Level_01.gd" id="1_4qlt7"]
+[ext_resource type="Script" path="res://levels/MobSpawner.gd" id="2_v612x"]
+[ext_resource type="Texture2D" uid="uid://b4ds6qvk87el4" path="res://assets/images/body_greenA.png" id="3_5k374"]
+[ext_resource type="Texture2D" uid="uid://c65gf5hx2tefx" path="res://assets/images/eye_angry_blue.png" id="4_a3anj"]
+[ext_resource type="Texture2D" uid="uid://dpgq2ai4ei6ke" path="res://assets/images/body_greenC.png" id="5_uq2fv"]
+[ext_resource type="Texture2D" uid="uid://cu3muubutyrt6" path="res://assets/images/eye_angry_red.png" id="6_mb5sx"]
+
+[sub_resource type="Curve2D" id="Curve2D_asmhc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g0ct0"]
+size = Vector2(53, 380.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rvli0"]
+size = Vector2(53, 380.5)
+
+[node name="Level1" type="CanvasLayer"]
+script = ExtResource("1_4qlt7")
+
+[node name="MobSpawnTimer" type="Timer" parent="."]
+
+[node name="MobSpawner" type="Node2D" parent="."]
+script = ExtResource("2_v612x")
+
+[node name="MobPath" type="Path2D" parent="MobSpawner"]
+scale = Vector2(1, 1.01227)
+curve = SubResource("Curve2D_asmhc")
+
+[node name="MobSpawnPoint" type="PathFollow2D" parent="MobSpawner/MobPath"]
+position = Vector2(0, 782.4)
+rotation = -1.5708
+
+[node name="61045" type="Timer" parent="MobSpawner/MobPath/MobSpawnPoint"]
+wait_time = 0.2
+one_shot = true
+
+[node name="Detectors" type="Node2D" parent="."]
+visible = false
+
+[node name="Top" type="Area2D" parent="Detectors"]
+position = Vector2(1486, 188)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/Top"]
+shape = SubResource("RectangleShape2D_g0ct0")
+
+[node name="MobTargetTop" type="Node2D" parent="Detectors/Top"]
+modulate = Color(1, 1, 1, 0.619608)
+position = Vector2(-200, 0)
+
+[node name="Body" type="Sprite2D" parent="Detectors/Top/MobTargetTop"]
+visible = false
+texture = ExtResource("3_5k374")
+
+[node name="Eye" type="Sprite2D" parent="Detectors/Top/MobTargetTop"]
+visible = false
+texture = ExtResource("4_a3anj")
+
+[node name="Bottom" type="Area2D" parent="Detectors"]
+position = Vector2(1487, 609)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/Bottom"]
+shape = SubResource("RectangleShape2D_rvli0")
+
+[node name="MobTargetBottom" type="Node2D" parent="Detectors/Bottom"]
+modulate = Color(1, 1, 1, 0.619608)
+position = Vector2(-200, 0)
+
+[node name="Body" type="Sprite2D" parent="Detectors/Bottom/MobTargetBottom"]
+visible = false
+texture = ExtResource("5_uq2fv")
+
+[node name="Eye" type="Sprite2D" parent="Detectors/Bottom/MobTargetBottom"]
+visible = false
+texture = ExtResource("6_mb5sx")

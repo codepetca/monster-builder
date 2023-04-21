@@ -5,11 +5,11 @@ signal score_updated(score: int)
 signal wanted_updated(monster: Monster)
 
 
-@onready var mob_spawn_timer = $Level1/MobSpawnTimer
-@onready var mob_spawner = $Level1/MobSpawner as MobSpawner
+@onready var mob_spawn_timer = $Level_01/MobSpawnTimer
+@onready var mob_spawner = $Level_01/MobSpawner as MobSpawner
 @onready var wanted_screen = $Screens/WantedScreen
 @onready var hud = $HUD
-@onready var level_1 = $Level1
+@onready var level_01 = $Level_01
 
 
 var held_object: Pickable = null
@@ -49,7 +49,7 @@ func _on_main_menu_start_game():
 	game_started = true
 	
 	hud.show()
-	level_1.set_targets()
+	level_01.set_targets()
 	mob_spawn_timer.start()
 
 
