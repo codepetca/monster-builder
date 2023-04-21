@@ -1,7 +1,7 @@
 class_name WantedScreen
 extends Control
 
-signal game_resumed()
+signal game_resumed
 
 
 @onready var label = $CenterContainer/VBoxContainer/Label
@@ -11,7 +11,7 @@ signal game_resumed()
 func _input(event):
 	if event is InputEventScreenTouch and event.pressed:
 		await get_tree().create_timer(2).timeout
-		game_resumed.emit()
+#		game_resumed.emit()
 		queue_free()
 
 

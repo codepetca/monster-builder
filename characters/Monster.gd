@@ -12,9 +12,11 @@ var texture_filenames: Array[String]: get = _get_texture_filenames
 var id: String: get = _get_id
 var mode = "NON_STATIC"
 
-enum MODE {
-	STATIC, NON_STATIC
-}
+#static var MODE: int = {STATIC: 0, NON_STATIC: 1}
+#
+#enum MODE {
+#	STATIC, NON_STATIC
+#}
 
 
 func _get_texture_filenames():
