@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bwr4mfv4fcu4a"]
+[gd_scene load_steps=7 format=3 uid="uid://bwr4mfv4fcu4a"]
 
 [ext_resource type="Script" path="res://levels/Level_01.gd" id="1_4qlt7"]
 [ext_resource type="Script" path="res://levels/MobSpawner.gd" id="2_v612x"]
+[ext_resource type="Script" path="res://levels/ChangeRoom.gd" id="3_gyc0a"]
 
 [sub_resource type="Curve2D" id="Curve2D_asmhc"]
 
@@ -47,6 +48,9 @@ collision_mask = 2
 shape = SubResource("RectangleShape2D_vvwx8")
 
 [node name="Marker2D" type="Marker2D" parent="DetectorTop"]
+
+[node name="ChangeRoom" type="Node2D" parent="."]
+script = ExtResource("3_gyc0a")
 
 [connection signal="body_entered" from="DetectorRight" to="." method="_on_detector_right_body_entered"]
 [connection signal="body_entered" from="DetectorTop" to="." method="_on_detector_top_body_entered"]

@@ -53,8 +53,10 @@ autoplay = true
 [connection signal="start_game" from="Screens/MainMenu" to="." method="_on_main_menu_start_game"]
 [connection signal="game_resumed" from="Screens/WantedScreen" to="." method="_on_wanted_screen_game_resumed"]
 [connection signal="level_complete" from="Level_01" to="." method="_on_level_01_level_complete"]
+[connection signal="room_relocate" from="Level_01" to="Level_01/ChangeRoom" method="_on_level_01_room_relocate"]
 [connection signal="score_updated" from="Level_01" to="HUD" method="_on_level_01_score_updated"]
 [connection signal="timeout" from="Level_01/MobSpawnTimer" to="." method="_on_mob_spawn_timer_timeout"]
+[connection signal="go_back" from="Level_01/ChangeRoom" to="Level_01" method="_on_change_room_go_back"]
 
 [editable path="HUD"]
 [editable path="Level_01"]
