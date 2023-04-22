@@ -15,20 +15,16 @@ signal wanted_updated(monster: Monster)
 var held_object: Pickable = null
 var game_started: bool = false
 var target_monster: Monster
-var score: int = 0 : set = _set_score
+var score: int = 0
 
 
 func _ready():
 	Signals.increase_score.connect(on_increase_score)
 
 
-func _set_score(val:int):
-	score = val
-	score_updated.emit(score)
-
-
 func on_increase_score(val: int):
-	self.score += val
+	score += val
+	score_updated.emit(score)
 
 
 func _unhandled_input(event: InputEvent) -> void:
