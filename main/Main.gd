@@ -1,30 +1,16 @@
 extends Node2D
 
 signal start_game
-signal score_updated(score: int)
-signal wanted_updated(monster: Monster)
 
 
 @onready var mob_spawn_timer = $Level_01/MobSpawnTimer
 @onready var mob_spawner = $Level_01/MobSpawner as MobSpawner
-@onready var wanted_screen = $Screens/WantedScreen
 @onready var hud = $HUD
 @onready var level_01 = $Level_01
 
 
 var held_object: Pickable = null
 var game_started: bool = false
-var target_monster: Monster
-var score: int = 0
-
-
-func _ready():
-	Signals.increase_score.connect(on_increase_score)
-
-
-func on_increase_score(val: int):
-	score += val
-	score_updated.emit(score)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -44,10 +30,6 @@ func _on_mob_spawn_timer_timeout():
 	var mob = mob_spawner.spawn()
 	mob.picked_up.connect(_on_pickable_picked_up)
 
-#
-#func _on_wanted_screen_game_resumed():
-#	mob_spawn_timer.start()
-#	hud.show()
 
 func _on_main_menu_start_game():
 	if game_started:
@@ -59,7 +41,6 @@ func _on_main_menu_start_game():
 	mob_spawn_timer.start()
 
 
-
-
-
-
+func _on_level_01_level_complete():
+	get_tree().paused = true
+	print("level complete")

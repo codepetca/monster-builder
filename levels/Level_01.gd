@@ -2,6 +2,7 @@ extends CanvasLayer
 
 
 signal level_complete
+signal score_updated(score: int)
 
 
 @onready var mob_spawner = $MobSpawner
@@ -9,14 +10,15 @@ signal level_complete
 @onready var marker_right = $DetectorRight/Marker2D
 @onready var detector_top = $DetectorTop
 @onready var marker_top = $DetectorTop/Marker2D
+@onready var mob_spawn_timer = $MobSpawnTimer
 
 
 var target_monster: Monster
-var target_score: int
+var target_score: int = 20
 var score: int = 0
 
 
-func _process(delta):
+func _process(_delta):
 	if score >= target_score:
 		level_complete.emit()
 
@@ -26,15 +28,14 @@ func set_targets():
 	marker_right.add_child(target_monster)
 	detector_right.show()
 	
-	target_score = 100
-	
 	
 func _on_detector_right_body_entered(body):
 	if body is Monster:
 		if body.equals(target_monster):
-			Signals.increase_score.emit(10)
+			score += 10
 		else:
-			Signals.increase_score.emit(-5)
+			score -= 5
+		score_updated.emit(score)
 		body.dead()
 
 
