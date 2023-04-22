@@ -41,6 +41,16 @@ func _on_main_menu_start_game():
 	mob_spawn_timer.start()
 
 
+func _on_multiplayer_start_game():
+	if game_started:
+		return
+	game_started = true
+	
+	hud.show()
+	level_01.set_targets()
+	mob_spawn_timer.start()
+
+
 func _on_level_01_level_complete():
 	get_tree().paused = true
 	print("level complete")
