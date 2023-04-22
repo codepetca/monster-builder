@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://cy5puknoamp55"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g0ct0"]
+size = Vector2(53, 793)
+
+[node name="Detector" type="Area2D"]
+position = Vector2(1486, 400)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-55, 2.5)
+shape = SubResource("RectangleShape2D_g0ct0")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+modulate = Color(1, 1, 1, 0.356863)
+position = Vector2(-191, 0)

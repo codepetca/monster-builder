@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bwr4mfv4fcu4a"]
+[gd_scene load_steps=6 format=3 uid="uid://bwr4mfv4fcu4a"]
 
 [ext_resource type="Script" path="res://levels/Level_01.gd" id="1_4qlt7"]
 [ext_resource type="Script" path="res://levels/MobSpawner.gd" id="2_v612x"]
@@ -7,6 +7,9 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g0ct0"]
 size = Vector2(53, 793)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vvwx8"]
+size = Vector2(1472, 132)
 
 [node name="Level_01" type="CanvasLayer"]
 script = ExtResource("1_4qlt7")
@@ -24,16 +27,26 @@ curve = SubResource("Curve2D_asmhc")
 position = Vector2(0, 782.4)
 rotation = -1.5708
 
-[node name="Detector" type="Area2D" parent="."]
+[node name="DetectorRight" type="Area2D" parent="."]
 position = Vector2(1486, 400)
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Detector"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectorRight"]
 position = Vector2(-55, 2.5)
 shape = SubResource("RectangleShape2D_g0ct0")
 
-[node name="Marker2D" type="Marker2D" parent="Detector"]
+[node name="Marker2D" type="Marker2D" parent="DetectorRight"]
 modulate = Color(1, 1, 1, 0.356863)
 position = Vector2(-191, 0)
 
-[connection signal="body_entered" from="Detector" to="." method="_on_detector_body_entered"]
+[node name="DetectorTop" type="Area2D" parent="."]
+position = Vector2(724, -69)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectorTop"]
+shape = SubResource("RectangleShape2D_vvwx8")
+
+[node name="Marker2D" type="Marker2D" parent="DetectorTop"]
+
+[connection signal="body_entered" from="DetectorRight" to="." method="_on_detector_right_body_entered"]
+[connection signal="body_entered" from="DetectorTop" to="." method="_on_detector_top_body_entered"]

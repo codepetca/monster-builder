@@ -4,6 +4,7 @@ extends Pickable
 @onready var body: Sprite2D = $Body
 @onready var eye: Sprite2D = $Eye
 @onready var animation_player = $AnimationPlayer
+@onready var shadow = $Shadow
 
 var textures: Dictionary = {"body": Texture2D, "eye": Texture2D}
 var texture_filenames: Array[String]: get = _get_texture_filenames
@@ -49,11 +50,13 @@ func _process(delta):
 func action_on_pickup():
 	scale = scale * 1.2
 	animation_player.stop()
+	shadow.hide()
 
 
 func action_on_drop():
 	scale = scale/1.2
 	animation_player.play("idle")
+	shadow.show()
 
 
 func dead():
