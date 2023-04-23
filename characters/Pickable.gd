@@ -5,9 +5,9 @@ extends CharacterBody2D
 signal picked_up(pick_object: Pickable)
 
 
-# The default game interaction is to pick up a single item
-var selected = false
-var speed = 100
+var pickable := true
+var selected := false
+var speed := 100.0
 
 
 @onready var collision_shape_2d = $CollisionShape2D
@@ -52,7 +52,7 @@ func action_on_drop():
 
 
 func _input_event(_viewport, event, _shape_idx):
-	if event is InputEventScreenTouch and event.pressed:
+	if event is InputEventScreenTouch and event.pressed and pickable:
 		picked_up.emit(self)
 
 #func _input_event(_viewport, event, _shape_idx):
