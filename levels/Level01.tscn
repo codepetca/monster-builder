@@ -1,7 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://cdga34mnqnygc"]
+[gd_scene load_steps=9 format=3 uid="uid://cdga34mnqnygc"]
 
 [ext_resource type="Script" path="res://levels/MobSpawner.gd" id="1_1f354"]
-[ext_resource type="Script" path="res://levels/ChangeRoom.gd" id="2_e06ee"]
 [ext_resource type="Script" path="res://levels/Widget.gd" id="3_35lfv"]
 [ext_resource type="Texture2D" uid="uid://be8p5p3irsy70" path="res://assets/images/effects/blank.png" id="4_pgjij"]
 
@@ -11,8 +10,7 @@ script/source = "extends Level
 @onready var mob_spawner = $MobSpawner
 @onready var detector_right = $DetectorRight
 @onready var marker_right = $DetectorRight/Marker2D
-@onready var mob_spawn_timer = $MobSpawnTimer
-@onready var change_room = $ChangeRoom
+@onready var widget = $Widget as Widget
 
 
 var target_monster: Monster
@@ -39,12 +37,6 @@ func _on_detector_right_body_entered(body):
 			score -= 5
 		score_updated.emit(score)
 		body.dead()
-
-
-func _on_change_room_go_back(monster):
-	monster.position = Vector2(get_viewport().size.x / 2, 150)
-	add_child(monster)
-	monster.show()
 
 
 func _on_mob_detector_body_entered(body):
@@ -91,9 +83,6 @@ shape = SubResource("RectangleShape2D_g0ct0")
 [node name="Marker2D" type="Marker2D" parent="DetectorRight"]
 modulate = Color(1, 1, 1, 0.356863)
 position = Vector2(-191, 0)
-
-[node name="ChangeRoom" type="Node2D" parent="."]
-script = ExtResource("2_e06ee")
 
 [node name="Widget" type="Node2D" parent="."]
 position = Vector2(730, 400)
