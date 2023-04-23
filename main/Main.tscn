@@ -49,7 +49,7 @@ autoplay = true
 [node name="Level" type="CanvasLayer" parent="."]
 
 [connection signal="start_game" from="." to="." method="_on_start_game"]
-[connection signal="start_game" from="Screens/MainMenu" to="." method="_on_main_menu_start_game"]
+[connection signal="start_game" from="Screens/MainMenu" to="." method="_on_start_game"]
 [connection signal="game_resumed" from="Screens/WantedScreen" to="." method="_on_wanted_screen_game_resumed"]
 
 [editable path="HUD"]

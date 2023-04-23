@@ -1,0 +1,84 @@
+[gd_scene load_steps=6 format=3 uid="uid://cdga34mnqnygc"]
+
+[ext_resource type="Script" path="res://levels/MobSpawner.gd" id="1_1f354"]
+[ext_resource type="Script" path="res://levels/ChangeRoom.gd" id="2_e06ee"]
+
+[sub_resource type="GDScript" id="GDScript_nee6g"]
+script/source = "extends Level
+
+@onready var mob_spawner = $MobSpawner
+@onready var detector_right = $DetectorRight
+@onready var marker_right = $DetectorRight/Marker2D
+@onready var mob_spawn_timer = $MobSpawnTimer
+@onready var change_room = $ChangeRoom
+
+
+var target_monster: Monster
+var target_score: int = 20
+var score: int = 0
+
+
+func _process(_delta):
+	if score >= target_score:
+		level_complete.emit()
+
+
+func set_targets():
+	target_monster = mob_spawner.get_random()
+	marker_right.add_child(target_monster)
+	detector_right.show()
+
+
+func _on_detector_right_body_entered(body):
+	if body is Monster:
+		if body.equals(target_monster):
+			score += 10
+		else:
+			score -= 5
+		score_updated.emit(score)
+		body.dead()
+
+
+func _on_change_room_go_back(monster):
+	monster.position = Vector2(get_viewport().size.x / 2, 150)
+	add_child(monster)
+	monster.show()
+"
+
+[sub_resource type="Curve2D" id="Curve2D_asmhc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g0ct0"]
+size = Vector2(53, 793)
+
+[node name="Level01" type="Node2D"]
+script = SubResource("GDScript_nee6g")
+
+[node name="MobSpawnTimer" type="Timer" parent="."]
+
+[node name="MobSpawner" type="Node2D" parent="."]
+script = ExtResource("1_1f354")
+
+[node name="MobPath" type="Path2D" parent="MobSpawner"]
+scale = Vector2(1, 1.01227)
+curve = SubResource("Curve2D_asmhc")
+
+[node name="MobSpawnPoint" type="PathFollow2D" parent="MobSpawner/MobPath"]
+position = Vector2(0, 782.4)
+rotation = -1.5708
+
+[node name="DetectorRight" type="Area2D" parent="."]
+position = Vector2(1486, 400)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectorRight"]
+position = Vector2(-55, 2.5)
+shape = SubResource("RectangleShape2D_g0ct0")
+
+[node name="Marker2D" type="Marker2D" parent="DetectorRight"]
+modulate = Color(1, 1, 1, 0.356863)
+position = Vector2(-191, 0)
+
+[node name="ChangeRoom" type="Node2D" parent="."]
+script = ExtResource("2_e06ee")
+
+[connection signal="body_entered" from="DetectorRight" to="." method="_on_detector_right_body_entered"]
