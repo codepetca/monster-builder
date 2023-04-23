@@ -14,22 +14,15 @@ var mode: MOVE_MODE = MOVE_MODE.MOVE
 enum MOVE_MODE {MOVE, FROZEN}
 
 
-func _get_texture_filenames():
-	var filenames: Array[String] = []
-	for key in textures:
-		filenames.append(textures[key].resource_path)
-	return filenames
+func random_costume():
+	textures["body"] = G.all_textures["bodies"][randi_range(0,1)]#.pick_random()
+	textures["eye"] = G.all_textures["eyes"][randi_range(0,1)]#.pick_random()
+	update_appearance()
 
 
-func _get_id():
-	var string_id = ""
-	for key in textures:
-		string_id += textures[key].resource_path
-	return string_id
-
-
-func equals(monster: Monster) -> bool:	
-	return monster.id == id
+func update_appearance():
+	body.texture = textures["body"]
+	eye.texture = textures["eye"]
 
 
 # Called when the node enters the scene tree for the first time.
@@ -39,8 +32,7 @@ func _ready():
 	else:
 		velocity = Vector2.ZERO
 		animation_player.stop()
-	body.texture = textures["body"]
-	eye.texture = textures["eye"]
+	update_appearance()
 
 
 func _process(delta):
@@ -66,3 +58,20 @@ func dead():
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	dead()
 
+
+func _get_texture_filenames():
+	var filenames: Array[String] = []
+	for key in textures:
+		filenames.append(textures[key].resource_path)
+	return filenames
+
+
+func _get_id():
+	var string_id = ""
+	for key in textures:
+		string_id += textures[key].resource_path
+	return string_id
+
+
+func equals(monster: Monster) -> bool:	
+	return monster.id == id

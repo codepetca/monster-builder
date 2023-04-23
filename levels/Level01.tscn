@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cdga34mnqnygc"]
+[gd_scene load_steps=10 format=3 uid="uid://cdga34mnqnygc"]
 
 [ext_resource type="Script" path="res://levels/MobSpawner.gd" id="1_1f354"]
 [ext_resource type="Script" path="res://levels/ChangeRoom.gd" id="2_e06ee"]
+[ext_resource type="Script" path="res://levels/Widget.gd" id="3_35lfv"]
+[ext_resource type="Texture2D" uid="uid://be8p5p3irsy70" path="res://assets/images/effects/blank.png" id="4_pgjij"]
 
 [sub_resource type="GDScript" id="GDScript_nee6g"]
 script/source = "extends Level
@@ -43,12 +45,24 @@ func _on_change_room_go_back(monster):
 	monster.position = Vector2(get_viewport().size.x / 2, 150)
 	add_child(monster)
 	monster.show()
+
+
+func _on_mob_detector_body_entered(body):
+	if body is Monster:
+		body.random_costume()
+
 "
 
 [sub_resource type="Curve2D" id="Curve2D_asmhc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g0ct0"]
 size = Vector2(53, 793)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ektnh"]
+size = Vector2(304, 804)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ou8t"]
+size = Vector2(304, 803)
 
 [node name="Level01" type="Node2D"]
 script = SubResource("GDScript_nee6g")
@@ -81,4 +95,26 @@ position = Vector2(-191, 0)
 [node name="ChangeRoom" type="Node2D" parent="."]
 script = ExtResource("2_e06ee")
 
+[node name="Widget" type="Node2D" parent="."]
+position = Vector2(730, 400)
+script = ExtResource("3_35lfv")
+
+[node name="Sprite2D" type="Sprite2D" parent="Widget"]
+self_modulate = Color(0.145098, 0.258824, 0.564706, 0.317647)
+position = Vector2(1.99999, 1.50001)
+scale = Vector2(1.49, 2.71525)
+texture = ExtResource("4_pgjij")
+
+[node name="MobDetector" type="Area2D" parent="Widget"]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Widget/MobDetector"]
+shape = SubResource("RectangleShape2D_ektnh")
+
+[node name="TapDetector" type="Area2D" parent="Widget"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Widget/TapDetector"]
+shape = SubResource("RectangleShape2D_2ou8t")
+
 [connection signal="body_entered" from="DetectorRight" to="." method="_on_detector_right_body_entered"]
+[connection signal="body_entered" from="Widget/MobDetector" to="." method="_on_mob_detector_body_entered"]

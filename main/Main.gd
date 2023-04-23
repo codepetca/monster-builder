@@ -4,6 +4,7 @@ signal start_game
 
 @onready var level_container = $Level
 @onready var hud = $HUD
+@onready var main_menu = $Screens/MainMenu
 
 
 var held_object: Pickable = null
@@ -11,10 +12,6 @@ var game_started: bool = false
 var mob_spawn_timer: Timer
 var mob_spawner: MobSpawner
 var level: Level
-
-
-func _ready():
-	pass
 
 
 func load_level(Scene: PackedScene):
