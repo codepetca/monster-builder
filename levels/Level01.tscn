@@ -43,6 +43,9 @@ func _on_mob_detector_body_entered(body):
 	if body is Monster:
 		body.random_costume()
 
+
+
+
 "
 
 [sub_resource type="Curve2D" id="Curve2D_asmhc"]
@@ -50,11 +53,11 @@ func _on_mob_detector_body_entered(body):
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g0ct0"]
 size = Vector2(53, 793)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ektnh"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eenta"]
 size = Vector2(304, 804)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ou8t"]
-size = Vector2(304, 803)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gbogn"]
+size = Vector2(301, 801)
 
 [node name="Level01" type="Node2D"]
 script = SubResource("GDScript_nee6g")
@@ -84,8 +87,9 @@ shape = SubResource("RectangleShape2D_g0ct0")
 modulate = Color(1, 1, 1, 0.356863)
 position = Vector2(-191, 0)
 
-[node name="Widget" type="Node2D" parent="."]
-position = Vector2(730, 400)
+[node name="Widget" type="CharacterBody2D" parent="."]
+position = Vector2(745, 404)
+collision_mask = 3
 script = ExtResource("3_35lfv")
 
 [node name="Sprite2D" type="Sprite2D" parent="Widget"]
@@ -95,15 +99,17 @@ scale = Vector2(1.49, 2.71525)
 texture = ExtResource("4_pgjij")
 
 [node name="MobDetector" type="Area2D" parent="Widget"]
-collision_mask = 2
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Widget/MobDetector"]
-shape = SubResource("RectangleShape2D_ektnh")
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_eenta")
 
-[node name="TapDetector" type="Area2D" parent="Widget"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Widget/TapDetector"]
-shape = SubResource("RectangleShape2D_2ou8t")
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Widget"]
+position = Vector2(0.5, 1.5)
+shape = SubResource("RectangleShape2D_gbogn")
 
 [connection signal="body_entered" from="DetectorRight" to="." method="_on_detector_right_body_entered"]
+[connection signal="input_event" from="Widget" to="Widget" method="_on_input_event"]
 [connection signal="body_entered" from="Widget/MobDetector" to="." method="_on_mob_detector_body_entered"]
+[connection signal="input_event" from="Widget/MobDetector" to="Widget" method="_on_mob_detector_input_event"]

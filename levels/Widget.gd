@@ -1,7 +1,7 @@
 class_name Widget
 extends Node2D
 
-@onready var tap_detector = $TapDetector
+
 @onready var mob_detector = $MobDetector
 @onready var sprite_2d = $Sprite2D
 
@@ -24,6 +24,7 @@ func _update_appearance():
 	sprite_2d.self_modulate = _on_hex if _is_on else _off_hex
 
 
-func _input_event(_viewport, event, _shape_idx):
+
+func _on_mob_detector_input_event(viewport, event, shape_idx):
 	if event is InputEventScreenTouch and event.pressed:
-		pass
+		toggle()

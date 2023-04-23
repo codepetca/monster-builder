@@ -142,6 +142,7 @@ libraries = {
 shape = SubResource("CircleShape2D_spdmk")
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_fm6c4")
