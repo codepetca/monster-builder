@@ -1,63 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://1an3hknc44x8"]
+[gd_scene load_steps=8 format=3 uid="uid://xohycs6ja6pm"]
 
 [ext_resource type="Script" path="res://main/Main.gd" id="1_a2j7s"]
 [ext_resource type="Texture2D" uid="uid://dkxju7iwth8cj" path="res://assets/backgrounds/backgroundCastles.png" id="2_qrcy8"]
-[ext_resource type="Script" path="res://main/Multiplayer.gd" id="2_wgau5"]
 [ext_resource type="PackedScene" uid="uid://qm0ijd4iuc0l" path="res://ui/hud/Hud.tscn" id="3_tb74v"]
 [ext_resource type="PackedScene" uid="uid://cd2wqiybfpcmp" path="res://ui/screens/WantedScreen.tscn" id="4_7r7to"]
 [ext_resource type="Theme" uid="uid://bi3gnitxrp3im" path="res://assets/MainTheme.tres" id="4_mlnbl"]
 [ext_resource type="PackedScene" uid="uid://cwsc8ies13vru" path="res://ui/menu/MainMenu.tscn" id="5_j1wxe"]
-[ext_resource type="PackedScene" uid="uid://bwr4mfv4fcu4a" path="res://levels/Level_01.tscn" id="7_epife"]
 [ext_resource type="AudioStream" uid="uid://d1jditmbeqj8y" path="res://assets/sound/music/for-halloween.mp3" id="8_x7elk"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_a2j7s")
-
-[node name="Multiplayer" type="Node" parent="."]
-script = ExtResource("2_wgau5")
-
-[node name="UI" type="Control" parent="Multiplayer"]
-process_mode = 3
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Net" type="VBoxContainer" parent="Multiplayer/UI"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Options" type="HBoxContainer" parent="Multiplayer/UI/Net"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = ExtResource("4_mlnbl")
-alignment = 1
-
-[node name="Label" type="Label" parent="Multiplayer/UI/Net/Options"]
-layout_mode = 2
-text = "Choose"
-
-[node name="HostButton" type="Button" parent="Multiplayer/UI/Net/Options"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 70
-text = "Host"
-
-[node name="JoinButton" type="Button" parent="Multiplayer/UI/Net/Options"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 70
-text = "Join"
-
-[node name="Remote" type="LineEdit" parent="Multiplayer/UI/Net/Options"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 70
-text = "127.0.0.1"
 
 [node name="Background" type="CanvasLayer" parent="."]
 layer = -1
@@ -78,7 +30,6 @@ visible = false
 [node name="Screens" type="CanvasLayer" parent="."]
 
 [node name="MainMenu" parent="Screens" instance=ExtResource("5_j1wxe")]
-visible = false
 
 [node name="OptionsMenu" type="Control" parent="Screens"]
 visible = false
@@ -90,24 +41,15 @@ theme = ExtResource("4_mlnbl")
 visible = false
 theme = ExtResource("4_mlnbl")
 
-[node name="Level_01" parent="." instance=ExtResource("7_epife")]
-
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 process_mode = 3
 stream = ExtResource("8_x7elk")
 autoplay = true
 
+[node name="Level" type="CanvasLayer" parent="."]
+
 [connection signal="start_game" from="." to="." method="_on_start_game"]
-[connection signal="start_game" from="Multiplayer" to="." method="_on_multiplayer_start_game"]
-[connection signal="pressed" from="Multiplayer/UI/Net/Options/HostButton" to="Multiplayer" method="_on_host_button_pressed"]
-[connection signal="pressed" from="Multiplayer/UI/Net/Options/JoinButton" to="Multiplayer" method="_on_join_button_pressed"]
 [connection signal="start_game" from="Screens/MainMenu" to="." method="_on_main_menu_start_game"]
 [connection signal="game_resumed" from="Screens/WantedScreen" to="." method="_on_wanted_screen_game_resumed"]
-[connection signal="level_complete" from="Level_01" to="." method="_on_level_01_level_complete"]
-[connection signal="room_relocate" from="Level_01" to="Level_01/ChangeRoom" method="_on_level_01_room_relocate"]
-[connection signal="score_updated" from="Level_01" to="HUD" method="_on_level_01_score_updated"]
-[connection signal="timeout" from="Level_01/MobSpawnTimer" to="." method="_on_mob_spawn_timer_timeout"]
-[connection signal="go_back" from="Level_01/ChangeRoom" to="Level_01" method="_on_change_room_go_back"]
 
 [editable path="HUD"]
-[editable path="Level_01"]

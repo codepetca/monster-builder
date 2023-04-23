@@ -49,7 +49,6 @@ func get_random(mode:= Monster.MOVE_MODE.FROZEN) -> Monster:
 ## Set 'add' to false to create a monster but not add it to the node
 func spawn() -> Monster:
 	var mob = get_random(Monster.MOVE_MODE.MOVE)
-	
 	mob_spawn_point.progress_ratio = randf() * 2.0 / 3 + 1.0/6
 	mob.position = mob_spawn_point.position
 	mob.rotation = mob_spawn_point.rotation + rotation_variance

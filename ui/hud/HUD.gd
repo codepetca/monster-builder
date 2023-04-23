@@ -14,5 +14,5 @@ func _on_main_wanted_updated(monster: Monster):
 		v_box_container.add_child(texture_rect)
 
 
-func _on_level_01_score_updated(score: int):
+func _on_score_updated(score: int):
 	score_label.text = str(score)

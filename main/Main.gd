@@ -2,15 +2,35 @@ extends Node2D
 
 signal start_game
 
+@onready var level_container = $Level
 
-@onready var mob_spawn_timer = $Level_01/MobSpawnTimer
-@onready var mob_spawner = $Level_01/MobSpawner as MobSpawner
+#@onready var mob_spawn_timer = $Level/LevelBase/MobSpawnTimer
+#@onready var mob_spawner = $Level/LevelBase/MobSpawner as MobSpawner
 @onready var hud = $HUD
-@onready var level_01 = $Level_01
 
 
 var held_object: Pickable = null
 var game_started: bool = false
+var mob_spawn_timer: Timer
+var mob_spawner: MobSpawner
+var level: Level
+
+
+func _ready():
+	load_level(load("res://levels/LevelTemplate.tscn"))
+
+
+func load_level(Scene: PackedScene):
+	for child in level_container.get_children():
+		remove_child(child)
+		child.queue_free()
+	level = Scene.instantiate() as Level
+	level_container.add_child(level)
+	mob_spawner = level.get_node("MobSpawner")
+	mob_spawn_timer= level.get_node("MobSpawnTimer") as Timer
+	mob_spawn_timer.timeout.connect(_on_mob_spawn_timer_timeout)
+	level.score_updated.connect(hud._on_score_updated)
+	level.level_complete.connect(_on_level_01_level_complete)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -35,9 +55,9 @@ func _on_main_menu_start_game():
 	if game_started:
 		return
 	game_started = true
-	
+
 	hud.show()
-	level_01.set_targets()
+	level.set_targets()
 	mob_spawn_timer.start()
 
 
@@ -47,8 +67,9 @@ func _on_multiplayer_start_game():
 	game_started = true
 	
 	hud.show()
-	level_01.set_targets()
-	mob_spawn_timer.start()
+	if multiplayer.is_server():
+		level.set_targets()
+		mob_spawn_timer.start()
 
 
 func _on_level_01_level_complete():

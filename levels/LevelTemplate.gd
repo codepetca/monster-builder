@@ -1,17 +1,8 @@
-extends CanvasLayer
-
-
-signal level_complete
-signal score_updated(score: int)
-
-signal room_relocate(monster)
-
+extends Level
 
 @onready var mob_spawner = $MobSpawner
 @onready var detector_right = $DetectorRight
 @onready var marker_right = $DetectorRight/Marker2D
-@onready var detector_top = $DetectorTop
-@onready var marker_top = $DetectorTop/Marker2D
 @onready var mob_spawn_timer = $MobSpawnTimer
 @onready var change_room = $ChangeRoom
 
@@ -40,13 +31,6 @@ func _on_detector_right_body_entered(body):
 			score -= 5
 		score_updated.emit(score)
 		body.dead()
-
-
-func _on_detector_top_body_entered(body):
-	if body is Monster:
-		var mob = body.duplicate()
-		room_relocate.emit(mob)
-		body.queue_free()
 
 
 func _on_change_room_go_back(monster):
