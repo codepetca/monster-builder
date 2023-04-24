@@ -25,6 +25,6 @@ func _update_widget():
 	sprite_2d.self_modulate = _on_color if is_on else _off_color
 
 
-func _on_toggle_detector_input_event(viewport, event, shape_idx):
+func _on_toggle_detector_input_event(_viewport, event, _shape_idx):
 	if event is InputEventScreenTouch and event.pressed:
 		toggle()

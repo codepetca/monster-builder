@@ -7,7 +7,6 @@ signal picked_up(pick_object: Pickable)
 
 var pickable := true
 var selected := false
-var speed := 100.0
 
 
 @onready var collision_shape_2d = $CollisionShape2D

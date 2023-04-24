@@ -13,7 +13,15 @@ var texture_filenames: Array[String]: get = _get_texture_filenames
 var id: String: get = _get_id
 var mode: MOVE_MODE = MOVE_MODE.MOVE
 
+const BASE_VELOCITY := Vector2(150.0, 0)
+var normal_velocity: Vector2
+
+
 enum MOVE_MODE {MOVE, FROZEN}
+
+
+func _init():
+	normal_velocity = BASE_VELOCITY + Vector2(randf_range(0, 300), 0)
 
 
 func random_costume():
@@ -24,6 +32,7 @@ func random_costume():
 
 	update_appearance()
 	animation_player.play("change_costume")
+#	animation_player_2.play("transition")
 
 
 func update_appearance():
@@ -39,7 +48,7 @@ func _on_animation_player_animation_finished(anim_name):
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if mode == MOVE_MODE.MOVE:
-		velocity = Vector2(speed + randf_range(0, 300), 0)
+		velocity = normal_velocity
 	else:
 		velocity = Vector2.ZERO
 		animation_player.stop()
