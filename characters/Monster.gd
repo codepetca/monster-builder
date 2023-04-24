@@ -1,12 +1,14 @@
 class_name Monster
 extends Pickable
 
-@onready var body: Sprite2D = $Body
-@onready var eye: Sprite2D = $Eye
 @onready var animation_player = $AnimationPlayer
-@onready var shadow = $Shadow
+@onready var shadow = $Sprites/Shadow
+@onready var body = $Sprites/Body
+@onready var eye = $Sprites/Eye
+@onready var body_old = $Sprites/BodyOld
+@onready var eye_old = $Sprites/EyeOld
 
-var textures: Dictionary = {"body": Texture2D, "eye": Texture2D}
+var costume: Dictionary = {"body": Texture2D, "eye": Texture2D}
 var texture_filenames: Array[String]: get = _get_texture_filenames
 var id: String: get = _get_id
 var mode: MOVE_MODE = MOVE_MODE.MOVE
@@ -15,14 +17,18 @@ enum MOVE_MODE {MOVE, FROZEN}
 
 
 func random_costume():
-	textures["body"] = G.all_textures["bodies"][randi_range(0,1)]#.pick_random()
-	textures["eye"] = G.all_textures["eyes"][randi_range(0,1)]#.pick_random()
+#	body_old.texture = costume.body
+#	eye_old.texture = costume.eye
+	costume.body = G.all_textures["bodies"][randi_range(0,1)]#.pick_random()
+	costume.eye = G.all_textures["eyes"][randi_range(0,1)]#.pick_random()
+
 	update_appearance()
+#	animation_player.play("change_costume")
 
 
 func update_appearance():
-	body.texture = textures["body"]
-	eye.texture = textures["eye"]
+	body.texture = costume.body
+	eye.texture = costume.body
 
 
 # Called when the node enters the scene tree for the first time.
@@ -61,15 +67,15 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 
 func _get_texture_filenames():
 	var filenames: Array[String] = []
-	for key in textures:
-		filenames.append(textures[key].resource_path)
+	for key in costume:
+		filenames.append(costume[key].resource_path)
 	return filenames
 
 
 func _get_id():
 	var string_id = ""
-	for key in textures:
-		string_id += textures[key].resource_path
+	for key in costume:
+		string_id += costume[key].resource_path
 	return string_id
 
 
