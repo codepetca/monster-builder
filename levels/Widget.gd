@@ -8,8 +8,8 @@ extends Node2D
 
 
 var is_on: bool = true
-var _on_hex := "9db8f351"
-var _off_hex := "25429051"
+var _on_color := "9db8f351"
+var _off_color := "25429051"
 
 
 func _ready():
@@ -22,7 +22,7 @@ func toggle():
 
 
 func _update_widget():
-	sprite_2d.self_modulate = _on_hex if is_on else _off_hex
+	sprite_2d.self_modulate = _on_color if is_on else _off_color
 
 
 func _on_toggle_detector_input_event(viewport, event, shape_idx):

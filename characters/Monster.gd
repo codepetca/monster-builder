@@ -17,18 +17,23 @@ enum MOVE_MODE {MOVE, FROZEN}
 
 
 func random_costume():
-#	body_old.texture = costume.body
-#	eye_old.texture = costume.eye
-	costume.body = G.all_textures["bodies"][randi_range(0,1)]#.pick_random()
-	costume.eye = G.all_textures["eyes"][randi_range(0,1)]#.pick_random()
+	body_old.texture = costume.body
+	eye_old.texture = costume.eye
+	costume.body = G.all_textures.bodies[randi_range(0,1)]#.pick_random()
+	costume.eye = G.all_textures.eyes[randi_range(0,1)]#.pick_random()
 
 	update_appearance()
-#	animation_player.play("change_costume")
+	animation_player.play("change_costume")
 
 
 func update_appearance():
 	body.texture = costume.body
-	eye.texture = costume.body
+	eye.texture = costume.eye
+
+
+func _on_animation_player_animation_finished(anim_name):
+	if anim_name == "change_costume":
+		animation_player.play("idle")
 
 
 # Called when the node enters the scene tree for the first time.
@@ -81,3 +86,5 @@ func _get_id():
 
 func equals(monster: Monster) -> bool:	
 	return monster.id == id
+
+

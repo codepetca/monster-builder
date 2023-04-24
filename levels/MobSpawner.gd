@@ -35,7 +35,6 @@ func _set_spawn_path(direction: String = "full"):
 		curve.add_point(point)
 
 
-
 func get_random(mode:= Monster.MOVE_MODE.FROZEN) -> Monster:
 	var mob = _Monster.instantiate() as Monster
 	mob.costume["body"] = G.all_textures["bodies"][randi_range(0,1)]
