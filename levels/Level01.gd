@@ -32,8 +32,3 @@ func _on_detector_right_body_entered(body):
 		score_updated.emit(score)
 		body.dead()
 
-
-func _on_change_room_go_back(monster):
-	monster.position = Vector2(get_viewport().size.x / 2, 150)
-	add_child(monster)
-	monster.show()
