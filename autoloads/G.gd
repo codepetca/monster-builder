@@ -1,21 +1,22 @@
 extends Node
 
-var all_textures: Dictionary = {"bodies":[], "eyes":[]}
+var all_textures: Dictionary
 
 
 func _ready():
-	load_textures_to_dict(all_textures)
+	load_textures_to_dict(all_textures, "body")
+	load_textures_to_dict(all_textures, "eye")
 
 
 # Load PNG files
-func load_textures_to_dict(dict: Dictionary):
+func load_textures_to_dict(dict: Dictionary, begins_with: String):
 	var path = "res://assets/images/monster/"
 	var filenames: Array[String] = dir_contents(path)
+	if not all_textures.has(begins_with):
+		all_textures[begins_with] = []
 	for file in filenames:
-		if file.begins_with("body"):
-			dict["bodies"].append(load(path + file))
-		if file.begins_with("eye"):
-			dict["eyes"].append(load(path + file))
+		if file.begins_with(begins_with):
+			dict[begins_with].append(load(path + file))
 
 
 func dir_contents(path) -> Array[String]:	

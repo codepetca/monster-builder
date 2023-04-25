@@ -37,8 +37,8 @@ func _set_spawn_path(direction: String = "full"):
 
 func get_random(mode:= Monster.MOVE_MODE.FROZEN) -> Monster:
 	var mob = _Monster.instantiate() as Monster
-	mob.costume["body"] = G.all_textures["bodies"][randi_range(0,1)]
-	mob.costume["eye"] = G.all_textures["eyes"][randi_range(0,1)]
+	mob.costume["body"] = G.all_textures["body"][randi_range(0,1)]
+	mob.costume["eye"] = G.all_textures["eye"][randi_range(0,1)]
 	mob.mode = mode
 	return mob
 

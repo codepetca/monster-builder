@@ -23,15 +23,15 @@ var normal_velocity: Vector2
 enum MOVE_MODE {MOVE, FROZEN}
 
 
-func fix_costume():
+func set_costume():
 	pass
 
 
 func random_costume():
 	body_old.texture = costume.body
 	eye_old.texture = costume.eye
-	costume.body = G.all_textures.bodies[randi_range(0,1)]
-	costume.eye = G.all_textures.eyes[randi_range(0,1)]
+	costume.body = G.all_textures.body[randi_range(0,1)]
+	costume.eye = G.all_textures.eye[randi_range(0,1)]
 
 	update_appearance()
 	animation_player.play("change_costume")
