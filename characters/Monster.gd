@@ -4,43 +4,37 @@ extends Pickable
 
 @onready var animation_player = $AnimationPlayer
 @onready var shadow = $Sprites/Shadow
-@onready var body = $Sprites/Body
-@onready var eye = $Sprites/Eye
+@onready var body_sprite = $Sprites/Body
+@onready var eye_sprite = $Sprites/Eye
 @onready var body_old = $Sprites/BodyOld
 @onready var eye_old = $Sprites/EyeOld
 
-var costume: Dictionary = {"body": Texture2D, "eye": Texture2D}
-var target_costume: Dictionary = {"body": Texture2D, "eye": Texture2D}
-
-var texture_filenames: Array[String]: get = _get_texture_filenames
-var id: String: get = _get_id
-var mode: MOVE_MODE = MOVE_MODE.MOVE
+enum MOVE_MODE {MOVE, FROZEN}
 
 const BASE_VELOCITY := Vector2(150.0, 0)
+
+var costume: Costume
+var target_costume: Costume
+# monster id is same as its costume id
+var id: String:
+	get: return costume.id
+
+var mode: MOVE_MODE = MOVE_MODE.MOVE
 var normal_velocity: Vector2
 
 
-enum MOVE_MODE {MOVE, FROZEN}
-
-
-func set_costume():
-	pass
-
-
-func random_costume():
-	body_old.texture = costume.body
-	eye_old.texture = costume.eye
-	costume.body = G.all_costumes.body[randi_range(0,1)]
-	costume.eye = G.all_costumes.eye[randi_range(0,1)]
-
+func change_costume():
+	if costume:
+		body_old.texture = costume.body_texture
+		eye_old.texture = costume.eye_texture
+	costume.change_outfit()
 	update_appearance()
 	animation_player.play("change_costume")
-#	animation_player_2.play("transition")
 
 
 func update_appearance():
-	body.texture = costume.body
-	eye.texture = costume.eye
+	body_sprite.texture = costume.body_texture
+	eye_sprite.texture = costume.eye_texture
 
 
 func _on_animation_player_animation_finished(anim_name):
@@ -48,8 +42,8 @@ func _on_animation_player_animation_finished(anim_name):
 		animation_player.play("idle")
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
+	costume = Costume.new()
 	normal_velocity = BASE_VELOCITY + Vector2(randf_range(0, 300), 0)	
 	if mode == MOVE_MODE.MOVE:
 		velocity = normal_velocity
@@ -79,20 +73,6 @@ func dead():
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	dead()
-
-
-func _get_texture_filenames():
-	var filenames: Array[String] = []
-	for key in costume:
-		filenames.append(costume[key].resource_path)
-	return filenames
-
-
-func _get_id():
-	var string_id = ""
-	for key in costume:
-		string_id += costume[key].resource_path
-	return string_id
 
 
 func equals(monster: Monster) -> bool:	

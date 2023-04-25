@@ -39,12 +39,12 @@ func _on_detector_right_body_entered(body):
 		body.dead()
 
 
-func _on_mob_detector_body_entered(body):
-	if body is Monster:
-		body.pickable = false
+func _on_mob_detector_body_entered(mob):
+	if mob is Monster:
+		mob.pickable = false
 		if widget.is_on:
-			body.velocity = body.BASE_VELOCITY
-			body.random_costume()
+			mob.velocity = mob.BASE_VELOCITY
+			mob.change_costume()
 
 
 func _on_mob_detector_body_exited(body):
