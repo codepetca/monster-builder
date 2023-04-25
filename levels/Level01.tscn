@@ -1,64 +1,9 @@
 [gd_scene load_steps=10 format=3 uid="uid://cdga34mnqnygc"]
 
 [ext_resource type="Script" path="res://levels/MobSpawner.gd" id="1_1f354"]
+[ext_resource type="Script" path="res://levels/Level01.gd" id="1_fj8ac"]
 [ext_resource type="Script" path="res://levels/Widget.gd" id="3_35lfv"]
 [ext_resource type="Texture2D" uid="uid://be8p5p3irsy70" path="res://assets/images/effects/blank.png" id="4_pgjij"]
-
-[sub_resource type="GDScript" id="GDScript_nee6g"]
-script/source = "extends Level
-
-@onready var mob_spawner = $MobSpawner
-@onready var detector_right = $DetectorRight
-@onready var marker_right = $DetectorRight/Marker2D
-@onready var widget = $Widget as Widget
-
-
-var target_monster: Monster
-var target_score: int = 200
-var score: int = 0
-
-
-func _process(_delta):
-	if score >= target_score:
-		level_complete.emit()
-
-
-func set_targets():
-	target_monster = mob_spawner.get_random()
-	marker_right.add_child(target_monster)
-	detector_right.show()
-
-
-func _on_detector_right_body_entered(mob):
-	if mob is Monster:
-		if mob.costume.equals(target_monster.costume):
-			score += 10
-		else:
-			score -= 5
-		score_updated.emit(score)
-		mob.dead()
-
-
-func _on_mob_detector_body_entered(mob):
-	if mob is Monster:
-		mob.pickable = false
-		# Don't detect a mob that is already picked up
-		if mob.selected: 
-			return
-		
-		if widget.is_on:
-			mob.velocity = mob.BASE_VELOCITY
-			if mob.costume.equals(target_monster.costume):
-				mob.change_costume()
-			else:
-				mob.change_costume(target_monster.costume)
-
-
-func _on_mob_detector_body_exited(body):
-	if body is Monster:
-		body.pickable = true
-		body.velocity = body.normal_velocity
-"
 
 [sub_resource type="Curve2D" id="Curve2D_asmhc"]
 
@@ -75,7 +20,7 @@ size = Vector2(190, 804)
 size = Vector2(297, 812)
 
 [node name="Level01" type="Node2D"]
-script = SubResource("GDScript_nee6g")
+script = ExtResource("1_fj8ac")
 
 [node name="MobSpawnTimer" type="Timer" parent="."]
 wait_time = 3.0
