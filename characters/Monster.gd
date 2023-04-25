@@ -30,8 +30,8 @@ func set_costume():
 func random_costume():
 	body_old.texture = costume.body
 	eye_old.texture = costume.eye
-	costume.body = G.all_textures.body[randi_range(0,1)]
-	costume.eye = G.all_textures.eye[randi_range(0,1)]
+	costume.body = G.all_costumes.body[randi_range(0,1)]
+	costume.eye = G.all_costumes.eye[randi_range(0,1)]
 
 	update_appearance()
 	animation_player.play("change_costume")
