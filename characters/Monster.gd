@@ -15,8 +15,6 @@ const BASE_VELOCITY := Vector2(150.0, 0)
 
 var costume: Costume
 var target_costume: Costume
-var id: String:  # monster id is same as its costume id
-	get: return costume.id
 
 var mode: MOVE_MODE = MOVE_MODE.MOVE
 var normal_velocity: Vector2
@@ -80,11 +78,5 @@ func _on_animation_player_animation_finished(anim_name):
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	dead()
-
-
-## HELPER ##
-
-func equals(monster: Monster) -> bool:	
-	return monster.id == id
 
 

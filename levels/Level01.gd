@@ -23,12 +23,12 @@ func set_targets():
 	detector_right.show()
 
 
-func _on_detector_right_body_entered(body):
-	if body is Monster:
-		if body.equals(target_monster):
+func _on_detector_right_body_entered(mob):
+	if mob is Monster:
+		if mob.costume.equals(target_monster.costume):
 			score += 10
 		else:
 			score -= 5
 		score_updated.emit(score)
-		body.dead()
+		mob.dead()
 

@@ -7,14 +7,17 @@ var body_texture: Texture2D:
 	get: return outfit.body
 var eye_texture: Texture2D:
 	get: return outfit.eye
+
 # Concatenation of texture filenames
 var id: String:
 	get:
-		# concatenate all filenames together
-		var arr_string: String = ""
+		# Add all texture filenames to array, sort it, then
+		# concatenate it
+		var arr: Array[String] = []
 		for key in outfit:
-			arr_string += outfit[key].resource_path
-		return arr_string
+			arr.append(outfit[key].resource_path)
+		arr.sort()
+		return arr.reduce(func(a, str): return a + str)
 
 
 func _init(costume: Costume = null):

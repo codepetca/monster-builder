@@ -14,7 +14,7 @@ script/source = "extends Level
 
 
 var target_monster: Monster
-var target_score: int = 20
+var target_score: int = 200
 var score: int = 0
 
 
@@ -29,14 +29,14 @@ func set_targets():
 	detector_right.show()
 
 
-func _on_detector_right_body_entered(body):
-	if body is Monster:
-		if body.equals(target_monster):
+func _on_detector_right_body_entered(mob):
+	if mob is Monster:
+		if mob.costume.equals(target_monster.costume):
 			score += 10
 		else:
 			score -= 5
 		score_updated.emit(score)
-		body.dead()
+		mob.dead()
 
 
 func _on_mob_detector_body_entered(mob):
@@ -48,7 +48,10 @@ func _on_mob_detector_body_entered(mob):
 		
 		if widget.is_on:
 			mob.velocity = mob.BASE_VELOCITY
-			mob.change_costume(target_monster.costume)
+			if mob.costume.equals(target_monster.costume):
+				mob.change_costume()
+			else:
+				mob.change_costume(target_monster.costume)
 
 
 func _on_mob_detector_body_exited(body):
@@ -75,6 +78,7 @@ size = Vector2(297, 812)
 script = SubResource("GDScript_nee6g")
 
 [node name="MobSpawnTimer" type="Timer" parent="."]
+wait_time = 3.0
 
 [node name="MobSpawner" type="Node2D" parent="."]
 script = ExtResource("1_1f354")
