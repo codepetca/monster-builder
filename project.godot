@@ -40,6 +40,12 @@ ui_accept={
 
 pointing/emulate_touch_from_mouse=true
 
+[layer_names]
+
+2d_physics/layer_1="World"
+2d_physics/layer_2="Monsters"
+2d_physics/layer_3="Pickedup"
+
 [rendering]
 
 renderer/rendering_method="mobile"

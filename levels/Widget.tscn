@@ -11,6 +11,7 @@ size = Vector2(304, 804)
 
 [node name="Widget" type="CharacterBody2D"]
 position = Vector2(730, 400)
+collision_mask = 2
 script = ExtResource("1_yxplq")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

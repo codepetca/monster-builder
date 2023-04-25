@@ -42,9 +42,13 @@ func _on_detector_right_body_entered(body):
 func _on_mob_detector_body_entered(mob):
 	if mob is Monster:
 		mob.pickable = false
+		# Don't detect a mob that is already picked up
+		if mob.selected: 
+			return
+		
 		if widget.is_on:
 			mob.velocity = mob.BASE_VELOCITY
-			mob.change_costume()
+			mob.change_costume(target_monster.costume)
 
 
 func _on_mob_detector_body_exited(body):

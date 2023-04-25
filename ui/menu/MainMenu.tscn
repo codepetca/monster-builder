@@ -45,7 +45,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 120
-text = "Monster sleuth"
+text = "Monster Match"
 horizontal_alignment = 1
 
 [node name="SubtitleLabel" type="Label" parent="CenterContainer/VBoxContainer"]

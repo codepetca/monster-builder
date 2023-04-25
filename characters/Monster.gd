@@ -15,31 +15,11 @@ const BASE_VELOCITY := Vector2(150.0, 0)
 
 var costume: Costume
 var target_costume: Costume
-# monster id is same as its costume id
-var id: String:
+var id: String:  # monster id is same as its costume id
 	get: return costume.id
 
 var mode: MOVE_MODE = MOVE_MODE.MOVE
 var normal_velocity: Vector2
-
-
-func change_costume():
-	if costume:
-		body_old.texture = costume.body_texture
-		eye_old.texture = costume.eye_texture
-	costume.change_outfit()
-	update_appearance()
-	animation_player.play("change_costume")
-
-
-func update_appearance():
-	body_sprite.texture = costume.body_texture
-	eye_sprite.texture = costume.eye_texture
-
-
-func _on_animation_player_animation_finished(anim_name):
-	if anim_name == "change_costume":
-		animation_player.play("idle")
 
 
 func _ready():
@@ -53,6 +33,26 @@ func _ready():
 	update_appearance()
 
 
+## Change to a new costume or random if new_costume is null
+func change_costume(new_costume: Costume = null):
+	if costume:
+		body_old.texture = costume.body_texture
+		eye_old.texture = costume.eye_texture
+	if new_costume:
+		costume = new_costume
+	else:
+		costume.change_outfit()
+	update_appearance()
+	animation_player.play("change_costume")
+
+
+func update_appearance():
+	body_sprite.texture = costume.body_texture
+	eye_sprite.texture = costume.eye_texture
+
+
+## ACTIONS ##
+
 func _process(delta):
 	position += velocity.rotated(rotation) * delta
 
@@ -60,20 +60,29 @@ func _process(delta):
 func action_on_pickup():
 	scale = scale * 1.2
 	animation_player.stop()
+#	collision_layer = 3
 
 
 func action_on_drop():
 	scale = scale/1.2
 	animation_player.play("idle")
+#	collision_layer = 2
 
 
 func dead():
 	animation_player.play("dead")
 
 
+func _on_animation_player_animation_finished(anim_name):
+	if anim_name == "change_costume":
+		animation_player.play("idle")
+
+
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	dead()
 
+
+## HELPER ##
 
 func equals(monster: Monster) -> bool:	
 	return monster.id == id

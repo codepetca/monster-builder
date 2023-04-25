@@ -278,6 +278,7 @@ shape = SubResource("CircleShape2D_spdmk")
 visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
 shape = SubResource("CircleShape2D_fm6c4")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
