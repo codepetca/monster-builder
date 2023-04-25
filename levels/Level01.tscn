@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cdga34mnqnygc"]
+[gd_scene load_steps=10 format=3 uid="uid://dr3mhft65q4hw"]
 
 [ext_resource type="Script" path="res://levels/MobSpawner.gd" id="1_1f354"]
 [ext_resource type="Script" path="res://levels/Level01.gd" id="1_fj8ac"]
@@ -23,7 +23,6 @@ size = Vector2(297, 812)
 script = ExtResource("1_fj8ac")
 
 [node name="MobSpawnTimer" type="Timer" parent="."]
-wait_time = 3.0
 
 [node name="MobSpawner" type="Node2D" parent="."]
 script = ExtResource("1_1f354")

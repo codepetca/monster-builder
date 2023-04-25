@@ -17,7 +17,7 @@ var id: String:
 		for key in outfit:
 			arr.append(outfit[key].resource_path)
 		arr.sort()
-		return arr.reduce(func(a, str): return a + str)
+		return arr.reduce(func(a, element): return a + element)
 
 
 func _init(costume: Costume = null):
@@ -31,7 +31,10 @@ func equals(other: Costume):
 	return self.id == other.id
 
 
-func change_outfit():
-	outfit.body = G.all_costumes.body[randi_range(0,1)]
-	outfit.eye = G.all_costumes.eye[randi_range(0,1)]
+func change_outfit(costume: Costume = null):
+	if costume and not costume.outfit == null:
+		outfit = costume.outfit.duplicate()
+	else:
+		outfit.body = G.all_costumes.body[randi_range(0,1)]
+		outfit.eye = G.all_costumes.eye[randi_range(0,1)]
 

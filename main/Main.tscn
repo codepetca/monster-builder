@@ -41,7 +41,7 @@ theme = ExtResource("4_mlnbl")
 visible = false
 theme = ExtResource("4_mlnbl")
 
-[node name="Level" type="CanvasLayer" parent="."]
+[node name="Level" type="Node2D" parent="."]
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 process_mode = 3

@@ -12,7 +12,10 @@ var game_started: bool = false
 var mob_spawn_timer: Timer
 var mob_spawner: MobSpawner
 var level: Level
-
+var levels: Array[PackedScene] = [
+	preload("res://levels/Level01.tscn"),
+	preload("res://levels/Level01.tscn")
+]
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -33,29 +36,35 @@ func _on_mob_spawn_timer_timeout():
 	mob.picked_up.connect(_on_pickable_picked_up)
 
 
-func _on_level_complete():
-	get_tree().paused = true
-	print("level complete")
-
-
-func load_level(Scene: PackedScene):
-	for child in level_container.get_children():
-		remove_child(child)
-		child.queue_free()
-	level = Scene.instantiate() as Level
-	level_container.add_child(level)
-	mob_spawner = level.get_node("MobSpawner")
+func load_level(LevelScene: PackedScene):
+	level = LevelScene.instantiate() as Level
+	level_container.add_child(level, true)
+	mob_spawner = level.get_node("MobSpawner") as MobSpawner
 	mob_spawn_timer= level.get_node("MobSpawnTimer") as Timer
 	mob_spawn_timer.timeout.connect(_on_mob_spawn_timer_timeout)
 	level.score_updated.connect(hud._on_score_updated)
 	level.level_complete.connect(_on_level_complete)
+	mob_spawn_timer.start()
+
+
+func delete_level():
+	level_container.remove_child(level)
+	level.queue_free()
 
 
 func _on_start_game():
 	if game_started:
 		return
 	game_started = true
-	load_level(load("res://levels/Level01.tscn"))
 	hud.show()
-	level.set_targets()
-	mob_spawn_timer.start()
+	
+	load_level(levels[0])
+
+
+func _on_level_complete():
+	get_tree().paused = true
+	print("level complete")
+	delete_level()
+	await get_tree().create_timer(2).timeout
+	load_level(levels[1])
+	get_tree().paused = false

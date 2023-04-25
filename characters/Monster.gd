@@ -14,7 +14,6 @@ enum MOVE_MODE {MOVE, FROZEN}
 const BASE_VELOCITY := Vector2(150.0, 0)
 
 var costume: Costume
-var target_costume: Costume
 
 var mode: MOVE_MODE = MOVE_MODE.MOVE
 var normal_velocity: Vector2
@@ -36,10 +35,9 @@ func change_costume(new_costume: Costume = null):
 	if costume:
 		body_old.texture = costume.body_texture
 		eye_old.texture = costume.eye_texture
-	if new_costume:
-		costume = new_costume
-	else:
-		costume.change_outfit()
+	
+	costume.change_outfit(new_costume)
+	
 	update_appearance()
 	animation_player.play("change_costume")
 
