@@ -1,8 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://dr3mhft65q4hw"]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://levels/MobSpawner.gd" id="1_1f354"]
 [ext_resource type="Script" path="res://levels/Level01.gd" id="1_fj8ac"]
-[ext_resource type="Script" path="res://levels/Widget.gd" id="3_35lfv"]
+[ext_resource type="Script" path="res://widgets/Widget.gd" id="3_35lfv"]
 [ext_resource type="Texture2D" uid="uid://be8p5p3irsy70" path="res://assets/images/effects/blank.png" id="4_pgjij"]
 
 [sub_resource type="Curve2D" id="Curve2D_asmhc"]

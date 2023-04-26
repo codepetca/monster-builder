@@ -15,6 +15,7 @@ func _ready():
 	mob_spawner = $MobSpawner as MobSpawner
 	mob_spawn_timer.timeout.connect(_on_mob_spawn_timer_timeout)
 	Signals.score_updated.emit(score)
+	widget.widget_action.connect(_on_widget_widget_action)
 
 
 func start():
@@ -39,22 +40,10 @@ func _on_detector_right_body_entered(mob):
 		mob.dead()
 
 
-func _on_mob_detector_body_entered(mob):
-	if mob is Monster:
-		mob.pickable = false
-		# Don't detect a mob that is already picked up
-		if mob.selected: 
-			return
-		
-		if widget.is_on:
-			mob.velocity = mob.BASE_VELOCITY
-			if mob.costume.equals(target_monster.costume):
-				mob.change_costume()
-			else:
-				mob.change_costume(target_monster.costume)
+func _on_widget_widget_action(mob: Monster, action: Widget.ACTION):
+	if action == Widget.ACTION.change_costume:
+		if mob.costume.equals(target_monster.costume):
+			mob.change_costume()
+		else:
+			mob.change_costume(target_monster.costume)
 
-
-func _on_mob_detector_body_exited(body):
-	if body is Monster:
-		body.pickable = true
-		body.velocity = body.normal_velocity

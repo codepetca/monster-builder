@@ -1,23 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://c7n23dbqxyj8u"]
+[gd_scene load_steps=6 format=3 uid="uid://c7n23dbqxyj8u"]
 
 [ext_resource type="Script" path="res://levels/Level00.gd" id="1_q5y33"]
 [ext_resource type="Script" path="res://levels/MobSpawner.gd" id="2_agcgo"]
-[ext_resource type="Script" path="res://levels/Widget.gd" id="3_ugfpn"]
-[ext_resource type="Texture2D" uid="uid://be8p5p3irsy70" path="res://assets/images/effects/blank.png" id="4_g5ltt"]
+[ext_resource type="PackedScene" uid="uid://4vpsemw53hye" path="res://widgets/Widget.tscn" id="3_xkpuq"]
 
 [sub_resource type="Curve2D" id="Curve2D_asmhc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g0ct0"]
 size = Vector2(53, 793)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gbogn"]
-size = Vector2(179, 811)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_eenta"]
-size = Vector2(120, 804)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dqob8"]
-size = Vector2(209, 815)
 
 [node name="Level00" type="Node2D"]
 script = ExtResource("1_q5y33")
@@ -47,36 +37,6 @@ shape = SubResource("RectangleShape2D_g0ct0")
 modulate = Color(1, 1, 1, 0.356863)
 position = Vector2(-191, 0)
 
-[node name="Widget" type="CharacterBody2D" parent="."]
-position = Vector2(745, 404)
-collision_mask = 3
-script = ExtResource("3_ugfpn")
-
-[node name="WidgetCollisionShape" type="CollisionShape2D" parent="Widget"]
-visible = false
-position = Vector2(-16.5, -3.5)
-shape = SubResource("RectangleShape2D_gbogn")
-
-[node name="Sprite2D" type="Sprite2D" parent="Widget"]
-self_modulate = Color(0.145098, 0.258824, 0.564706, 0.317647)
-position = Vector2(-5.50001, 1.50001)
-scale = Vector2(1.115, 2.71525)
-texture = ExtResource("4_g5ltt")
-
-[node name="MobDetector" type="Area2D" parent="Widget"]
-collision_mask = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Widget/MobDetector"]
-position = Vector2(-11, -4)
-shape = SubResource("RectangleShape2D_eenta")
-
-[node name="ToggleDetector" type="Area2D" parent="Widget"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Widget/ToggleDetector"]
-position = Vector2(-3.5, -2.5)
-shape = SubResource("RectangleShape2D_dqob8")
+[node name="Widget" parent="." instance=ExtResource("3_xkpuq")]
 
 [connection signal="body_entered" from="DetectorRight" to="." method="_on_detector_right_body_entered"]
-[connection signal="body_entered" from="Widget/MobDetector" to="." method="_on_mob_detector_body_entered"]
-[connection signal="body_exited" from="Widget/MobDetector" to="." method="_on_mob_detector_body_exited"]
-[connection signal="input_event" from="Widget/ToggleDetector" to="Widget" method="_on_toggle_detector_input_event"]
