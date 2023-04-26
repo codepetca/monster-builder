@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://xohycs6ja6pm"]
+[gd_scene load_steps=6 format=3 uid="uid://xohycs6ja6pm"]
 
 [ext_resource type="Script" path="res://main/Main.gd" id="1_a2j7s"]
 [ext_resource type="Texture2D" uid="uid://dkxju7iwth8cj" path="res://assets/backgrounds/backgroundCastles.png" id="2_qrcy8"]
 [ext_resource type="PackedScene" uid="uid://qm0ijd4iuc0l" path="res://ui/hud/Hud.tscn" id="3_tb74v"]
-[ext_resource type="Theme" uid="uid://bi3gnitxrp3im" path="res://assets/MainTheme.tres" id="4_mlnbl"]
 [ext_resource type="PackedScene" uid="uid://cwsc8ies13vru" path="res://ui/menu/MainMenu.tscn" id="5_j1wxe"]
 [ext_resource type="AudioStream" uid="uid://d1jditmbeqj8y" path="res://assets/sound/music/for-halloween.mp3" id="8_x7elk"]
 
@@ -26,15 +25,10 @@ expand_mode = 1
 [node name="HUD" parent="." instance=ExtResource("3_tb74v")]
 visible = false
 
-[node name="Screens" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="."]
 
-[node name="MainMenu" parent="Screens" instance=ExtResource("5_j1wxe")]
-
-[node name="OptionsMenu" type="Control" parent="Screens"]
-visible = false
-layout_mode = 3
-anchors_preset = 0
-theme = ExtResource("4_mlnbl")
+[node name="MainMenu" parent="UI" instance=ExtResource("5_j1wxe")]
+process_mode = 3
 
 [node name="Level" type="Node2D" parent="."]
 
@@ -44,6 +38,6 @@ stream = ExtResource("8_x7elk")
 autoplay = true
 
 [connection signal="start_game" from="." to="." method="_on_start_game"]
-[connection signal="start_game" from="Screens/MainMenu" to="." method="_on_start_game"]
+[connection signal="start_game" from="UI/MainMenu" to="." method="_on_start_game"]
 
 [editable path="HUD"]

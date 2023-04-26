@@ -1,4 +1,3 @@
-class_name MainMenu
 extends Control
 
 signal start_game
@@ -6,14 +5,15 @@ signal start_game
 
 @onready var texture_rect = $TextureRect
 @onready var title_label = $CenterContainer/VBoxContainer/TitleLabel
-@onready var subtitle_label = $CenterContainer/VBoxContainer/SubtitleLabel
+@onready var play_label = $CenterContainer/VBoxContainer/PlayLabel
+@onready var options_label = $CenterContainer/VBoxContainer/OptionsLabel
 
 
 func show_message(text: String, delay: int = 2):
 	texture_rect.text = text
 	await get_tree().create_timer(delay).timeout
 	title_label.text = ""
-	subtitle_label.text = ""
+	play_label.text = ""
 
 
 func _input(event):
