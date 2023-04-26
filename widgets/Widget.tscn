@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://4vpsemw53hye"]
+[gd_scene load_steps=7 format=3 uid="uid://4vpsemw53hye"]
 
 [ext_resource type="Script" path="res://widgets/Widget.gd" id="1_gvx7l"]
 [ext_resource type="Texture2D" uid="uid://be8p5p3irsy70" path="res://assets/images/effects/blank.png" id="2_3xbyt"]
+[ext_resource type="Script" path="res://widgets/Portal.gd" id="3_3puy5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gbogn"]
 size = Vector2(179, 811)
@@ -40,6 +41,9 @@ shape = SubResource("RectangleShape2D_eenta")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ToggleDetector"]
 position = Vector2(-3.5, -2.5)
 shape = SubResource("RectangleShape2D_dqob8")
+
+[node name="Portal" type="Node" parent="."]
+script = ExtResource("3_3puy5")
 
 [connection signal="body_entered" from="MobDetector" to="." method="_on_mob_detector_body_entered"]
 [connection signal="body_exited" from="MobDetector" to="." method="_on_mob_detector_body_exited"]

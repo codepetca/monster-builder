@@ -1,9 +1,9 @@
 extends Level
 
-@onready var detector_right = $DetectorRight as Area2D
-@onready var marker_right = $DetectorRight/Marker2D as Marker2D
 @onready var widget = $Widget as Widget
 @onready var mob_spawn_timer = $MobSpawnTimer as Timer
+@onready var exit = $Exit as Area2D
+@onready var marker_2d = $Exit/Marker2D as Marker2D
 
 
 var target_monster: Monster
@@ -20,8 +20,8 @@ func _ready():
 
 func start():
 	target_monster = mob_spawner.get_random()
-	marker_right.add_child(target_monster)
-	detector_right.show()
+	marker_2d.add_child(target_monster)
+	exit.show()
 	mob_spawn_timer.start()
 
 
@@ -41,9 +41,13 @@ func _on_detector_right_body_entered(mob):
 
 
 func _on_widget_widget_action(mob: Monster, action: Widget.ACTION):
-	if action == Widget.ACTION.change_costume:
-		if mob.costume.equals(target_monster.costume):
-			mob.change_costume()
-		else:
-			mob.change_costume(target_monster.costume)
+	match action:
+		Widget.ACTION.change_costume:
+			if mob.costume.equals(target_monster.costume):
+				mob.change_costume()
+			else:
+				mob.change_costume(target_monster.costume)
+		Widget.ACTION.teleport:
+			pass
+	
 

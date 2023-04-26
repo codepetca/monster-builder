@@ -1,12 +1,18 @@
-extends Node
+extends Screen
 
-signal start_game
+
+@onready var ui = $UI
+@onready var label = $UI/Options/Label
+@onready var host_button = $UI/Options/HostButton
+@onready var join_button = $UI/Options/JoinButton
+@onready var remote = $UI/Options/Remote
 
 const PORT = 4433
 
+
 func _ready():
 	# Start paused.
-	get_tree().paused = true
+	#	get_tree().paused = true
 	# You can save bandwidth by disabling server relay and peer notifications.
 	multiplayer.server_relay = false
 
@@ -25,13 +31,14 @@ func _on_host_button_pressed():
 		OS.alert("Failed to start multiplayer server.")
 		return
 	multiplayer.multiplayer_peer = peer
+	multiplayer.peer_connected.connect(func(x): print(x))
 	start()
 
 
 func _on_join_button_pressed():
 	print("joining")
 	# Start as client.
-	var txt : String = $UI/Net/Options/Remote.text
+	var txt : String = remote.text
 	if txt == "":
 		OS.alert("Need a remote to connect to.")
 		return
@@ -41,11 +48,11 @@ func _on_join_button_pressed():
 		OS.alert("Failed to start multiplayer client.")
 		return
 	multiplayer.multiplayer_peer = peer
+	multiplayer.peer_connected.connect(func(x): print(x))
 	start()
 
 
 func start():
-	# Hide the UI and unpause to start the game.
-	$UI.hide()
-	start_game.emit()
+	ui.hide()
+	Signals.start_game.emit()
 	get_tree().paused = false

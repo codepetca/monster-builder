@@ -23,7 +23,7 @@ var levels: Array[PackedScene] = [
 func _ready():
 	Signals.start_game.connect(_on_start_game)
 	Signals.pop_screen.connect(_on_level_complete_pop_screen)
-	
+	Signals.push_screen.connect(_on_push_screen)
 	var main_menu = MainMenu.instantiate()
 	ui.add_child(main_menu)
 
@@ -48,6 +48,12 @@ func _on_start_game():
 	game_started = true
 	load_level(levels[0])
 	hud.show()
+
+
+func _on_push_screen(screen: Screen):
+	print("screen pushed")
+	ui.add_child(screen)
+	screen.show()
 
 
 func _on_level_complete(score: int):

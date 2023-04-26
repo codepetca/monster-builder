@@ -6,9 +6,13 @@ extends Screen
 @onready var play = $CenterContainer/VBoxContainer/Play
 @onready var options = $CenterContainer/VBoxContainer/Options
 
+var Multiplayer := preload("res://multiplayer/Multiplayer.tscn")
+
 
 func _on_play_pressed():
-	Signals.start_game.emit()
+#	Signals.start_game.emit()
+	print("play pressed")
+	Signals.push_screen.emit(Multiplayer.instantiate())
 	queue_free()
 
 

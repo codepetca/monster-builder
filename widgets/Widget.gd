@@ -8,6 +8,7 @@ enum ACTION { change_costume, teleport }
 @onready var mob_detector = $MobDetector
 @onready var sprite_2d = $Sprite2D
 @onready var collision_shape_2d = $MobDetector/CollisionShape2D
+@onready var portal = $Portal
 
 var action: ACTION = ACTION.change_costume
 var is_toggleable := false
@@ -32,11 +33,11 @@ func _update_widget():
 func _on_toggle_detector_input_event(_viewport, event, _shape_idx):
 	if event is InputEventScreenTouch and event.pressed and is_toggleable:
 		toggle()
-		
 
 
 func _on_mob_detector_body_entered(mob):
 	if mob is Monster:
+		portal.send(mob)
 		mob.pickable = false
 		# Don't detect a mob that is already picked up
 		if mob.selected: 
@@ -51,3 +52,5 @@ func _on_mob_detector_body_exited(mob):
 		mob.pickable = true
 		mob.velocity = mob.normal_velocity
 #		widget_action.emit(mob, ACTION.exited)
+
+

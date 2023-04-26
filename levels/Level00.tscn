@@ -25,18 +25,18 @@ curve = SubResource("Curve2D_asmhc")
 position = Vector2(0, 782.4)
 rotation = -1.5708
 
-[node name="DetectorRight" type="Area2D" parent="."]
+[node name="Exit" type="Area2D" parent="."]
 position = Vector2(1486, 400)
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectorRight"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Exit"]
 position = Vector2(-55, 2.5)
 shape = SubResource("RectangleShape2D_g0ct0")
 
-[node name="Marker2D" type="Marker2D" parent="DetectorRight"]
+[node name="Marker2D" type="Marker2D" parent="Exit"]
 modulate = Color(1, 1, 1, 0.356863)
 position = Vector2(-191, 0)
 
 [node name="Widget" parent="." instance=ExtResource("3_xkpuq")]
 
-[connection signal="body_entered" from="DetectorRight" to="." method="_on_detector_right_body_entered"]
+[connection signal="body_entered" from="Exit" to="." method="_on_detector_right_body_entered"]
