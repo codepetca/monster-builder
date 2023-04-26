@@ -1,7 +1,6 @@
 extends Screen
 
 
-@onready var ui = $UI
 @onready var label = $UI/Options/Label
 @onready var host_button = $UI/Options/HostButton
 @onready var join_button = $UI/Options/JoinButton
@@ -53,6 +52,6 @@ func _on_join_button_pressed():
 
 
 func start():
-	ui.hide()
+	hide()
 	Signals.start_game.emit()
-	get_tree().paused = false
+#	get_tree().paused = false

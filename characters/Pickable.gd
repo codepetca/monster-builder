@@ -54,8 +54,4 @@ func _input_event(_viewport, event, _shape_idx):
 	if event is InputEventScreenTouch and event.pressed and pickable:
 		picked_up.emit(self)
 
-#func _input_event(_viewport, event, _shape_idx):
-#	if event is InputEventScreenTouch and event.pressed:
-#		emit_signal("picked_up", self)
-
 

@@ -9,10 +9,9 @@ extends Screen
 var Multiplayer := preload("res://multiplayer/Multiplayer.tscn")
 
 
-func _on_play_pressed():
-#	Signals.start_game.emit()
-	print("play pressed")
+func _on_play_pressed():	
 	Signals.push_screen.emit(Multiplayer.instantiate())
+#	Signals.start_game.emit()
 	queue_free()
 
 

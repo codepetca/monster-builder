@@ -51,7 +51,6 @@ func _on_start_game():
 
 
 func _on_push_screen(screen: Screen):
-	print("screen pushed")
 	ui.add_child(screen)
 	screen.show()
 
