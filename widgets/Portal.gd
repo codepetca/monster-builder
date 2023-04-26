@@ -1,14 +1,22 @@
 extends Node
 
 
-var to_id := 1
+var portal_peer := 1
+
+
+func _ready():
+	Signals.set_portal_peer.connect(_on_set_portal_peer)
+
+
+func _on_set_portal_peer(id: int):
+	portal_peer = id
 
 
 func send(costume_id: String):
-	receive.rpc_id(1, var_to_str(costume_id))
+	receive.rpc_id(portal_peer, costume_id)
 
 
-@rpc("any_peer", "call_local")
+@rpc("any_peer")
 func receive(costume_id: String):
-	print("received from: " + str(multiplayer.get_remote_sender_id()))
-	print(costume_id)
+	if not multiplayer.get_remote_sender_id() == multiplayer.get_unique_id():
+		print("received from: " + str(multiplayer.get_remote_sender_id()) + ": " + costume_id)

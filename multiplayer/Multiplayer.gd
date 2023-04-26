@@ -1,6 +1,7 @@
 extends Screen
 
 
+
 @onready var label = $UI/Options/Label
 @onready var host_button = $UI/Options/HostButton
 @onready var join_button = $UI/Options/JoinButton
@@ -19,6 +20,8 @@ func _ready():
 	if DisplayServer.get_name() == "headless":
 		print("Automatically starting dedicated server.")
 		_on_host_button_pressed.call_deferred()
+	
+	multiplayer.peer_connected.connect(_on_peer_connected)
 
 
 func _on_host_button_pressed():
@@ -30,7 +33,6 @@ func _on_host_button_pressed():
 		OS.alert("Failed to start multiplayer server.")
 		return
 	multiplayer.multiplayer_peer = peer
-	multiplayer.peer_connected.connect(func(x): print(x))
 	start()
 
 
@@ -47,11 +49,16 @@ func _on_join_button_pressed():
 		OS.alert("Failed to start multiplayer client.")
 		return
 	multiplayer.multiplayer_peer = peer
-	multiplayer.peer_connected.connect(func(x): print(x))
 	start()
 
 
 func start():
 	hide()
+
 	Signals.start_game.emit()
 #	get_tree().paused = false
+
+
+func _on_peer_connected(id: int):
+	print(id)
+	Signals.set_portal_peer.emit(id)
