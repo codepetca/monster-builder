@@ -1,9 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://dr3mhft65q4hw"]
+[gd_scene load_steps=10 format=3 uid="uid://sng3vt58o0s8"]
 
-[ext_resource type="Script" path="res://levels/MobSpawner.gd" id="1_1f354"]
-[ext_resource type="Script" path="res://levels/Level01.gd" id="1_fj8ac"]
-[ext_resource type="Script" path="res://levels/Widget.gd" id="3_35lfv"]
-[ext_resource type="Texture2D" uid="uid://be8p5p3irsy70" path="res://assets/images/effects/blank.png" id="4_pgjij"]
+[ext_resource type="Script" path="res://levels/Level02.gd" id="1_t4ih3"]
+[ext_resource type="Script" path="res://levels/MobSpawner.gd" id="2_ucma8"]
+[ext_resource type="Script" path="res://levels/Widget.gd" id="3_hjgq5"]
+[ext_resource type="Texture2D" uid="uid://be8p5p3irsy70" path="res://assets/images/effects/blank.png" id="4_ybkw1"]
 
 [sub_resource type="Curve2D" id="Curve2D_asmhc"]
 
@@ -19,13 +19,13 @@ size = Vector2(120, 804)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dqob8"]
 size = Vector2(209, 815)
 
-[node name="Level01" type="Node2D"]
-script = ExtResource("1_fj8ac")
+[node name="Level02" type="Node2D"]
+script = ExtResource("1_t4ih3")
 
 [node name="MobSpawnTimer" type="Timer" parent="."]
 
 [node name="MobSpawner" type="Node2D" parent="."]
-script = ExtResource("1_1f354")
+script = ExtResource("2_ucma8")
 
 [node name="MobPath" type="Path2D" parent="MobSpawner"]
 scale = Vector2(1, 1.01227)
@@ -50,7 +50,7 @@ position = Vector2(-191, 0)
 [node name="Widget" type="CharacterBody2D" parent="."]
 position = Vector2(745, 404)
 collision_mask = 3
-script = ExtResource("3_35lfv")
+script = ExtResource("3_hjgq5")
 
 [node name="WidgetCollisionShape" type="CollisionShape2D" parent="Widget"]
 visible = false
@@ -61,7 +61,7 @@ shape = SubResource("RectangleShape2D_gbogn")
 self_modulate = Color(0.145098, 0.258824, 0.564706, 0.317647)
 position = Vector2(-5.50001, 1.50001)
 scale = Vector2(1.115, 2.71525)
-texture = ExtResource("4_pgjij")
+texture = ExtResource("4_ybkw1")
 
 [node name="MobDetector" type="Area2D" parent="Widget"]
 collision_mask = 3

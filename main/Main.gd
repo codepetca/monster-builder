@@ -13,8 +13,9 @@ var mob_spawn_timer: Timer
 var mob_spawner: MobSpawner
 var level: Level
 var levels: Array[PackedScene] = [
+	preload("res://levels/Level00.tscn"),
 	preload("res://levels/Level01.tscn"),
-	preload("res://levels/Level01.tscn")
+	preload("res://levels/Level02.tscn")
 ]
 
 
@@ -37,6 +38,9 @@ func _on_mob_spawn_timer_timeout():
 
 
 func load_level(LevelScene: PackedScene):
+	if level:
+		level_container.remove_child(level)
+		level.queue_free()
 	level = LevelScene.instantiate() as Level
 	level_container.add_child(level, true)
 	mob_spawner = level.get_node("MobSpawner") as MobSpawner
@@ -47,24 +51,18 @@ func load_level(LevelScene: PackedScene):
 	mob_spawn_timer.start()
 
 
-func delete_level():
-	level_container.remove_child(level)
-	level.queue_free()
-
-
 func _on_start_game():
 	if game_started:
 		return
 	game_started = true
 	hud.show()
-	
-	load_level(levels[0])
+	load_level(levels[1])
 
 
 func _on_level_complete():
 	get_tree().paused = true
 	print("level complete")
-	delete_level()
 	await get_tree().create_timer(2).timeout
+	
 	load_level(levels[1])
 	get_tree().paused = false
