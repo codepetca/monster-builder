@@ -1,9 +1,9 @@
 extends Level
 
-@onready var mob_spawner = $MobSpawner as MobSpawner
 @onready var detector_right = $DetectorRight as Area2D
 @onready var marker_right = $DetectorRight/Marker2D as Marker2D
 @onready var widget = $Widget as Widget
+@onready var mob_spawn_timer = $MobSpawnTimer as Timer
 
 
 var target_monster: Monster
@@ -12,19 +12,21 @@ var score: int = 0
 
 
 func _ready():
-	set_targets()
+	mob_spawner = $MobSpawner as MobSpawner
+	mob_spawn_timer.timeout.connect(_on_mob_spawn_timer_timeout)
+
+
+func start():
+	target_monster = mob_spawner.get_random()
+	marker_right.add_child(target_monster)
+	detector_right.show()
+	target_score = score + 100
+	mob_spawn_timer.start()
 
 
 func _process(_delta):
 	if score >= target_score:
 		level_complete.emit()
-
-
-func set_targets():
-	target_monster = mob_spawner.get_random()
-	marker_right.add_child(target_monster)
-	detector_right.show()
-	target_score = score + 100
 
 
 func _on_detector_right_body_entered(mob):
