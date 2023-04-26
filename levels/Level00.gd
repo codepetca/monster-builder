@@ -14,6 +14,7 @@ var score: int = 0
 func _ready():
 	mob_spawner = $MobSpawner as MobSpawner
 	mob_spawn_timer.timeout.connect(_on_mob_spawn_timer_timeout)
+	Signals.score_updated.emit(score)
 
 
 func start():

@@ -5,11 +5,10 @@ signal start_game
 @onready var level_container = $Level
 @onready var hud = $HUD
 @onready var ui = $UI
-@onready var main_menu = $UI/MainMenu
 
 
-var LevelComplete := preload("res://ui/screens/LevelCompleteScreen.tscn")
-var MainMenu := preload("res://ui/menu/MainMenu.tscn")
+var LevelComplete := preload("res://ui/screens/LevelComplete.tscn")
+var MainMenu := preload("res://ui/screens/MainMenu.tscn")
 
 var game_started: bool = false
 var level: Level
@@ -19,6 +18,14 @@ var levels: Array[PackedScene] = [
 	preload("res://levels/Level01.tscn"),
 	preload("res://levels/Level02.tscn")
 ]
+
+
+func _ready():
+	Signals.start_game.connect(_on_start_game)
+	Signals.pop_screen.connect(_on_level_complete_pop_screen)
+	
+	var main_menu = MainMenu.instantiate()
+	ui.add_child(main_menu)
 
 
 func load_level(LevelScene: PackedScene):
@@ -39,8 +46,8 @@ func _on_start_game():
 	if game_started:
 		return
 	game_started = true
-	hud.show()
 	load_level(levels[0])
+	hud.show()
 
 
 func _on_level_complete(score: int):
@@ -49,8 +56,6 @@ func _on_level_complete(score: int):
 	var screen = LevelComplete.instantiate()
 	screen.score = score
 	ui.add_child(screen)
-	
-	Signals.pop_screen.connect(_on_level_complete_pop_screen)
 
 
 func _on_level_complete_pop_screen():

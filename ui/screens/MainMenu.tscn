@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cwsc8ies13vru"]
+[gd_scene load_steps=5 format=3 uid="uid://bc67b0aqt8m2"]
 
-[ext_resource type="Script" path="res://ui/menu/MainMenu.gd" id="1_8cg8k"]
-[ext_resource type="Theme" uid="uid://bi3gnitxrp3im" path="res://assets/MainTheme.tres" id="1_28wjb"]
+[ext_resource type="Theme" uid="uid://bi3gnitxrp3im" path="res://assets/MainTheme.tres" id="1_k867x"]
+[ext_resource type="Script" path="res://ui/screens/MainMenu.gd" id="2_3gmur"]
 
 [sub_resource type="Gradient" id="Gradient_c7gwg"]
 colors = PackedColorArray(0.227451, 0.52549, 1, 1, 0.513726, 0.219608, 0.92549, 1)
@@ -18,8 +18,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_28wjb")
-script = ExtResource("1_8cg8k")
+theme = ExtResource("1_k867x")
+script = ExtResource("2_3gmur")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -48,12 +48,13 @@ theme_override_font_sizes/font_size = 120
 text = "Monstas"
 horizontal_alignment = 1
 
-[node name="PlayLabel" type="Label" parent="CenterContainer/VBoxContainer"]
+[node name="Play" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
 text = "Play"
 
-[node name="OptionsLabel" type="Label" parent="CenterContainer/VBoxContainer"]
+[node name="Options" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 text = "Options"
-horizontal_alignment = 1
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]

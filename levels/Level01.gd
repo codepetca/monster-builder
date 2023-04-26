@@ -7,26 +7,26 @@ extends Level
 
 
 var target_monster: Monster
-var target_score: int
+var target_score: int = 20
 var score: int = 0
 
 
 func _ready():
 	mob_spawner = $MobSpawner as MobSpawner
 	mob_spawn_timer.timeout.connect(_on_mob_spawn_timer_timeout)
+	Signals.score_updated.emit(score)
 
 
 func start():
 	target_monster = mob_spawner.get_random()
 	marker_right.add_child(target_monster)
 	detector_right.show()
-	target_score = score + 100
 	mob_spawn_timer.start()
 
 
 func _process(_delta):
 	if score >= target_score:
-		level_complete.emit()
+		level_complete.emit(score)
 
 
 func _on_detector_right_body_entered(mob):

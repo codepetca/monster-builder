@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cf12rkuih5os6"]
+[gd_scene load_steps=3 format=3 uid="uid://4mcviq14kupq"]
 
-[ext_resource type="Script" path="res://ui/screens/LevelCompleteScreen.gd" id="1_cs31g"]
-[ext_resource type="Theme" uid="uid://bi3gnitxrp3im" path="res://assets/MainTheme.tres" id="1_dsvio"]
+[ext_resource type="Theme" uid="uid://bi3gnitxrp3im" path="res://assets/MainTheme.tres" id="1_yb0yy"]
+[ext_resource type="Script" path="res://ui/screens/LevelComplete.gd" id="2_dxowt"]
 
 [node name="LevelComplete" type="Control"]
 process_mode = 3
@@ -11,8 +11,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_dsvio")
-script = ExtResource("1_cs31g")
+theme = ExtResource("1_yb0yy")
+script = ExtResource("2_dxowt")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1

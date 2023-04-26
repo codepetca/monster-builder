@@ -5,6 +5,10 @@ extends CanvasLayer
 @onready var v_box_container = $Panel/VBoxContainer
 
 
+func _ready():
+	Signals.score_updated.connect(_on_score_updated)
+
+
 func _on_main_wanted_updated(monster: Monster):
 	for texture_filename in monster.texture_filenames:
 		var texture_rect = TextureRect.new()

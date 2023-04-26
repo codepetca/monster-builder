@@ -1,4 +1,4 @@
-extends Control
+extends Screen
 
 
 @onready var score_label = $CenterContainer/VBoxContainer/ScoreLabel
