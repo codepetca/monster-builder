@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bdcm6lidcs4g5"]
+[gd_scene load_steps=12 format=3 uid="uid://bdcm6lidcs4g5"]
 
 [ext_resource type="Script" path="res://characters/Monster.gd" id="1_adnb3"]
 [ext_resource type="Texture2D" uid="uid://blr78wafarinw" path="res://assets/images/effects/shadow.png" id="2_1cbr1"]
@@ -228,14 +228,6 @@ radius = 180.278
 [sub_resource type="CircleShape2D" id="CircleShape2D_fm6c4"]
 radius = 131.498
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_cx6av"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/sync = true
-properties/1/path = NodePath(".:rotation")
-properties/1/spawn = true
-properties/1/sync = true
-
 [node name="Monster" type="CharacterBody2D"]
 scale = Vector2(0.5, 0.5)
 collision_layer = 2
@@ -280,9 +272,6 @@ visible = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 visible = false
 shape = SubResource("CircleShape2D_fm6c4")
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_cx6av")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

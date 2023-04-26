@@ -9,15 +9,18 @@ var eye_texture: Texture2D:
 	get: return outfit.eye
 
 # Concatenation of texture filenames
-var id: String:
-	get:
-		# Add all texture filenames to array, sort it, then
-		# concatenate it
-		var arr: Array[String] = []
-		for key in outfit:
-			arr.append(outfit[key].resource_path)
-		arr.sort()
-		return arr.reduce(func(a, element): return a + element)
+var id: String
+
+
+# Create an id for this costume by concatenating its texture filenames
+func _create_id() -> String:
+	var arr: Array[String] = []
+	for key in outfit:
+		var parts = outfit[key].resource_path.split("/")
+		var filename = parts[parts.size() - 1]
+		arr.append(filename)
+	arr.sort()
+	return ",".join(arr)
 
 
 func _init(costume: Costume = null):
@@ -25,6 +28,7 @@ func _init(costume: Costume = null):
 		outfit = costume.outfit
 	else:
 		change_outfit()
+	id = _create_id()
 
 
 func equals(other: Costume):

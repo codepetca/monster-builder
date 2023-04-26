@@ -37,7 +37,7 @@ func _on_toggle_detector_input_event(_viewport, event, _shape_idx):
 
 func _on_mob_detector_body_entered(mob):
 	if mob is Monster:
-		portal.send(mob)
+		portal.send(mob.costume.id)
 		mob.pickable = false
 		# Don't detect a mob that is already picked up
 		if mob.selected: 
