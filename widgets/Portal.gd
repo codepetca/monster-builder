@@ -12,11 +12,11 @@ func _on_set_portal_peer(id: int):
 	portal_peer = id
 
 
-func send(costume_id: String):
-	receive.rpc_id(portal_peer, costume_id)
+func send(costume_json: String):
+	receive.rpc_id(portal_peer, costume_json)
 
 
-@rpc("any_peer")
-func receive(costume_id: String):
-	if not multiplayer.get_remote_sender_id() == multiplayer.get_unique_id():
-		print("received from: " + str(multiplayer.get_remote_sender_id()) + ": " + costume_id)
+@rpc("any_peer", "call_local")
+func receive(costume_json: String):
+	print("received from: " + str(multiplayer.get_remote_sender_id()) + ": " + costume_json)
+	Signals.portal_spawn.emit(costume_json)

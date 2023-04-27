@@ -2,6 +2,7 @@ extends Node
 
 # Network
 signal set_portal_peer(peer: int)
+signal portal_spawn(costume_id: String)
 
 # HUD
 signal score_updated(score: int)

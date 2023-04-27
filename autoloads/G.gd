@@ -1,25 +1,54 @@
 extends Node
 
+const IMAGES_PATH := "res://assets/images/monster/"
+
 ## Load all costume resources into memory
 var all_costumes: Dictionary
+var categories: Array[String] = ["body", "eye"]
+
 
 func _ready():
-	load_textures_to_dict(all_costumes, "body")
-	load_textures_to_dict(all_costumes, "eye")
+	_load_textures(all_costumes, categories)
 
 
-# Load PNG files
-func load_textures_to_dict(dict: Dictionary, begins_with: String):
-	var path = "res://assets/images/monster/"
-	var filenames: Array[String] = dir_contents(path)
-	if not all_costumes.has(begins_with):
-		all_costumes[begins_with] = []
-	for file in filenames:
-		if file.begins_with(begins_with):
-			dict[begins_with].append(load(path + file))
+## Load all filenames in the path into a dictionary of the format:
+##	{
+##		"body": [
+##			{
+##				"name": "BodyA.png",
+##				"texture": Texture2D
+##			},
+##			{
+##				"name": "BodyB.png",
+##				"texture": Texture2D
+##			}
+##		],
+##		"eye": {
+##			...
+##		}
+##	}
+func _load_textures(dict: Dictionary, categories: Array[String]):
+	var filenames: Array[String] = dir_contents(IMAGES_PATH)
+	for category in categories:
+		if not dict.has(category):
+			dict[category] = []
+		for filename in filenames:
+			if filename.begins_with(category):
+				var image_data = { "name": filename, "texture": load(IMAGES_PATH + filename) }
+				dict[category].append(image_data)
 
 
-func dir_contents(path) -> Array[String]:	
+## Load PNG files
+#func load_textures_to_dict(dict: Dictionary, begins_with: String):
+#	var filenames: Array[String] = dir_contents(IMAGES_PATH)
+#	if not dict.has(begins_with):
+#		dict[begins_with] = []
+#	for file in filenames:
+#		if file.begins_with(begins_with):
+#			dict[begins_with].append(load(IMAGES_PATH + file))
+
+
+func dir_contents(path: String) -> Array[String]:	
 	var files: Array[String] = []
 	var dir = DirAccess.open(path)
 	if dir:
