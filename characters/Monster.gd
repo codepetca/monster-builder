@@ -13,31 +13,35 @@ enum MOVE_MODE {MOVE, FROZEN}
 
 const BASE_VELOCITY := Vector2(150.0, 0)
 
-var costume: Costume
+var costume: Costume :
+	set(new_costume):
+		costume = new_costume
+		if is_inside_tree():
+			update_appearance()
+
 
 var mode: MOVE_MODE = MOVE_MODE.MOVE
 var normal_velocity: Vector2
 
 
 func _ready():
-	costume = Costume.new()
 	normal_velocity = BASE_VELOCITY + Vector2(randf_range(0, 300), 0)	
 	if mode == MOVE_MODE.MOVE:
 		velocity = normal_velocity
 	else:
 		velocity = Vector2.ZERO
 		animation_player.stop()
+	if not costume:
+		costume = Costume.new()
 	update_appearance()
 
 
 ## Change to a new costume or random if new_costume is null
-func change_costume(new_costume: Costume = null):
+func change_costume_animated(new_costume: Costume = null):
 	if costume:
 		body_old.texture = costume.body_texture
 		eye_old.texture = costume.eye_texture
-	
 	costume.change_outfit(new_costume)
-	
 	update_appearance()
 	animation_player.play("change_costume")
 

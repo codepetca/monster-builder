@@ -15,6 +15,7 @@ func _ready():
 	mob_spawner = $MobSpawner as MobSpawner
 	mob_spawn_timer.timeout.connect(_on_mob_spawn_timer_timeout)
 	Signals.score_updated.emit(score)
+	Signals.portal_spawn.connect(_on_portal_spawn)
 	widget.widget_action.connect(_on_widget_widget_action)
 
 
@@ -44,10 +45,13 @@ func _on_widget_widget_action(mob: Monster, action: Widget.ACTION):
 	match action:
 		Widget.ACTION.change_costume:
 			if mob.costume.equals(target_monster.costume):
-				mob.change_costume()
+				mob.change_costume_animated()
 			else:
-				mob.change_costume(target_monster.costume)
+				mob.change_costume_animated(target_monster.costume)
 		Widget.ACTION.teleport:
 			pass
 	
 
+func _on_portal_spawn(costume_json: String):
+	var costume = Costume.from_json(costume_json)
+	

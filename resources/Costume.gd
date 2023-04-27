@@ -36,7 +36,8 @@ func create_outfit_from_json(json: String) -> Dictionary:
 	var data = JSON.parse_string(json)
 	var new_outfit = {}
 	for category in data.keys():
-		var texture = ResourceLoader.load(data[category].name, "Texture", ResourceLoader.CACHE_MODE_REUSE)
+		var path = G.IMAGES_PATH + data[category]
+		var texture = ResourceLoader.load(path, "Texture", ResourceLoader.CACHE_MODE_REUSE)
 		new_outfit[category] = {
 			"name": data[category],
 			"texture": texture
