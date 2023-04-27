@@ -1,16 +1,16 @@
 class_name Widget
 extends Node2D
 
-signal widget_action(monster: Monster, action: ACTION)
-
 enum ACTION { change_costume, teleport }
+var action: ACTION = ACTION.change_costume
+
 
 @onready var mob_detector = $MobDetector
 @onready var sprite_2d = $Sprite2D
 @onready var collision_shape_2d = $MobDetector/CollisionShape2D
 @onready var portal = $Portal
 
-var action: ACTION = ACTION.change_costume
+var target_monster: Monster
 var is_toggleable := false
 var is_on: bool = true
 var _on_color := "9db8f351"
@@ -36,15 +36,19 @@ func _on_toggle_detector_input_event(_viewport, event, _shape_idx):
 
 
 func _on_mob_detector_body_entered(mob):
-	if mob is Monster:
-		portal.send(mob.costume.to_json())
-		mob.pickable = false
-		# Don't detect a mob that is already picked up
-		if mob.selected: 
-			return
-		if is_on:
-			mob.velocity = mob.BASE_VELOCITY
-			widget_action.emit(mob, action)
+	if not mob is Monster:
+		return
+	# Don't detect a mob that is already picked up		
+	if mob.selected: 
+		return		
+	if not is_on:
+		return
+	mob.pickable = false	
+	match action:
+		ACTION.change_costume:
+			change_costume(mob)
+		ACTION.teleport:
+			teleport(mob)
 
 
 func _on_mob_detector_body_exited(mob):
@@ -53,4 +57,17 @@ func _on_mob_detector_body_exited(mob):
 		mob.velocity = mob.normal_velocity
 #		widget_action.emit(mob, ACTION.exited)
 
+
+func change_costume(mob: Monster):	
+	mob.velocity = mob.BASE_VELOCITY
+	if mob.costume.equals(target_monster.costume):
+		mob.change_costume_animated()
+	else:
+		mob.change_costume_animated(target_monster.costume)
+
+
+func teleport(mob: Monster):
+	mob.velocity = Vector2.ZERO
+	portal.send(mob.costume.to_json())
+	mob.dead()
 

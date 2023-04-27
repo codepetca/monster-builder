@@ -27,9 +27,9 @@ func _ready():
 ##			...
 ##		}
 ##	}
-func _load_textures(dict: Dictionary, categories: Array[String]):
+func _load_textures(dict: Dictionary, monster_parts: Array[String]):
 	var filenames: Array[String] = dir_contents(IMAGES_PATH)
-	for category in categories:
+	for category in monster_parts:
 		if not dict.has(category):
 			dict[category] = []
 		for filename in filenames:

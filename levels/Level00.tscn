@@ -13,6 +13,7 @@ size = Vector2(53, 793)
 script = ExtResource("1_q5y33")
 
 [node name="MobSpawnTimer" type="Timer" parent="."]
+wait_time = 3.0
 
 [node name="MobSpawner" type="Node2D" parent="."]
 script = ExtResource("2_agcgo")

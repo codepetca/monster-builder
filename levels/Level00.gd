@@ -16,11 +16,12 @@ func _ready():
 	mob_spawn_timer.timeout.connect(_on_mob_spawn_timer_timeout)
 	Signals.score_updated.emit(score)
 	Signals.portal_spawn.connect(_on_portal_spawn)
-	widget.widget_action.connect(_on_widget_widget_action)
 
 
 func start():
 	target_monster = mob_spawner.get_random()
+	# TODO: make the exit detector its own scene?
+	widget.target_monster = target_monster
 	marker_2d.add_child(target_monster)
 	exit.show()
 	mob_spawn_timer.start()
@@ -49,9 +50,10 @@ func _on_widget_widget_action(mob: Monster, action: Widget.ACTION):
 			else:
 				mob.change_costume_animated(target_monster.costume)
 		Widget.ACTION.teleport:
-			pass
+			$Widget.portal.send(mob.costume.to_json())
 	
 
 func _on_portal_spawn(costume_json: String):
 	var costume = Costume.from_json(costume_json)
-	
+	mob_spawner.spawn(costume, Vector2(100, 100))
+

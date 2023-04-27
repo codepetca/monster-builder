@@ -18,5 +18,5 @@ func send(costume_json: String):
 
 @rpc("any_peer", "call_local")
 func receive(costume_json: String):
-	print("received from: " + str(multiplayer.get_remote_sender_id()) + ": " + costume_json)
+#	print("received from: " + str(multiplayer.get_remote_sender_id()) + ": " + costume_json)	
 	Signals.portal_spawn.emit(costume_json)

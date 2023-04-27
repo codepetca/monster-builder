@@ -14,6 +14,8 @@ enum MOVE_MODE {MOVE, FROZEN}
 const BASE_VELOCITY := Vector2(150.0, 0)
 
 var costume: Costume :
+	get:
+		return costume
 	set(new_costume):
 		costume = new_costume
 		if is_inside_tree():
@@ -34,6 +36,10 @@ func _ready():
 	if not costume:
 		costume = Costume.new()
 	update_appearance()
+
+
+func appear_animation():
+	animation_player.play("appear")
 
 
 ## Change to a new costume or random if new_costume is null
@@ -60,13 +66,11 @@ func _process(delta):
 func action_on_pickup():
 	scale = scale * 1.2
 	animation_player.stop()
-#	collision_layer = 3
 
 
 func action_on_drop():
 	scale = scale/1.2
 	animation_player.play("idle")
-#	collision_layer = 2
 
 
 func dead():
