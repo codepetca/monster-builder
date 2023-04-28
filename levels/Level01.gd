@@ -1,9 +1,9 @@
 extends Level
 
-@onready var detector_right = $DetectorRight as Area2D
-@onready var marker_right = $DetectorRight/Marker2D as Marker2D
 @onready var widget = $Widget as Widget
 @onready var mob_spawn_timer = $MobSpawnTimer as Timer
+@onready var exit = $Exit as Area2D
+@onready var marker_2d = $Exit/Marker2D as Marker2D
 
 
 var target_monster: Monster
@@ -15,12 +15,15 @@ func _ready():
 	mob_spawner = $MobSpawner as MobSpawner
 	mob_spawn_timer.timeout.connect(_on_mob_spawn_timer_timeout)
 	Signals.score_updated.emit(score)
+	Signals.portal_spawn.connect(_on_portal_spawn)
 
 
 func start():
 	target_monster = mob_spawner.get_random()
-	marker_right.add_child(target_monster)
-	detector_right.show()
+	# TODO: make the exit detector its own scene?
+	widget.target_monster = target_monster
+	marker_2d.add_child(target_monster)
+	exit.show()
 	mob_spawn_timer.start()
 
 
@@ -39,22 +42,18 @@ func _on_detector_right_body_entered(mob):
 		mob.dead()
 
 
-func _on_mob_detector_body_entered(mob):
-	if mob is Monster:
-		mob.pickable = false
-		# Don't detect a mob that is already picked up
-		if mob.selected: 
-			return
-		
-		if widget.is_on:
-			mob.velocity = mob.BASE_VELOCITY
+func _on_widget_widget_action(mob: Monster, action: Widget.ACTION):
+	match action:
+		Widget.ACTION.change_costume:
 			if mob.costume.equals(target_monster.costume):
-				mob.change_costume()
+				mob.change_costume_animated()
 			else:
-				mob.change_costume(target_monster.costume)
+				mob.change_costume_animated(target_monster.costume)
+		Widget.ACTION.teleport:
+			$Widget.portal.send(mob.costume.to_json())
+	
 
+func _on_portal_spawn(costume_json: String):
+	var costume = Costume.from_json(costume_json)
+	mob_spawner.spawn(costume, Vector2(100, 100))
 
-func _on_mob_detector_body_exited(body):
-	if body is Monster:
-		body.pickable = true
-		body.velocity = body.normal_velocity

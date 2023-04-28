@@ -3,10 +3,12 @@ extends CanvasLayer
 
 @onready var score_label = $MarginContainer/HBoxContainer/ScoreLabel
 @onready var v_box_container = $Panel/VBoxContainer
+@onready var time_label = $MarginContainer/HBoxContainer/TimeLabel
 
 
 func _ready():
 	Signals.score_updated.connect(_on_score_updated)
+	Signals.time_updated.connect(_on_time_updated)
 
 
 func _on_main_wanted_updated(monster: Monster):
@@ -20,3 +22,10 @@ func _on_main_wanted_updated(monster: Monster):
 
 func _on_score_updated(score: int):
 	score_label.text = str(score)
+
+
+# Function to update the Label with the remaining time
+func _on_time_updated(time: int):
+	var minutes = time / 60
+	var seconds = time % 60
+	time_label.text = "%d:%02d" % [minutes, seconds]

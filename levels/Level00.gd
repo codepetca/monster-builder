@@ -4,16 +4,19 @@ extends Level
 @onready var mob_spawn_timer = $MobSpawnTimer as Timer
 @onready var exit = $Exit as Area2D
 @onready var marker_2d = $Exit/Marker2D as Marker2D
+@onready var remaining_timer = $RemainingTimer
 
 
 var target_monster: Monster
 var target_score: int = 20
 var score: int = 0
+var time_remaining: int = 130
 
 
 func _ready():
 	mob_spawner = $MobSpawner as MobSpawner
 	mob_spawn_timer.timeout.connect(_on_mob_spawn_timer_timeout)
+	remaining_timer.timeout.connect(_on_remaining_timer_timeout)
 	Signals.score_updated.emit(score)
 	Signals.portal_spawn.connect(_on_portal_spawn)
 
@@ -25,6 +28,7 @@ func start():
 	marker_2d.add_child(target_monster)
 	exit.show()
 	mob_spawn_timer.start()
+	remaining_timer.start()
 
 
 func _process(_delta):
@@ -42,18 +46,12 @@ func _on_detector_right_body_entered(mob):
 		mob.dead()
 
 
-func _on_widget_widget_action(mob: Monster, action: Widget.ACTION):
-	match action:
-		Widget.ACTION.change_costume:
-			if mob.costume.equals(target_monster.costume):
-				mob.change_costume_animated()
-			else:
-				mob.change_costume_animated(target_monster.costume)
-		Widget.ACTION.teleport:
-			$Widget.portal.send(mob.costume.to_json())
-	
-
 func _on_portal_spawn(costume_json: String):
 	var costume = Costume.from_json(costume_json)
 	mob_spawner.spawn(costume, Vector2(100, 100))
 
+
+func _on_remaining_timer_timeout():
+	if time_remaining > 0:
+		time_remaining -= 1
+		Signals.time_updated.emit(time_remaining)
