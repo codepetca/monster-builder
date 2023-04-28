@@ -74,8 +74,11 @@ func action_on_drop():
 	Signals.pickable_dropped.emit(self)
 
 
-func dead():
-	animation_player.play("dead")
+func dead(callback_after_dead = null):
+	if callback_after_dead:
+		animation_player.play("dead")
+		await animation_player.animation_finished
+		callback_after_dead.call()
 
 
 func _on_animation_player_animation_finished(anim_name):

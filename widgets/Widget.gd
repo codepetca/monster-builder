@@ -83,6 +83,7 @@ func _change_costume(mob: Monster):
 
 func _teleport(mob: Monster):
 	mob.velocity = Vector2.ZERO
-	portal.send(mob.costume.to_json())
-	mob.dead()
+	var on_animation_finished = func(): portal.send(mob.costume.to_json())
+	mob.dead(on_animation_finished)
+	
 
