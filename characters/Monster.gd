@@ -71,6 +71,7 @@ func action_on_pickup():
 func action_on_drop():
 	scale = scale/1.2
 	animation_player.play("idle")
+	Signals.pickable_dropped.emit(self)
 
 
 func dead():

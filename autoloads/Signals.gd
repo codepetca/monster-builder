@@ -13,3 +13,5 @@ signal start_game
 signal pop_screen
 signal push_screen(screen: Screen)
 
+# Game
+signal pickable_dropped(object: Pickable)
