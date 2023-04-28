@@ -14,8 +14,7 @@ enum MOVE_MODE {MOVE, FROZEN}
 const BASE_VELOCITY := Vector2(150.0, 0)
 
 var costume: Costume :
-	get:
-		return costume
+	get: return costume
 	set(new_costume):
 		costume = new_costume
 		if is_inside_tree():
@@ -60,6 +59,7 @@ func update_appearance():
 ## ACTIONS ##
 
 func _process(delta):
+#	move_and_slide()
 	position += velocity.rotated(rotation) * delta
 
 
