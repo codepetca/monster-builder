@@ -49,7 +49,7 @@ func get_random(mode:= Monster.MOVE_MODE.FROZEN) -> Monster:
 ##
 ## Set 'add' to false to create a monster but not add it to the node
 func spawn(costume: Costume = null, position: Vector2 = Vector2.ZERO) -> Monster:
-	var mob = _Monster.instantiate()
+	var mob = _Monster.instantiate() as Monster
 	mob.costume = costume if costume else Costume.new()
 	if position == Vector2.ZERO:
 		mob.position = Vector2(0, randf_range(y_spawn.min, y_spawn.max))
@@ -57,5 +57,6 @@ func spawn(costume: Costume = null, position: Vector2 = Vector2.ZERO) -> Monster
 		mob.position = position
 	add_child.call_deferred(mob)
 #	mob.appear_animation.call_deferred()
+	
 	return mob
 

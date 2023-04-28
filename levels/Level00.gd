@@ -48,7 +48,8 @@ func _on_detector_right_body_entered(mob):
 
 func _on_portal_spawn(costume_json: String):
 	var costume = Costume.from_json(costume_json)
-	mob_spawner.spawn(costume, Vector2(100, 100))
+	var mob = mob_spawner.spawn(costume, Vector2(100, 300))
+	mob.picked_up.connect(_on_pickable_picked_up)
 
 
 func _on_remaining_timer_timeout():
