@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://bc67b0aqt8m2"]
+[gd_scene load_steps=5 format=3 uid="uid://cpuvfb08tdmmr"]
 
-[ext_resource type="Theme" uid="uid://bi3gnitxrp3im" path="res://assets/MainTheme.tres" id="1_k867x"]
+[ext_resource type="Theme" uid="uid://bi3gnitxrp3im" path="res://resources/MainTheme.tres" id="1_qwdta"]
 [ext_resource type="Script" path="res://ui/screens/MainMenu.gd" id="2_3gmur"]
 
 [sub_resource type="Gradient" id="Gradient_c7gwg"]
@@ -18,7 +18,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_k867x")
+theme = ExtResource("1_qwdta")
 script = ExtResource("2_3gmur")
 
 [node name="TextureRect" type="TextureRect" parent="."]

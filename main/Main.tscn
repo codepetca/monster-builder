@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://xohycs6ja6pm"]
+[gd_scene load_steps=6 format=3 uid="uid://xohycs6ja6pm"]
 
 [ext_resource type="Script" path="res://main/Main.gd" id="1_a2j7s"]
 [ext_resource type="Texture2D" uid="uid://dkxju7iwth8cj" path="res://assets/backgrounds/backgroundCastles.png" id="2_qrcy8"]
-[ext_resource type="PackedScene" uid="uid://qm0ijd4iuc0l" path="res://ui/hud/Hud.tscn" id="3_tb74v"]
+[ext_resource type="PackedScene" uid="uid://cnsol8ie382kc" path="res://ui/hud/Hud.tscn" id="3_tb74v"]
+[ext_resource type="Script" path="res://main/UI.gd" id="4_rjiul"]
 [ext_resource type="AudioStream" uid="uid://d1jditmbeqj8y" path="res://assets/sound/music/for-halloween.mp3" id="8_x7elk"]
 
 [node name="Main" type="Node2D"]
@@ -25,6 +26,7 @@ expand_mode = 1
 visible = false
 
 [node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("4_rjiul")
 
 [node name="Level" type="Node2D" parent="."]
 

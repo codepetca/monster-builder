@@ -1,13 +1,16 @@
 [gd_resource type="Theme" load_steps=3 format=3 uid="uid://bi3gnitxrp3im"]
 
-[ext_resource type="FontFile" uid="uid://efehwdmqyd6g" path="res://assets/fonts/fredoka/Fredoka-Bold.ttf" id="1_wsor2"]
+[ext_resource type="FontFile" uid="uid://efehwdmqyd6g" path="res://assets/fonts/fredoka/Fredoka-Bold.ttf" id="1_38ii1"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s6fxh"]
 
 [resource]
 Button/colors/font_color = Color(1, 0.745098, 0.0431373, 1)
 Button/font_sizes/font_size = 60
-Button/fonts/font = ExtResource("1_wsor2")
+Button/fonts/font = ExtResource("1_38ii1")
+CheckBox/colors/font_color = Color(1, 0.745098, 0.0431373, 1)
+CheckBox/font_sizes/font_size = 70
+CheckBox/fonts/font = ExtResource("1_38ii1")
 Label/colors/font_color = Color(1, 0.745098, 0.0431373, 1)
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/colors/font_shadow_color = Color(0, 0.00392157, 0, 0.572549)
@@ -17,5 +20,5 @@ Label/constants/shadow_offset_x = 4
 Label/constants/shadow_offset_y = 4
 Label/constants/shadow_outline_size = 10
 Label/font_sizes/font_size = 70
-Label/fonts/font = ExtResource("1_wsor2")
+Label/fonts/font = ExtResource("1_38ii1")
 Label/styles/normal = SubResource("StyleBoxEmpty_s6fxh")

@@ -2,7 +2,9 @@ extends Screen
 
 
 @onready var score_label = $CenterContainer/VBoxContainer/ScoreLabel
+
 var score: int
+
 
 func _ready():
 	score_label.text = "Score: " + str(score)

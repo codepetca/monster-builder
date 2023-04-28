@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://qm0ijd4iuc0l"]
+[gd_scene load_steps=3 format=3 uid="uid://cnsol8ie382kc"]
 
 [ext_resource type="Script" path="res://ui/hud/HUD.gd" id="1_adyhq"]
-[ext_resource type="Theme" uid="uid://bi3gnitxrp3im" path="res://assets/MainTheme.tres" id="2_d5ie2"]
+[ext_resource type="Theme" uid="uid://bi3gnitxrp3im" path="res://resources/MainTheme.tres" id="2_c3i5g"]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_adyhq")
@@ -11,7 +11,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 129.0
 grow_horizontal = 2
-theme = ExtResource("2_d5ie2")
+theme = ExtResource("2_c3i5g")
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20

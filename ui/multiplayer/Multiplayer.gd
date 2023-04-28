@@ -1,11 +1,10 @@
 extends Screen
 
 
-
 @onready var label = $UI/Options/Label
-@onready var host_button = $UI/Options/HostButton
-@onready var join_button = $UI/Options/JoinButton
 @onready var remote = $UI/Options/Remote
+@onready var host_button = $UI/Options/HBoxContainer/HostButton
+@onready var join_button = $UI/Options/HBoxContainer/JoinButton
 
 const PORT = 4433
 
@@ -62,3 +61,8 @@ func start():
 func _on_peer_connected(id: int):
 	print(id)
 	Signals.set_portal_peer.emit(id)
+
+
+func _on_button_pressed():
+	Signals.pop_screen.emit()
+	queue_free()

@@ -3,29 +3,28 @@ extends Node2D
 signal start_game
 
 @onready var level_container = $Level
-@onready var hud = $HUD
-@onready var ui = $UI
+@onready var hud = $HUD as HUD
+@onready var ui = $UI as UI
 
 
-var LevelComplete := preload("res://ui/screens/LevelComplete.tscn")
+var LevelCompleteScreen := preload("res://ui/screens/LevelComplete.tscn")
 var MainMenu := preload("res://ui/screens/MainMenu.tscn")
+
 
 var game_started: bool = false
 var level: Level
 #var level_number := 0
 var levels: Array[PackedScene] = [
 	preload("res://levels/Level00.tscn"),
-	preload("res://levels/Level01.tscn"),
-	preload("res://levels/Level02.tscn")
 ]
 
 
 func _ready():
 	Signals.start_game.connect(_on_start_game)
-	Signals.pop_screen.connect(_on_level_complete_pop_screen)
+	Signals.pop_screen.connect(_on_pop_screen)
 	Signals.push_screen.connect(_on_push_screen)
-	var main_menu = MainMenu.instantiate()
-	ui.add_child(main_menu)
+
+	Signals.push_screen.emit(MainMenu.instantiate())
 
 
 func load_level(LevelScene: PackedScene):
@@ -51,19 +50,27 @@ func _on_start_game():
 
 
 func _on_push_screen(screen: Screen):
+	for child in ui.get_children():
+		child.hide()
 	ui.add_child(screen)
 	screen.show()
+
+
+func _on_pop_screen():
+	if ui.get_child_count() == 0:
+		# if no screen in the UI, load the next level
+		hud.show()
+		load_level(levels[0])
+	else:
+		# unhide the last child
+		ui.get_children()[0].show()
 
 
 func _on_level_complete(score: int):
 	remove_level()
 	hud.hide()
-	var screen = LevelComplete.instantiate()
+	var screen = LevelCompleteScreen.instantiate()
 	screen.score = score
-	ui.add_child(screen)
+	Signals.push_screen.emit(LevelCompleteScreen.instantiate())
 
-
-func _on_level_complete_pop_screen():
-	hud.show()
-	load_level(levels[1])
 
