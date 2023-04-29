@@ -30,8 +30,7 @@ func _ready():
 func load_level(LevelScene: PackedScene):
 	level = LevelScene.instantiate() as Level
 	level_container.add_child(level, true)
-	level.score_updated.connect(hud._on_score_updated)
-	level.level_complete.connect(_on_level_complete)
+	Signals.level_complete.connect(_on_level_complete)
 	level.start()
 
 
@@ -67,6 +66,10 @@ func _on_pop_screen():
 
 
 func _on_level_complete(score: int):
+	_broadcast_on_level_complete.rpc(score)
+
+@rpc("any_peer", "call_local")
+func _broadcast_on_level_complete(score: int):
 	remove_level()
 	hud.hide()
 	var screen = LevelCompleteScreen.instantiate()

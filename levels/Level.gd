@@ -2,9 +2,6 @@ class_name Level
 extends Node2D
 
 
-signal level_complete(score: int)
-signal score_updated(score: int)
-
 var held_object: Pickable = null
 var mob_spawner: MobSpawner
 

@@ -15,3 +15,4 @@ signal push_screen(screen: Screen)
 
 # Game
 signal pickable_dropped(object: Pickable)
+signal level_complete(score: int)

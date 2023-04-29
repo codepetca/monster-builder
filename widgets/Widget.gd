@@ -2,7 +2,7 @@ class_name Widget
 extends Node2D
 
 enum ACTION { change_costume, teleport }
-var action: ACTION = ACTION.teleport
+var action: ACTION = ACTION.change_costume
 
 
 @onready var mob_detector = $MobDetector

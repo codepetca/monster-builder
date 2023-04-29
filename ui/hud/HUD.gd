@@ -22,11 +22,19 @@ func _on_main_wanted_updated(monster: Monster):
 
 
 func _on_score_updated(score: int):
+	_broadcast_score_updated.rpc(score)
+
+@rpc("any_peer", "call_local", "unreliable")
+func _broadcast_score_updated(score: int):
 	score_label.text = str(score)
 
 
 # Function to update the Label with the remaining time
 func _on_time_updated(time: int):
+	_broadcast_time_updated.rpc(time)
+
+@rpc("any_peer", "call_local", "unreliable")
+func _broadcast_time_updated(time: int):
 	var minutes = time / 60
 	var seconds = time % 60
 	time_label.text = "%d:%02d" % [minutes, seconds]

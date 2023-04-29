@@ -8,7 +8,7 @@ extends Level
 
 
 var target_monster: Monster
-var target_score: int = 20
+var target_score: int = 100
 var score: int = 0
 var time_remaining: int = 130
 
@@ -23,17 +23,16 @@ func _ready():
 
 func start():
 	target_monster = mob_spawner.get_random()
-	# TODO: make the exit detector its own scene?
 	widget.target_monster = target_monster
 	marker_2d.add_child(target_monster)
-	exit.show()
 	mob_spawn_timer.start()
-	remaining_timer.start()
+	if multiplayer.is_server():
+		remaining_timer.start()
 
 
 func _process(_delta):
 	if score >= target_score:
-		level_complete.emit(score)
+		Signals.level_complete.emit(score)
 
 
 func _on_detector_right_body_entered(mob):
@@ -42,7 +41,7 @@ func _on_detector_right_body_entered(mob):
 			score += 10
 		else:
 			score -= 10
-		score_updated.emit(score)
+		Signals.score_updated.emit(score)
 		mob.dead()
 
 
