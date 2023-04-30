@@ -19,14 +19,20 @@ var costume: Costume :
 			update_appearance()
 
 var normal_velocity: Vector2
-
+var is_entering: bool = true # mob entering for first time
+var max_x_travel: int
 
 func _ready():
-	normal_velocity = BASE_VELOCITY + Vector2(randf_range(0, 300), 0)	
+	normal_velocity = BASE_VELOCITY + Vector2(randf_range(0, 300), 0)
 	velocity = normal_velocity
 	if not costume:
 		costume = Costume.new()
 	update_appearance()
+	
+	var min = get_viewport_rect().size.x * 0.2
+	var max = get_viewport_rect().size.x * 0.8
+	max_x_travel = randf_range(min, max)
+	
 
 
 func appear_animation():
@@ -52,7 +58,11 @@ func update_appearance():
 
 func _process(delta):
 #	move_and_slide()
-	position += velocity.rotated(rotation) * delta
+	if is_entering:
+		if position.x <= max_x_travel:
+			position += velocity.rotated(rotation) * delta
+		else:	
+			is_entering = false
 
 
 func action_on_pickup():
