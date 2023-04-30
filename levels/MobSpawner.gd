@@ -39,12 +39,6 @@ func _set_spawn_path(direction: SPAWN_DIRECTION = SPAWN_DIRECTION.left):
 		curve.add_point(point)
 
 
-func get_random(mode:= Monster.MOVE_MODE.FROZEN) -> Monster:
-	var mob = _Monster.instantiate() as Monster
-	mob.mode = mode
-	return mob
-
-
 ## Spawn a monster.
 ##
 ## Set 'add' to false to create a monster but not add it to the node
@@ -57,6 +51,5 @@ func spawn(costume: Costume = null, position: Vector2 = Vector2.ZERO) -> Monster
 		mob.position = position
 	add_child.call_deferred(mob)
 #	mob.appear_animation.call_deferred()
-	
 	return mob
 

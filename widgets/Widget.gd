@@ -9,7 +9,7 @@ var action: ACTION = ACTION.change_costume
 @onready var sprite_2d = $Sprite2D
 @onready var portal = $Portal
 
-var target_monster: Monster
+var target_costume: Costume
 var is_toggleable := false
 var is_on: bool = true
 var _on_color := "9db8f351"
@@ -75,10 +75,10 @@ func _perform_action(mob: Monster):
 
 func _change_costume(mob: Monster):	
 	mob.velocity = mob.BASE_VELOCITY
-	if mob.costume.equals(target_monster.costume):
+	if mob.costume.equals(target_costume):
 		mob.change_costume_animated()
 	else:
-		mob.change_costume_animated(target_monster.costume)
+		mob.change_costume_animated(target_costume)
 
 
 func _teleport(mob: Monster):

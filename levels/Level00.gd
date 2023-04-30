@@ -7,7 +7,7 @@ extends Level
 @onready var remaining_timer = $RemainingTimer
 
 
-var target_monster: Monster
+var target_costume: Costume
 var target_score: int = 100
 var score: int = 0
 var time_remaining: int = 130
@@ -22,12 +22,9 @@ func _ready():
 
 
 func start():
-	target_monster = mob_spawner.get_random()
-	target_monster.costume = Costume.new()
-	print(target_monster.costume == null)
-	Signals.target_updated.emit(target_monster.costume)
-	widget.target_monster = target_monster
-	marker_2d.add_child(target_monster)
+	target_costume = Costume.new()
+	Signals.target_updated.emit(target_costume)
+	widget.target_costume = target_costume
 	mob_spawn_timer.start()
 	if multiplayer.is_server():
 		remaining_timer.start()
@@ -40,7 +37,7 @@ func _process(_delta):
 
 func _on_detector_right_body_entered(mob):
 	if mob is Monster:
-		if mob.costume.equals(target_monster.costume):
+		if mob.costume.equals(target_costume):
 			score += 10
 		else:
 			score -= 10

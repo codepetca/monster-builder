@@ -9,8 +9,6 @@ extends Pickable
 @onready var body_old = $Sprites/BodyOld
 @onready var eye_old = $Sprites/EyeOld
 
-enum MOVE_MODE {MOVE, FROZEN}
-
 const BASE_VELOCITY := Vector2(150.0, 0)
 
 var costume: Costume :
@@ -20,18 +18,12 @@ var costume: Costume :
 		if is_inside_tree():
 			update_appearance()
 
-
-var mode: MOVE_MODE = MOVE_MODE.MOVE
 var normal_velocity: Vector2
 
 
 func _ready():
 	normal_velocity = BASE_VELOCITY + Vector2(randf_range(0, 300), 0)	
-	if mode == MOVE_MODE.MOVE:
-		velocity = normal_velocity
-	else:
-		velocity = Vector2.ZERO
-		animation_player.stop()
+	velocity = normal_velocity
 	if not costume:
 		costume = Costume.new()
 	update_appearance()
