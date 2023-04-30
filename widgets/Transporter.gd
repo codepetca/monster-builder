@@ -13,7 +13,6 @@ var seats_are_full : bool :
 	get:
 		return occupied_seats == max_seats
 
-
 var target_costume: Costume
 var is_toggleable := false
 var is_on: bool = true
@@ -28,15 +27,22 @@ func _ready():
 
 func _transporter_entered(mob: Monster):
 	if seats_are_full:
-		mob.move_away()
+		mob.random_move()
+		mob.pickable = true
+		print("full")
 	else:
+		mob.pickable = false		
 		occupied_seats += 1
-		_teleport(mob)
+		print(seats_are_full)
+		print(occupied_seats)
+		_transport(mob)
 
 
-func _teleport(mob: Monster):
+func _transport(mob: Monster):
 	mob.velocity = Vector2.ZERO
-	var on_animation_finished = func(): portal.send(mob.costume.to_json())
+	var on_animation_finished = func():
+		portal.send(mob.costume.to_json())
+		occupied_seats = 0
 	mob.dead(on_animation_finished)
 
 
@@ -53,7 +59,6 @@ func _update_widget():
 func _on_pickable_dropped(mob: Monster):
 	for body in mob_detector.get_overlapping_bodies():
 		if body == mob:
-			mob.pickable = false
 			_transporter_entered(mob)
 
 

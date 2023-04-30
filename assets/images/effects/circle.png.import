@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://blr78wafarinw"
-path="res://.godot/imported/shadow.png-a7be03c9d2626605d2f24c9b933f3527.ctex"
+path="res://.godot/imported/circle.png-e8815322cb49af665af6221cc920000c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/effects/shadow.png"
-dest_files=["res://.godot/imported/shadow.png-a7be03c9d2626605d2f24c9b933f3527.ctex"]
+source_file="res://assets/images/effects/circle.png"
+dest_files=["res://.godot/imported/circle.png-e8815322cb49af665af6221cc920000c.ctex"]
 
 [params]
 

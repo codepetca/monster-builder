@@ -19,7 +19,7 @@ var costume: Costume :
 			update_appearance()
 
 var normal_velocity: Vector2
-var is_moving:= true
+var is_moving:= false
 var destination: Vector2
 
 
@@ -29,19 +29,15 @@ func _ready():
 	if not costume:
 		costume = Costume.new()
 	update_appearance()
-	
-	# Set how far to enter into the screen
-	var minx = get_viewport_rect().size.x * 0.2
-	var maxx = get_viewport_rect().size.x * 0.8
-	var miny = get_viewport_rect().size.y * 0.2
-	var maxy = get_viewport_rect().size.y * 0.8
-	destination = Vector2(randf_range(minx, maxx), randf_range(miny, maxy))
-	is_moving = true
-#	max_x_travel = randf_range(minx, maxx)
+	random_move()
 
 
-func appear_animation():
-	animation_player.play("appear")
+func _process(_delta):
+	if is_moving:
+		if (destination - position).length() > 5:
+			var direction = global_position.direction_to(destination)
+			velocity = direction * velocity.length()
+			move_and_slide()
 
 
 ## Change to a new costume or random if new_costume is null
@@ -59,23 +55,21 @@ func update_appearance():
 	eye_sprite.texture = costume.eye_texture
 
 
-## ACTIONS ##
-
-func _process(_delta):
-	if is_moving:
-		if (destination - position).length() > 5:
-			var direction = global_position.direction_to(destination)
-			velocity = direction * velocity.length()
-			move_and_slide()
+func appear_animation():
+	animation_player.play("appear")
 
 
 ## Move mob 
-func move_away():
-	# Find distance to middle of screen
-	
-	pass
-	
+func random_move():
+	var minxy = get_tree().get_root().get_visible_rect().size * 0.2
+	var maxxy = get_tree().get_root().get_visible_rect().size * 0.8
+	var x = randf_range(minxy.x, maxxy.x)
+	var y = randf_range(minxy.y, maxxy.y)
+	destination = Vector2(x, y)
+	is_moving = true
 
+
+## ACTIONS ##
 
 func action_on_pickup():
 	scale = scale * 1.2

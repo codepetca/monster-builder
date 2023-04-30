@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cu6iair60qjo"]
+[gd_scene load_steps=8 format=3 uid="uid://cu6iair60qjo"]
 
 [ext_resource type="Script" path="res://widgets/Transporter.gd" id="1_kr6u6"]
 [ext_resource type="Texture2D" uid="uid://be8p5p3irsy70" path="res://assets/images/effects/blank.png" id="2_8wnqq"]
 [ext_resource type="Script" path="res://widgets/Portal.gd" id="3_5uslh"]
+[ext_resource type="Texture2D" uid="uid://blr78wafarinw" path="res://assets/images/effects/circle.png" id="4_5u133"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gbogn"]
 size = Vector2(179, 811)
@@ -44,6 +45,12 @@ shape = SubResource("RectangleShape2D_dqob8")
 
 [node name="Portal" type="Node" parent="."]
 script = ExtResource("3_5uslh")
+
+[node name="Seats" type="Node2D" parent="."]
+
+[node name="Seat" type="Sprite2D" parent="Seats"]
+modulate = Color(1, 1, 1, 0.537255)
+texture = ExtResource("4_5u133")
 
 [connection signal="body_entered" from="MobDetector" to="." method="_on_mob_detector_body_entered"]
 [connection signal="input_event" from="ToggleDetector" to="." method="_on_toggle_detector_input_event"]
