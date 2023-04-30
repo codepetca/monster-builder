@@ -1,9 +1,6 @@
 class_name Transporter
 extends Node2D
 
-enum ACTION { change_costume, teleport }
-var action: ACTION = ACTION.teleport
-
 
 @onready var mob_detector = $MobDetector
 @onready var sprite_2d = $Sprite2D
@@ -47,7 +44,7 @@ func _on_mob_detector_body_entered(mob):
 	if not mob is Monster: return
 	if mob.selected: return  # Try removing this and setting collisiion layer
 	if not is_on: return
-	_perform_action(mob)
+	_teleport(mob)
 
 
 func _on_mob_detector_body_exited(mob):
@@ -61,24 +58,8 @@ func _on_mob_detector_body_exited(mob):
 func _on_pickable_dropped(mob: Monster):
 	for body in mob_detector.get_overlapping_bodies():
 		if body == mob:
-			_perform_action(mob)
-
-
-func _perform_action(mob: Monster):
-	mob.pickable = false	
-	match action:
-		ACTION.change_costume:
-			_change_costume(mob)
-		ACTION.teleport:
+			mob.pickable = false
 			_teleport(mob)
-
-
-func _change_costume(mob: Monster):	
-	mob.velocity = mob.BASE_VELOCITY
-	if mob.costume.equals(target_costume):
-		mob.change_costume_animated()
-	else:
-		mob.change_costume_animated(target_costume)
 
 
 func _teleport(mob: Monster):

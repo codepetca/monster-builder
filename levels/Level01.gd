@@ -1,8 +1,6 @@
 extends Level
 
 @onready var mob_spawn_timer = $MobSpawnTimer as Timer
-@onready var exit = $Exit as Area2D
-@onready var marker_2d = $Exit/Marker2D as Marker2D
 @onready var remaining_timer = $RemainingTimer
 @onready var transporter = $Transporter
 

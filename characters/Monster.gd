@@ -20,7 +20,7 @@ var costume: Costume :
 
 var normal_velocity: Vector2
 var is_entering: bool = true # mob entering for first time
-var max_x_travel: int
+var max_x_travel: float
 
 func _ready():
 	normal_velocity = BASE_VELOCITY + Vector2(randf_range(0, 300), 0)
@@ -30,9 +30,9 @@ func _ready():
 	update_appearance()
 	
 	# Set how far to enter into the screen
-	var min = get_viewport_rect().size.x * 0.2
-	var max = get_viewport_rect().size.x * 0.8
-	max_x_travel = randf_range(min, max)
+	var minx = get_viewport_rect().size.x * 0.2
+	var maxx = get_viewport_rect().size.x * 0.8
+	max_x_travel = randf_range(minx, maxx)
 
 
 func appear_animation():
