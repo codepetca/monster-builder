@@ -16,11 +16,7 @@ func _ready():
 	mob_spawn_timer.timeout.connect(_on_mob_spawn_timer_timeout)
 	remaining_timer.timeout.connect(_on_remaining_timer_timeout)
 	Signals.score_updated.emit(score)
-	Signals.score_increased_by.connect(
-		func(amount):
-			score += amount
-			Signals.score_updated.emit(score)
-	)
+	Signals.score_increased_by.connect(_on_score_increase_by)
 	Signals.portal_spawn.connect(_on_portal_spawn)
 
 
@@ -35,6 +31,17 @@ func start():
 func _process(_delta):
 	if score >= target_score:
 		Signals.level_complete.emit(score)
+
+
+func _on_score_increase_by(amount: int):
+	_increase_score_by.rpc_id(1, amount)
+
+
+@rpc("any_peer", "call_local")
+func _increase_score_by(amount: int):
+	if multiplayer.is_server():
+		score += amount
+		Signals.score_updated.emit(score)
 
 
 func _on_detector_right_body_entered(mob):
