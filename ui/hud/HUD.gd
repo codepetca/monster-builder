@@ -5,11 +5,14 @@ extends CanvasLayer
 @onready var score_label = $MarginContainer/HBoxContainer/ScoreLabel
 @onready var v_box_container = $Panel/VBoxContainer
 @onready var time_label = $MarginContainer/HBoxContainer/TimeLabel
+@onready var body_texture_rect = $MarginContainer/HBoxContainer/BodyTextureRect
+@onready var eye_texture_rect = $MarginContainer/HBoxContainer/BodyTextureRect/EyeTextureRect
 
 
 func _ready():
 	Signals.score_updated.connect(_on_score_updated)
 	Signals.time_updated.connect(_on_time_updated)
+	Signals.target_updated.connect(_on_target_updated)
 
 
 func _on_main_wanted_updated(monster: Monster):
@@ -20,6 +23,13 @@ func _on_main_wanted_updated(monster: Monster):
 		texture_rect.texture = load(texture_filename)
 		v_box_container.add_child(texture_rect)
 
+
+func _on_target_updated(costume: Costume):
+	body_texture_rect.texture = costume.body_texture
+	eye_texture_rect.texture = costume.eye_texture
+
+
+## Score and Time
 
 func _on_score_updated(score: int):
 	_broadcast_score_updated.rpc(score)
@@ -38,3 +48,4 @@ func _broadcast_time_updated(time: int):
 	var minutes = time / 60
 	var seconds = time % 60
 	time_label.text = "%d:%02d" % [minutes, seconds]
+

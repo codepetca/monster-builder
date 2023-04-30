@@ -7,6 +7,7 @@ signal portal_spawn(costume_id: String)
 # HUD
 signal score_updated(score: int)
 signal time_updated(time: int)
+signal target_updated(costume: Costume)
 
 # UI signals
 signal start_game

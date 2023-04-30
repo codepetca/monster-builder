@@ -23,6 +23,9 @@ func _ready():
 
 func start():
 	target_monster = mob_spawner.get_random()
+	target_monster.costume = Costume.new()
+	print(target_monster.costume == null)
+	Signals.target_updated.emit(target_monster.costume)
 	widget.target_monster = target_monster
 	marker_2d.add_child(target_monster)
 	mob_spawn_timer.start()
