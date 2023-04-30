@@ -19,8 +19,9 @@ var costume: Costume :
 			update_appearance()
 
 var normal_velocity: Vector2
-var is_entering: bool = true # mob entering for first time
-var max_x_travel: float
+var is_moving:= true
+var destination: Vector2
+
 
 func _ready():
 	normal_velocity = BASE_VELOCITY + Vector2(randf_range(0, 300), 0)
@@ -32,7 +33,11 @@ func _ready():
 	# Set how far to enter into the screen
 	var minx = get_viewport_rect().size.x * 0.2
 	var maxx = get_viewport_rect().size.x * 0.8
-	max_x_travel = randf_range(minx, maxx)
+	var miny = get_viewport_rect().size.y * 0.2
+	var maxy = get_viewport_rect().size.y * 0.8
+	destination = Vector2(randf_range(minx, maxx), randf_range(miny, maxy))
+	is_moving = true
+#	max_x_travel = randf_range(minx, maxx)
 
 
 func appear_animation():
@@ -56,18 +61,26 @@ func update_appearance():
 
 ## ACTIONS ##
 
-func _process(delta):
-#	move_and_slide()
-	if is_entering:
-		if position.x <= max_x_travel:
-			position += velocity.rotated(rotation) * delta
-		else:	
-			is_entering = false
+func _process(_delta):
+	if is_moving:
+		if (destination - position).length() > 5:
+			var direction = global_position.direction_to(destination)
+			velocity = direction * velocity.length()
+			move_and_slide()
+
+
+## Move mob 
+func move_away():
+	# Find distance to middle of screen
+	
+	pass
+	
 
 
 func action_on_pickup():
 	scale = scale * 1.2
 	animation_player.stop()
+	is_moving = false
 
 
 func action_on_drop():

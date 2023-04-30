@@ -46,5 +46,4 @@ shape = SubResource("RectangleShape2D_dqob8")
 script = ExtResource("3_5uslh")
 
 [connection signal="body_entered" from="MobDetector" to="." method="_on_mob_detector_body_entered"]
-[connection signal="body_exited" from="MobDetector" to="." method="_on_mob_detector_body_exited"]
 [connection signal="input_event" from="ToggleDetector" to="." method="_on_toggle_detector_input_event"]
