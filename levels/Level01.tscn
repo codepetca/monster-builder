@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://d082end8nccj0"]
+[gd_scene load_steps=6 format=3 uid="uid://d082end8nccj0"]
 
 [ext_resource type="Script" path="res://levels/Level01.gd" id="1_evwtx"]
 [ext_resource type="Script" path="res://levels/MobSpawner.gd" id="2_bkuxk"]
 [ext_resource type="PackedScene" uid="uid://cu6iair60qjo" path="res://widgets/Transporter.tscn" id="3_0lbcl"]
+[ext_resource type="PackedScene" uid="uid://c263odkvk5aob" path="res://widgets/Exit.tscn" id="4_0gfs6"]
 
 [sub_resource type="Curve2D" id="Curve2D_asmhc"]
 
@@ -27,3 +28,5 @@ rotation = -1.5708
 
 [node name="Transporter" parent="." instance=ExtResource("3_0lbcl")]
 position = Vector2(1353, 405)
+
+[node name="Exit" parent="." instance=ExtResource("4_0gfs6")]

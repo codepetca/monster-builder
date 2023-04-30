@@ -13,7 +13,6 @@ var seats_are_full : bool :
 	get:
 		return occupied_seats == max_seats
 
-var target_costume: Costume
 var is_toggleable := false
 var is_on: bool = true
 var _on_color := "9db8f351"
@@ -29,12 +28,9 @@ func _transporter_entered(mob: Monster):
 	if seats_are_full:
 		mob.random_move()
 		mob.pickable = true
-		print("full")
 	else:
 		mob.pickable = false		
 		occupied_seats += 1
-		print(seats_are_full)
-		print(occupied_seats)
 		_transport(mob)
 
 

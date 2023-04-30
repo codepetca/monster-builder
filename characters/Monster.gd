@@ -84,8 +84,8 @@ func action_on_drop():
 
 
 func dead(callback_after_dead = null):
+	animation_player.play("dead")	
 	if callback_after_dead:
-		animation_player.play("dead")
 		await animation_player.animation_finished
 		callback_after_dead.call()
 

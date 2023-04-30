@@ -16,13 +16,17 @@ func _ready():
 	mob_spawn_timer.timeout.connect(_on_mob_spawn_timer_timeout)
 	remaining_timer.timeout.connect(_on_remaining_timer_timeout)
 	Signals.score_updated.emit(score)
+	Signals.score_increased_by.connect(
+		func(amount):
+			score += amount
+			Signals.score_updated.emit(score)
+	)
 	Signals.portal_spawn.connect(_on_portal_spawn)
 
 
 func start():
 	target_costume = Costume.new()
 	Signals.target_updated.emit(target_costume)
-	transporter.target_costume = target_costume
 	mob_spawn_timer.start()
 	if multiplayer.is_server():
 		remaining_timer.start()
