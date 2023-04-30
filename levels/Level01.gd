@@ -8,7 +8,7 @@ extends Level
 var target_costume: Costume
 var target_score: int = 100
 var score: int = 0
-var time_remaining: int = 130
+var time_remaining: int = 15
 
 
 func _ready():
@@ -28,32 +28,6 @@ func start():
 		remaining_timer.start()
 
 
-func _process(_delta):
-	if score >= target_score:
-		Signals.level_complete.emit(score)
-
-
-func _on_score_increase_by(amount: int):
-	_increase_score_by.rpc_id(1, amount)
-
-
-@rpc("any_peer", "call_local")
-func _increase_score_by(amount: int):
-	if multiplayer.is_server():
-		score += amount
-		Signals.score_updated.emit(score)
-
-
-func _on_detector_right_body_entered(mob):
-	if mob is Monster:
-		if mob.costume.equals(target_costume):
-			score += 10
-		else:
-			score -= 10
-		Signals.score_updated.emit(score)
-		mob.dead()
-
-
 func _on_portal_spawn(costume_json: String):
 	var costume = Costume.from_json(costume_json)
 	var mob = mob_spawner.spawn(costume, Vector2(100, 300))
@@ -61,6 +35,18 @@ func _on_portal_spawn(costume_json: String):
 
 
 func _on_remaining_timer_timeout():
-	if time_remaining > 0:
+	if time_remaining > 1:
 		time_remaining -= 1
 		Signals.time_updated.emit(time_remaining)
+	else:
+		Signals.level_complete.emit(score)
+
+
+func _on_score_increase_by(amount: int):
+	_increase_score_by.rpc_id(1, amount)
+
+@rpc("any_peer", "call_local")
+func _increase_score_by(amount: int):
+	if multiplayer.is_server():
+		score += amount
+		Signals.score_updated.emit(score)

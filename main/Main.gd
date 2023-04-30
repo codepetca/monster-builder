@@ -59,12 +59,13 @@ func _on_push_screen(screen: Screen):
 
 
 func _on_pop_screen():
-	if ui.get_child_count() == 0:
-		# if no screen in the UI, load the next level
-		hud.show()
-		load_level(next_level)
-	else:
-		ui.get_children().front().show()
+	# if multiplayer screen exists, load the next level
+	for child in ui.get_children():
+		if child is MultiplayerScreen:
+			hud.show()
+			load_level(next_level)
+			return
+	ui.get_children().front().show()
 
 
 func _on_level_complete(score: int):
