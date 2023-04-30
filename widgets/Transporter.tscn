@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://cu6iair60qjo"]
+
+[ext_resource type="Script" path="res://widgets/Transporter.gd" id="1_kr6u6"]
+[ext_resource type="Texture2D" uid="uid://be8p5p3irsy70" path="res://assets/images/effects/blank.png" id="2_8wnqq"]
+[ext_resource type="Script" path="res://widgets/Portal.gd" id="3_5uslh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gbogn"]
+size = Vector2(179, 811)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eenta"]
+size = Vector2(120, 804)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dqob8"]
+size = Vector2(209, 815)
+
+[node name="Transporter" type="CharacterBody2D"]
+position = Vector2(745, 404)
+collision_mask = 3
+script = ExtResource("1_kr6u6")
+
+[node name="WidgetCollisionShape" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-16.5, -3.5)
+shape = SubResource("RectangleShape2D_gbogn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0.145098, 0.258824, 0.564706, 0.317647)
+position = Vector2(-5.50001, 1.50001)
+scale = Vector2(1.115, 2.71525)
+texture = ExtResource("2_8wnqq")
+
+[node name="MobDetector" type="Area2D" parent="."]
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MobDetector"]
+position = Vector2(-11, -4)
+shape = SubResource("RectangleShape2D_eenta")
+
+[node name="ToggleDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ToggleDetector"]
+position = Vector2(-3.5, -2.5)
+shape = SubResource("RectangleShape2D_dqob8")
+
+[node name="Portal" type="Node" parent="."]
+script = ExtResource("3_5uslh")
+
+[connection signal="body_entered" from="MobDetector" to="." method="_on_mob_detector_body_entered"]
+[connection signal="body_exited" from="MobDetector" to="." method="_on_mob_detector_body_exited"]
+[connection signal="input_event" from="ToggleDetector" to="." method="_on_toggle_detector_input_event"]

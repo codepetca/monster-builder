@@ -13,9 +13,12 @@ var MainMenu := preload("res://ui/screens/MainMenu.tscn")
 
 var game_started: bool = false
 var level: Level
-#var level_number := 0
+
+@export var next_level: PackedScene
+
 var levels: Array[PackedScene] = [
 	preload("res://levels/Level00.tscn"),
+	preload("res://levels/Level01.tscn")
 ]
 
 
@@ -44,7 +47,7 @@ func _on_start_game():
 	if game_started:
 		return
 	game_started = true
-	load_level(levels[0])
+	load_level(next_level)
 	hud.show()
 
 
@@ -59,10 +62,9 @@ func _on_pop_screen():
 	if ui.get_child_count() == 0:
 		# if no screen in the UI, load the next level
 		hud.show()
-		load_level(levels[0])
+		load_level(next_level)
 	else:
-		# unhide the last child
-		ui.get_children()[0].show()
+		ui.get_children().front().show()
 
 
 func _on_level_complete(score: int):

@@ -29,10 +29,10 @@ func _ready():
 		costume = Costume.new()
 	update_appearance()
 	
+	# Set how far to enter into the screen
 	var min = get_viewport_rect().size.x * 0.2
 	var max = get_viewport_rect().size.x * 0.8
 	max_x_travel = randf_range(min, max)
-	
 
 
 func appear_animation():

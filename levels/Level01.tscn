@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://d082end8nccj0"]
+
+[ext_resource type="Script" path="res://levels/Level01.gd" id="1_evwtx"]
+[ext_resource type="Script" path="res://levels/MobSpawner.gd" id="2_bkuxk"]
+[ext_resource type="PackedScene" uid="uid://cu6iair60qjo" path="res://widgets/Transporter.tscn" id="3_0lbcl"]
+
+[sub_resource type="Curve2D" id="Curve2D_asmhc"]
+
+[node name="Level01" type="Node2D"]
+script = ExtResource("1_evwtx")
+
+[node name="MobSpawnTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="RemainingTimer" type="Timer" parent="."]
+
+[node name="MobSpawner" type="Node2D" parent="."]
+script = ExtResource("2_bkuxk")
+
+[node name="MobPath" type="Path2D" parent="MobSpawner"]
+scale = Vector2(1, 1.01227)
+curve = SubResource("Curve2D_asmhc")
+
+[node name="MobSpawnPoint" type="PathFollow2D" parent="MobSpawner/MobPath"]
+position = Vector2(0, 782.4)
+rotation = -1.5708
+
+[node name="Transporter" parent="." instance=ExtResource("3_0lbcl")]
+position = Vector2(1353, 405)
