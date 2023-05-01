@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://4vpsemw53hye"]
+[gd_scene load_steps=8 format=3 uid="uid://1a0l73rgsxdq"]
 
-[ext_resource type="Script" path="res://widgets/Widget.gd" id="1_gvx7l"]
-[ext_resource type="Texture2D" uid="uid://be8p5p3irsy70" path="res://assets/images/effects/blank.png" id="2_3xbyt"]
-[ext_resource type="Script" path="res://widgets/Portal.gd" id="3_3puy5"]
+[ext_resource type="Script" path="res://gadgets/Transporter.gd" id="1_p2bif"]
+[ext_resource type="Texture2D" uid="uid://be8p5p3irsy70" path="res://assets/images/effects/blank.png" id="2_7crgg"]
+[ext_resource type="Script" path="res://gadgets/Portal.gd" id="3_3wxac"]
+[ext_resource type="Texture2D" uid="uid://blr78wafarinw" path="res://assets/images/effects/circle.png" id="4_btfoo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gbogn"]
 size = Vector2(179, 811)
@@ -13,10 +14,10 @@ size = Vector2(120, 804)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dqob8"]
 size = Vector2(209, 815)
 
-[node name="Widget" type="CharacterBody2D"]
+[node name="Transporter" type="CharacterBody2D"]
 position = Vector2(745, 404)
 collision_mask = 3
-script = ExtResource("1_gvx7l")
+script = ExtResource("1_p2bif")
 
 [node name="WidgetCollisionShape" type="CollisionShape2D" parent="."]
 visible = false
@@ -27,7 +28,7 @@ shape = SubResource("RectangleShape2D_gbogn")
 self_modulate = Color(0.145098, 0.258824, 0.564706, 0.317647)
 position = Vector2(-5.50001, 1.50001)
 scale = Vector2(1.115, 2.71525)
-texture = ExtResource("2_3xbyt")
+texture = ExtResource("2_7crgg")
 
 [node name="MobDetector" type="Area2D" parent="."]
 collision_mask = 3
@@ -42,9 +43,14 @@ shape = SubResource("RectangleShape2D_eenta")
 position = Vector2(-3.5, -2.5)
 shape = SubResource("RectangleShape2D_dqob8")
 
-[node name="Portal" type="Node" parent="."]
-script = ExtResource("3_3puy5")
+[node name="Portal" type="Node2D" parent="."]
+script = ExtResource("3_3wxac")
+
+[node name="Seats" type="Node2D" parent="."]
+
+[node name="Seat" type="Sprite2D" parent="Seats"]
+modulate = Color(1, 1, 1, 0.537255)
+texture = ExtResource("4_btfoo")
 
 [connection signal="body_entered" from="MobDetector" to="." method="_on_mob_detector_body_entered"]
-[connection signal="body_exited" from="MobDetector" to="." method="_on_mob_detector_body_exited"]
 [connection signal="input_event" from="ToggleDetector" to="." method="_on_toggle_detector_input_event"]

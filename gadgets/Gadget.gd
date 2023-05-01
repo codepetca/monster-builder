@@ -1,4 +1,4 @@
-class_name Widget
+class_name Gadget
 extends Node2D
 
 enum ACTION { change_costume, teleport }

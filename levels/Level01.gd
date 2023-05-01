@@ -1,8 +1,8 @@
 extends Level
 
 @onready var mob_spawn_timer = $MobSpawnTimer as Timer
-@onready var remaining_timer = $RemainingTimer
-@onready var transporter = $Transporter
+@onready var remaining_timer = $RemainingTimer as Timer
+@onready var transporter = $Transporter as Transporter
 
 
 var target_costume: Costume
@@ -30,7 +30,7 @@ func start():
 
 func _on_portal_spawn(costume_json: String):
 	var costume = Costume.from_json(costume_json)
-	var mob = mob_spawner.spawn(costume, Vector2(100, 300))
+	var mob = mob_spawner.spawn(costume, transporter.position)
 	mob.picked_up.connect(_on_pickable_picked_up)
 
 

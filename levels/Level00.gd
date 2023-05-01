@@ -1,10 +1,10 @@
 extends Level
 
-@onready var widget = $Widget as Widget
 @onready var mob_spawn_timer = $MobSpawnTimer as Timer
 @onready var exit = $Exit as Area2D
 @onready var marker_2d = $Exit/Marker2D as Marker2D
 @onready var remaining_timer = $RemainingTimer
+@onready var gadget = $Gadget as Gadget
 
 
 var target_costume: Costume
@@ -24,7 +24,7 @@ func _ready():
 func start():
 	target_costume = Costume.new()
 	Signals.target_updated.emit(target_costume)
-	widget.target_costume = target_costume
+	gadget.target_costume = target_costume
 	mob_spawn_timer.start()
 	if multiplayer.is_server():
 		remaining_timer.start()

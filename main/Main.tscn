@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://main/Main.gd" id="1_a2j7s"]
 [ext_resource type="Texture2D" uid="uid://dkxju7iwth8cj" path="res://assets/backgrounds/backgroundCastles.png" id="2_qrcy8"]
-[ext_resource type="PackedScene" uid="uid://d082end8nccj0" path="res://levels/Level01.tscn" id="2_we3uu"]
+[ext_resource type="PackedScene" uid="uid://dr6c2axs57pjs" path="res://levels/Level01.tscn" id="2_we3uu"]
 [ext_resource type="PackedScene" uid="uid://cnsol8ie382kc" path="res://ui/hud/Hud.tscn" id="3_tb74v"]
 [ext_resource type="Script" path="res://main/UI.gd" id="4_rjiul"]
 [ext_resource type="AudioStream" uid="uid://d1jditmbeqj8y" path="res://assets/sound/music/for-halloween.mp3" id="8_x7elk"]

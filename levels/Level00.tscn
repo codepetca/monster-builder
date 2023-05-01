@@ -1,8 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://c7n23dbqxyj8u"]
+[gd_scene load_steps=6 format=3 uid="uid://dnrd4w4rl4cik"]
 
 [ext_resource type="Script" path="res://levels/Level00.gd" id="1_q5y33"]
 [ext_resource type="Script" path="res://levels/MobSpawner.gd" id="2_agcgo"]
-[ext_resource type="PackedScene" uid="uid://4vpsemw53hye" path="res://widgets/Widget.tscn" id="3_xkpuq"]
+[ext_resource type="PackedScene" uid="uid://bcmsqm81rmni2" path="res://gadgets/Gadget.tscn" id="3_l5rtk"]
 
 [sub_resource type="Curve2D" id="Curve2D_asmhc"]
 
@@ -40,6 +40,6 @@ shape = SubResource("RectangleShape2D_g0ct0")
 modulate = Color(1, 1, 1, 0.356863)
 position = Vector2(-191, 0)
 
-[node name="Widget" parent="." instance=ExtResource("3_xkpuq")]
+[node name="Gadget" parent="." instance=ExtResource("3_l5rtk")]
 
 [connection signal="body_entered" from="Exit" to="." method="_on_detector_right_body_entered"]
